@@ -22,7 +22,7 @@ export class MoviesService {
 
   getMovies() {
     let params : URLSearchParams = new URLSearchParams();
-    params.set('startDate', '2017-01-09');
+    params.set('startDate', formatDate());
     params.set('zip', '20002');
     params.set("api_key", this.api_key);
     let movies = this.http.get(this.url, {headers: this.getHeaders(),
@@ -87,4 +87,10 @@ function sortShowtimes(showtimes) {
     arr.push(timeObj[prop]);
   }
   return arr;
+}
+
+function formatDate() {
+  let date = new Date();
+  let arr = [date.getFullYear(), ("0" + (date.getMonth() + 1)).slice(-2), ("0" + date.getDate()).slice(-2)];
+  return arr.join("-");
 }
