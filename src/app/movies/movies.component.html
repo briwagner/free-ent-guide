@@ -1,4 +1,9 @@
-<h2>{{ title }} for {{ userZip }}</h2>
+<h2>{{ title }}</h2>
+<div [class]="hasData ? 'hidden' : 'not-hidden'">
+  <div [style.visibility]="validZip() ? 'initial' : 'hidden'" class="get-button">
+    <button (click)="getMovies()">Get movies</button>
+  </div>
+</div>
 <div *ngFor="let mov of moviesShowing" class="movieTile" (click)="mov.selected = !mov.selected">
   <div class="tile-header">
     <h3 class="movie-title inline">{{ mov.title }}</h3>

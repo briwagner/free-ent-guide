@@ -1,5 +1,11 @@
-<p>Your ZIP {{ zipCode }}</p>
-<form (ngSubmit)="storeZip(zipCode)">
-  <input type="number" name="zip_code" [(ngModel)]="zipCode" placeholder="Enter ZIP">
-  <button type="submit">Save ZIP</button>
-</form>
+<div [style.visibility]="validZip() ? 'initial' : 'hidden'">
+  <p class="inline">Your ZIP {{ zipCode }}</p>
+  <button class="inline" (click)="clearZip()">X</button>
+</div>
+<div [style.visibility]="validZip() ? 'hidden' : 'initial'">
+  <p>Enter your ZIP to get started.</p>
+  <form (ngSubmit)="storeZip(zipCode)">
+    <input type="number" name="zip_code" [(ngModel)]="zipCode" placeholder="Enter ZIP">
+    <button type="submit">Save ZIP</button>
+  </form>
+</div>

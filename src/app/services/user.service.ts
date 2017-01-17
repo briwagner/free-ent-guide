@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import 'rxjs/add/operator/toPromise';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
@@ -9,7 +10,7 @@ import 'rxjs/add/operator/catch';
 export class UserService {
 
   // userObs: Observable<string>;
-  userZipSubject = new Subject<string>();
+  userZipSubject = new BehaviorSubject<string>('');
   userZip$ = this.userZipSubject.asObservable();
 
   constructor() {

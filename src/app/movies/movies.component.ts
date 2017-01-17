@@ -13,6 +13,7 @@ export class MoviesComponent implements OnInit {
   title: String = 'Movies';
   moviesShowing;
   userZip;
+  hasData;
 
   constructor(
     private moviesservice: MoviesService,
@@ -22,12 +23,34 @@ export class MoviesComponent implements OnInit {
    }
 
   ngOnInit() {
-    // this.userZip = this.userservice.returnZip();
-    this.moviesservice.getMovies()
+    this.hasData = false;
+  }
+
+  hasMovies() {
+    if (this.moviesShowing.length > 0) {
+      this.hasData = true;
+      return true;
+    }
+    this.hasData = false;
+    return false;
+  }
+
+  getMovies() {
+    this.moviesservice.getMovies(this.userZip)
                       .subscribe(
                         p => this.moviesShowing = p,
-                        e => console.log(e)
+                        e => console.log(e),
+                        () => this.hasMovies()
                       );
+  }
+
+  validZip() {
+    if (this.userZip != undefined) {
+      if (this.userZip.toString().length == 5) {
+        return true;
+      }
+    }
+    return false;
   }
 
   joinArray(arr) {

@@ -19,10 +19,11 @@ export class MoviesService {
 
   constructor(private http: Http) { }
 
-  getMovies() {
+  getMovies(userZip) {
+    let zipCode = userZip > 1 ? userZip : '20002';
     let params : URLSearchParams = new URLSearchParams();
     params.set('startDate', formatDate());
-    params.set('zip', '20002');
+    params.set('zip', zipCode);
     params.set("api_key", this.api_key);
     let movies = this.http.get(this.url, {headers: this.getHeaders(),
                                           search: params})

@@ -32,6 +32,7 @@ div.tile-header {
     border-radius: 12px 12px 0 0;
     background:navy;
     color:white;
+    cursor:pointer;
 }
 
 div.tile-body {
@@ -61,6 +62,14 @@ p.movie-genres {
 
 .left-marg {
   margin-left: 15px;
+}
+
+.hidden {
+    display:none;
+}
+
+.not-hidden {
+    display:initial;
 }
 
 ul.showtimes-list li {

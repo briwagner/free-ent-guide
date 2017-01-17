@@ -24,4 +24,18 @@ export class ZipComponent implements OnInit {
     this.userservice.storeZip(data);
   }
 
+  clearZip() {
+    this.userservice.storeZip('');
+  }
+
+  validZip() {
+    let systemZip = this.userservice.userZipSubject.getValue();
+    if (systemZip != undefined) {
+      if (systemZip.toString().length == 5) {
+        return true;
+      }
+    }
+    return false;
+  }
+
 }
