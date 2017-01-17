@@ -1,0 +1,5 @@
+<p>Your ZIP {{ zipCode }}</p>
+<form (ngSubmit)="storeZip(zipCode)">
+  <input type="number" name="zip_code" [(ngModel)]="zipCode" placeholder="Enter ZIP">
+  <button type="submit">Save ZIP</button>
+</form>

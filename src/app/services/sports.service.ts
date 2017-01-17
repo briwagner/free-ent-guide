@@ -6,33 +6,33 @@ import 'rxjs/add/operator/toPromise';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
-import { Movie } from '../models/movie';
+import { Sport } from '../models/sport';
 
 import { Api_Key } from '../api_key';
 
 @Injectable()
-export class MoviesService {
+export class SportsService {
 
-  private url = 'http://data.tmsapi.com/v1.1/movies/showings';
+  private url = 'http://data.tmsapi.com/v1.1/sports/all/events/airings';
   private api_key = Api_Key;
   private headers = new Headers({'Content-Type': 'application/json'});
 
   constructor(private http: Http) { }
 
-  getMovies() {
+  getSports() {
     let params : URLSearchParams = new URLSearchParams();
     params.set('startDate', formatDate());
-    params.set('zip', '20002');
+    params.set('lineupId', 'USA-TX42500-X');
     params.set("api_key", this.api_key);
-    let movies = this.http.get(this.url, {headers: this.getHeaders(),
+    let showings = this.http.get(this.url, {headers: this.getHeaders(),
                                           search: params})
-                          .map(this.convertMovies)
-    return movies;
+                          .map(this.convertShowings)
+    return showings;
   }
 
-  convertMovies(response: Response) {
+  convertShowings(response: Response) {
     if (response.json()){
-      return response.json().map(toMovie);
+      return response.json().map(toSport);
     } else {
       return false;
     }
@@ -46,18 +46,16 @@ export class MoviesService {
 
 }
 
-function toMovie(d) {
-  let movie = <Movie>({
-    title: d.title,
-    genres: d.genres,
-    description: d.shortDescription,
-    summary: d.longDescription,
-    qualityRating: d.qualityRating ? d.qualityRating.value : "-1",
-    cast: d.topCast,
-    selected: false,
-    showtimes: sortShowtimes(d.showtimes)
+function toSport(d) {
+  let showing = <Sport>({
+    title: d.program.eventTitle,
+    genres: d.program.genres,
+    description: d.program.shortDescription,
+    summary: d.program.longDescription,
+    station: d.station.callSign,
+    showtime: new Date(d.startTime)
   });
-  return movie;
+  return showing;
 }
 
 function joinArray(arr) {

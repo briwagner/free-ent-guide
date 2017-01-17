@@ -1,0 +1,26 @@
+ul {
+    margin: 0;
+    padding:0;
+}
+
+li {
+    list-style: none;
+    float:left;
+    width:33.333%;
+    background: linear-gradient(navy, rgb(0, 103, 200) 25%);
+    text-align: center;
+    border-bottom:2px solid rgb(0, 103,200);
+    margin:0;
+    padding:7px 0 2px;
+}
+
+li a {
+    float:left;
+    width:100%;
+    background: navy;
+    color:white;
+    text-decoration: none;
+    font-weight: 800;
+    border-radius:12px 12px 0 0;
+    padding:15px 0;
+}

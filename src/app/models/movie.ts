@@ -5,5 +5,8 @@ export class Movie {
   description: string;
   summary: string;
   showtimes: Array<Object>;
+  tvshowtime: Date;
   cast: Array<string>;
+  station: string;
+  selected: boolean;
 }

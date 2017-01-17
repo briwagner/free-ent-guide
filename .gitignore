@@ -41,3 +41,4 @@ Thumbs.db
 
 # api key
 /src/app/api_key.ts
+/src/app/services/rawmovies.ts

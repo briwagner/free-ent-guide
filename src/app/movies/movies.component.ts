@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 
 import { MoviesService } from '../services/movies.service';
+import { UserService } from '../services/user.service';
 
 @Component({
   selector: 'app-movies',
@@ -9,18 +10,23 @@ import { MoviesService } from '../services/movies.service';
 })
 export class MoviesComponent implements OnInit {
 
+  title: String = 'Movies';
   moviesShowing;
+  userZip;
 
   constructor(
-    private moviesservice: MoviesService
-  ) { }
+    private moviesservice: MoviesService,
+    private userservice: UserService
+  ) {
+      this.userservice.userZip$.subscribe(newVal =>  this.userZip = newVal);
+   }
 
   ngOnInit() {
+    // this.userZip = this.userservice.returnZip();
     this.moviesservice.getMovies()
                       .subscribe(
                         p => this.moviesShowing = p,
-                        e => console.log(e),
-                        () => console.log(this.moviesShowing)
+                        e => console.log(e)
                       );
   }
 

@@ -11,9 +11,9 @@ import { Movie } from '../models/movie';
 import { Api_Key } from '../api_key';
 
 @Injectable()
-export class MoviesService {
+export class TvmoviesService {
 
-  private url = 'http://data.tmsapi.com/v1.1/movies/showings';
+  private url = 'http://data.tmsapi.com/v1.1/movies/airings';
   private api_key = Api_Key;
   private headers = new Headers({'Content-Type': 'application/json'});
 
@@ -22,7 +22,7 @@ export class MoviesService {
   getMovies() {
     let params : URLSearchParams = new URLSearchParams();
     params.set('startDate', formatDate());
-    params.set('zip', '20002');
+    params.set('lineupId', 'USA-TX42500-X');
     params.set("api_key", this.api_key);
     let movies = this.http.get(this.url, {headers: this.getHeaders(),
                                           search: params})
@@ -48,14 +48,15 @@ export class MoviesService {
 
 function toMovie(d) {
   let movie = <Movie>({
-    title: d.title,
-    genres: d.genres,
-    description: d.shortDescription,
-    summary: d.longDescription,
+    title: d.program.title,
+    genres: d.program.genres,
+    description: d.program.shortDescription,
+    summary: d.program.longDescription,
     qualityRating: d.qualityRating ? d.qualityRating.value : "-1",
-    cast: d.topCast,
+    cast: d.program.topCast,
+    station: d.station.callSign,
     selected: false,
-    showtimes: sortShowtimes(d.showtimes)
+    tvshowtime: new Date(d.startTime)
   });
   return movie;
 }
