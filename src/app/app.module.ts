@@ -17,6 +17,7 @@ import { MoviesService } from './services/movies.service';
 import { TvmoviesService } from './services/tvmovies.service';
 import { SportsService } from './services/sports.service';
 import { UserService } from './services/user.service';
+import { TvShowSearchService } from './services/tv-show-search.service';
 
 // development
 import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
@@ -24,6 +25,7 @@ import { InMemoryDataService } from './services/in-memory-data.service';
 import { DataSvcService } from './services/data-svc.service';
 import { LandingComponent } from './landing/landing.component';
 import { MenuComponent } from './menu/menu.component';
+import { StripHTMLtagsPipe } from './strip-htmltags.pipe';
 
 
 @NgModule({
@@ -35,7 +37,8 @@ import { MenuComponent } from './menu/menu.component';
     SportsComponent,
     TvmoviesComponent,
     LandingComponent,
-    MenuComponent
+    MenuComponent,
+    StripHTMLtagsPipe
   ],
   imports: [
     BrowserModule,
@@ -49,7 +52,8 @@ import { MenuComponent } from './menu/menu.component';
     MoviesService,
     TvmoviesService,
     SportsService,
-    UserService
+    UserService,
+    TvShowSearchService
   ],
   bootstrap: [AppComponent]
 })
