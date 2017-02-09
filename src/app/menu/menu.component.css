@@ -6,7 +6,7 @@ ul {
 li {
     list-style: none;
     float:left;
-    width:33.333%;
+    width:50%;
     background: linear-gradient(navy, rgb(0, 103, 200) 25%);
     text-align: center;
     border-bottom:2px solid rgb(0, 103,200);

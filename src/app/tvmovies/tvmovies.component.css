@@ -1,0 +1,28 @@
+.sub-menu ul {
+    margin:0;
+    padding:0;
+    width:100%;
+    display:flex;
+}
+
+.sub-menu ul li {
+    display:inline-block;
+    background-color:#efefef;
+    border-right:4px solid #a4a4a4;
+    width:33.3333%;
+    padding: 10px 0;
+    text-align: center;
+    cursor:pointer;
+}
+
+.sub-menu ul li:last-child {
+    border:none;
+}
+
+div.active {
+    display: initial;
+}
+
+div.inactive {
+    display: none;
+}

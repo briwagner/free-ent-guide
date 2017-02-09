@@ -14,11 +14,11 @@ const routes: Routes = [
     pathMatch: 'full'
   },
   {
-    path: 'movies',
+    path: 'cinema',
     component: MoviesComponent
   },
   {
-      path: 'tvmovies',
+      path: 'television',
       component: TvmoviesComponent
   },
   {

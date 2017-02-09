@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { TvmoviesService } from '../services/tvmovies.service';
+import { SportsService } from '../services/sports.service';
+import { TvShowSearchService } from '../services/tv-show-search.service';
+import { StripHTMLtagsPipe } from '../strip-htmltags.pipe';
+
 
 @Component({
   selector: 'app-tvmovies',
@@ -10,15 +14,58 @@ export class TvmoviesComponent implements OnInit {
 
   title: String = 'Movies on TV';
   moviesShowing;
+  sportsShowing;
+  results;
+  active: String;
 
-  constructor(private tvmoviesservice: TvmoviesService) { }
+  constructor(
+    private tvmoviesservice: TvmoviesService, 
+    private sportsservice: SportsService,
+    private searchservice: TvShowSearchService) { }
 
-  ngOnInit() {
-    this.tvmoviesservice.getMovies()
-                        .subscribe(
-                          p => this.moviesShowing = p,
-                          e => console.log(e)
-                        );
+  ngOnInit() { }
+
+  getMovies () {
+    this.active = "movies";
+    if (!this.moviesShowing) {
+      this.tvmoviesservice.getMovies()
+                      .subscribe(
+                        p => this.moviesShowing = p,
+                        e => console.log(e),
+                        () => console.log('got movies')
+                      );
+    } else {
+      console.log('already got movies');
+    }
+  }
+
+  getSports() {
+    this.active = "sports";
+    if (!this.sportsShowing) {
+      this.sportsservice.getSports()
+                    .subscribe(
+                      p => this.sportsShowing = p,
+                      e => console.log(e),
+                      () => console.log('got sports')
+                    );
+    } else {
+      console.log('already got sports');
+    }
+  }
+
+  getSearch() {
+    this.active = "search";
+    console.log('go search');
+  }
+
+  findShow(query) {
+    this.active = "search";
+    this.searchservice.findShow(query)
+                   .subscribe(
+                     p => this.results = p,
+                     e => console.log(e, 'error'),
+                     () => console.log('got search')
+                   );
   }
 
   joinArray(arr) {

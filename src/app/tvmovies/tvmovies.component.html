@@ -1,17 +1,67 @@
-<h2>{{ title }}</h2>
-<div *ngFor="let mov of moviesShowing" class="movieTile" (click)="mov.selected = !mov.selected">
-  <div class="tile-header">
-    <h3 class="movie-title inline">{{ mov.title }}</h3>
-    <p class="inline">{{mov.station}}</p>
-    <p class="inline left-marg">{{mov.tvshowtime | date:'jm'}}</p>
-  </div>
-  <div class="tile-body">
-    <div [class]="mov.selected ? 'open' : 'closed'">
-      <p class="movie-genres">{{ joinArray(mov.genres) }}</p>
-      <p [style.visibility]="mov.qualityRating > -1 ? 'visible' : 'hidden'">Rating: {{ mov.qualityRating }}</p>
-      <p class="description"><em>{{ mov.description }}</em></p>
-      <p>{{ mov.summary }}</p>
-      <p class="cast"><strong>Cast: </strong>{{ joinArray(mov.cast) }}</p>
+<div class="sub-menu">
+  <ul>
+    <li (click)="getMovies()">Movies on TV</li>
+    <li (click)="getSports()">Sports on TV</li>
+    <li (click)="getSearch()">Search for a Show</li>
+  </ul>
+</div>
+<div class="movies" [ngClass]="active == 'movies' ? 'active' : 'inactive'">
+  <h2>Movies on TV</h2>
+  <div *ngFor="let mov of moviesShowing" class="movieTile" (click)="mov.selected = !mov.selected">
+    <div class="tile-header">
+      <h3 class="movie-title inline">{{ mov.title }}</h3>
+      <p class="inline">{{mov.station}}</p>
+      <p class="inline left-marg">{{mov.tvshowtime | date:'jm'}}</p>
     </div>
+    <div class="tile-body">
+      <div [class]="mov.selected ? 'open' : 'closed'">
+        <p class="movie-genres">{{ joinArray(mov.genres) }}</p>
+        <p [style.visibility]="mov.qualityRating > -1 ? 'visible' : 'hidden'">Rating: {{ mov.qualityRating }}</p>
+        <p class="description"><em>{{ mov.description }}</em></p>
+        <p>{{ mov.summary }}</p>
+        <p class="cast"><strong>Cast: </strong>{{ joinArray(mov.cast) }}</p>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="sports" [ngClass]="active == 'sports' ? 'active' : 'inactive'">
+  <h2>Sports on TV</h2>
+  <div *ngFor="let show of sportsShowing" class="movieTile">
+    <h3>{{show.title}}</h3>
+    <p>{{ joinArray(show.genres) }}</p>
+    <p>{{show.station}}</p>
+    <p>{{show.description}}</p>
+    <div class="summary-container">
+      <div class="summary">
+        <div class="fadeout"></div>
+      <p>{{show.summary}}</p>
+      </div>
+      <p class="summary-more">More</p>
+    </div>
+    <p>{{show.showtime | date:'jm' }}</p>
+  </div>
+</div>
+<div class="search" [ngClass]="active == 'search' ? 'active' : 'inactive'">
+  <h2>Search for a Show</h2>
+  <div class="form">
+    <form (ngSubmit)="findShow(queryString)">
+        <input type="text" name="search_box" 
+              placeholder="Search for a show by name" 
+              [(ngModel)]="queryString">
+        <input type="submit" value="Search">
+    </form>
+  </div>
+  <div class="results">
+    <h3>Results</h3>
+    <div class="show" *ngFor="let show of results">
+      <div class="header">
+          <h5 class="inline">{{ show.title }}</h5>
+          <p class="inline">on {{ show.channel }}</p>
+          <p class="inline"><em>{{ show.runtime }} minutes</em></p>
+          <p class="inline">{{ joinArray(show.genres) }}</p>
+      </div>
+      <img src="{{ show.image }}" alt="{{show.title}}">
+      <p>{{ show.summary | stripHTMLtags }}</p>
+    </div> 
   </div>
 </div>
