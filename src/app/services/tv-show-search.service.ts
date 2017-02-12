@@ -33,12 +33,15 @@ export class TvShowSearchService {
 }
 
 function toShow(data) {
-  let show = new Show;
-  show.title = data.show.name;
-  show.channel = data.show.network.name;
-  show.summary = data.show.summary;
-  show.runtime = data.show.runtime;
-  show.genres = data.show.genres;
-  show.image = data.show.image.medium;
+  let show = <Show>({
+    title: data.show.name,
+    channel: data.show.network.name,
+    summary: data.show.summary,
+    runtime: data.show.runtime,
+    genres: data.show.genres,
+    image: data.show.image ? data.show.image.medium : '',
+    link: data.show._links.self.href,
+    prev_ep: data.show._links.previousepisode ? data.show._links.previousepisode.href : '',
+    next_ep: data.show._links.nextepisode ? data.show._links.nextepisode.href : ''});
   return show;
 }

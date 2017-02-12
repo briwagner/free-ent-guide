@@ -5,4 +5,7 @@ export class Show {
     runtime: number;
     genres: Array<string>;
     image: string;
+    link: string;
+    prev_ep: string;
+    next_ep: string;
 }

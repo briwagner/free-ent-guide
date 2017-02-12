@@ -16,7 +16,7 @@
     <div class="tile-body">
       <div [class]="mov.selected ? 'open' : 'closed'">
         <p class="movie-genres">{{ joinArray(mov.genres) }}</p>
-        <p [style.visibility]="mov.qualityRating > -1 ? 'visible' : 'hidden'">Rating: {{ mov.qualityRating }}</p>
+        <p [class]="mov.qualityRating > -1 ? 'active' : 'inactive'">Rating: {{ mov.qualityRating }}</p>
         <p class="description"><em>{{ mov.description }}</em></p>
         <p>{{ mov.summary }}</p>
         <p class="cast"><strong>Cast: </strong>{{ joinArray(mov.cast) }}</p>
@@ -26,19 +26,19 @@
 </div>
 <div class="sports" [ngClass]="active == 'sports' ? 'active' : 'inactive'">
   <h2>Sports on TV</h2>
-  <div *ngFor="let show of sportsShowing" class="movieTile">
-    <h3>{{show.title}}</h3>
-    <p>{{ joinArray(show.genres) }}</p>
-    <p>{{show.station}}</p>
-    <p>{{show.description}}</p>
-    <div class="summary-container">
-      <div class="summary">
-        <div class="fadeout"></div>
-      <p>{{show.summary}}</p>
-      </div>
-      <p class="summary-more">More</p>
+  <div *ngFor="let show of sportsShowing" class="movieTile" (click)="show.selected = !show.selected">
+    <div class="tile-header">
+      <h3 class="movie-title inline">{{show.title}}</h3>
+      <p class="inline">{{show.station}}</p>
+      <p class="inline left-marg">{{ joinArray(show.genres) }}</p>
     </div>
-    <p>{{show.showtime | date:'jm' }}</p>
+    <div class="tile-body">
+      <div [class]="show.selected ? 'open' : 'closed'">
+        <p class="description">{{show.description}}</p>
+        <p>{{show.summary}}</p>
+        <p>{{show.showtime | date:'jm' }}</p>
+      </div>
+    </div>
   </div>
 </div>
 <div class="search" [ngClass]="active == 'search' ? 'active' : 'inactive'">
@@ -53,15 +53,21 @@
   </div>
   <div class="results">
     <h3>Results</h3>
-    <div class="show" *ngFor="let show of results">
-      <div class="header">
-          <h5 class="inline">{{ show.title }}</h5>
-          <p class="inline">on {{ show.channel }}</p>
-          <p class="inline"><em>{{ show.runtime }} minutes</em></p>
-          <p class="inline">{{ joinArray(show.genres) }}</p>
+    <div class="show" *ngFor="let show of results" class="movieTile">
+      <div class="tile-header">
+        <h3 class="movie-title inline">{{ show.title }}</h3>
+        <p class="inline">on {{ show.channel }}</p>
+        <p class="inline left-marg"><em>{{ show.runtime }} minutes</em></p>
       </div>
-      <img src="{{ show.image }}" alt="{{show.title}}">
-      <p>{{ show.summary | stripHTMLtags }}</p>
+      <div class="tile-body">
+        <img src="{{ show.image }}" alt="{{show.title}}" class="img-left">
+        <p>{{ show.summary | stripHTMLtags }}</p>
+        <p class="inline">{{ joinArray(show.genres) }}</p>
+        <p><a href="{{show.link}}">More</a></p>
+        <p *ngIf="show.prev_ep"><a href={{show.prev_ep}}>Previous Episode</a></p>
+        <p *ngIf="show.next_ep"><a href={{show.next_ep}}>Next Episode</a></p>
+        <div class="clear"> </div>
+      </div>
     </div> 
   </div>
 </div>
