@@ -26,6 +26,7 @@ import { DataSvcService } from './services/data-svc.service';
 import { LandingComponent } from './landing/landing.component';
 import { MenuComponent } from './menu/menu.component';
 import { StripHTMLtagsPipe } from './strip-htmltags.pipe';
+import { GenrePipe } from './genre.pipe';
 
 
 @NgModule({
@@ -38,7 +39,8 @@ import { StripHTMLtagsPipe } from './strip-htmltags.pipe';
     TvmoviesComponent,
     LandingComponent,
     MenuComponent,
-    StripHTMLtagsPipe
+    StripHTMLtagsPipe,
+    GenrePipe
   ],
   imports: [
     BrowserModule,

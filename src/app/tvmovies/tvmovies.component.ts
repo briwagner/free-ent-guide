@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { TvmoviesService } from '../services/tvmovies.service';
 import { SportsService } from '../services/sports.service';
 import { TvShowSearchService } from '../services/tv-show-search.service';
 import { StripHTMLtagsPipe } from '../strip-htmltags.pipe';
-
+import { GenrePipe } from '../genre.pipe';
 
 @Component({
   selector: 'app-tvmovies',
@@ -17,6 +18,8 @@ export class TvmoviesComponent implements OnInit {
   sportsShowing;
   results;
   active: String;
+  genreFilter: String;
+  genreInput: String;
 
   constructor(
     private tvmoviesservice: TvmoviesService, 
@@ -66,6 +69,13 @@ export class TvmoviesComponent implements OnInit {
                      e => console.log(e, 'error'),
                      () => console.log('got search')
                    );
+  }
+
+  setFilter(genre: String) {
+    this.genreFilter = genre;
+    console.log(genre);
+    console.log(this.genreFilter);
+    console.log(this.moviesShowing.length);
   }
 
   joinArray(arr) {

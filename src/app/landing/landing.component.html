@@ -1,16 +1,1 @@
-<form (ngSubmit)="findShow(queryString)">
-    <input type="text" name="search_box" 
-           placeholder="Search for a show by name" 
-           [(ngModel)]="queryString">
-    <input type="submit" value="Search">
-</form>
-<div class="show" *ngFor="let show of results">
-    <div class="header">
-        <h5 class="inline">{{ show.title }}</h5>
-        <p class="inline">on {{ show.channel }}</p>
-        <p class="inline"><em>{{ show.runtime }} minutes</em></p>
-        <p class="inline">{{ joinArray(show.genres) }}</p>
-    </div>
-    <img src="{{ show.image }}" alt="{{show.title}}">
-    <p>{{ show.summary | stripHTMLtags }}</p>
-</div> 
+<h2>Welcome to Entertainment Guide</h2>

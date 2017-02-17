@@ -130,3 +130,21 @@ div.inactive,
 p.inactive {
     display: none;
 }
+
+input[type=text],
+input[type=submit] {
+    margin: 10px 0;
+    padding:8px;
+    font-size:1.2em;
+}
+
+input[type=submit] {
+    border: 1px solid #a4a4a4;
+    background-color:#efefef;
+    padding:9px;
+    cursor:pointer;
+}
+
+input[type=submit]:hover {
+    background-color:paleturquoise;
+}

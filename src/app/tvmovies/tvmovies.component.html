@@ -1,3 +1,4 @@
+<!-- sub menu -->
 <div class="sub-menu">
   <ul>
     <li (click)="getMovies()">Movies on TV</li>
@@ -5,9 +6,15 @@
     <li (click)="getSearch()">Search for a Show</li>
   </ul>
 </div>
+
+<!-- movies on tv component -->
 <div class="movies" [ngClass]="active == 'movies' ? 'active' : 'inactive'">
   <h2>Movies on TV</h2>
-  <div *ngFor="let mov of moviesShowing" class="movieTile" (click)="mov.selected = !mov.selected">
+  <form class="movies-genre" (ngSubmit)="setFilter(genreInput)">
+    <input type="text" [(ngModel)]="genreInput" placeholder="Select genre" name="genre-filter">
+    <input type="Submit" value="Apply Filter">
+  </form>
+  <div *ngFor="let mov of (moviesShowing | genrePipe:genreFilter)" class="movieTile" (click)="mov.selected = !mov.selected">
     <div class="tile-header">
       <h3 class="movie-title inline">{{ mov.title }}</h3>
       <p class="inline">{{mov.station}}</p>
@@ -24,6 +31,8 @@
     </div>
   </div>
 </div>
+
+<!-- sports on tv component-->
 <div class="sports" [ngClass]="active == 'sports' ? 'active' : 'inactive'">
   <h2>Sports on TV</h2>
   <div *ngFor="let show of sportsShowing" class="movieTile" (click)="show.selected = !show.selected">
@@ -41,6 +50,8 @@
     </div>
   </div>
 </div>
+
+<!-- search component -->
 <div class="search" [ngClass]="active == 'search' ? 'active' : 'inactive'">
   <h2>Search for a Show</h2>
   <div class="form">
