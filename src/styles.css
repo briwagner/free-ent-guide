@@ -117,6 +117,14 @@ div.clear {
     cursor:pointer;
 }
 
+.sub-menu ul li.active {
+    background-color:paleturquoise;
+}
+
+.sub-menu ul li.inactive {
+    background-color:#efefef;
+}
+
 .sub-menu ul li:last-child {
     border:none;
 }

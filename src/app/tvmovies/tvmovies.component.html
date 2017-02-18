@@ -1,9 +1,9 @@
 <!-- sub menu -->
 <div class="sub-menu">
   <ul>
-    <li (click)="getMovies()">Movies on TV</li>
-    <li (click)="getSports()">Sports on TV</li>
-    <li (click)="getSearch()">Search for a Show</li>
+    <li (click)="getMovies()" [ngClass]="active == 'movies' ? 'active' : 'inactive'">Movies on TV</li>
+    <li (click)="getSports()" [ngClass]="active == 'sports' ? 'active' : 'inactive'">Sports on TV</li>
+    <li (click)="getSearch()" [ngClass]="active == 'search' ? 'active' : 'inactive'">Search for a Show</li>
   </ul>
 </div>
 

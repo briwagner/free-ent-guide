@@ -47,6 +47,9 @@ export class TvmoviesService {
 }
 
 function toMovie(d) {
+  if (d.program.genres == undefined) {
+    console.log(d);
+  }
   let movie = <Movie>({
     title: d.program.title,
     genres: d.program.genres,

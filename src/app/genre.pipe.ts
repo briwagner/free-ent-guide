@@ -10,8 +10,14 @@ export class GenrePipe implements PipeTransform {
       return array;
     }
     if (array != undefined) {
-      return array.filter(show => show.genres.map(g => g.toLowerCase())
-                                             .indexOf(genre.toLowerCase()) == 1);
+      return array.filter(function(show) {
+        if (show.genres) {
+          return show.genres.map(g => g.toLowerCase())
+                    .indexOf(genre.toLowerCase()) == 1;
+        } else {
+          return show;
+        }
+      });
     }
   }
 
