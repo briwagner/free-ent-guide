@@ -47,7 +47,6 @@ export class SportsService {
 }
 
 function toSport(d) {
-  console.log(d);
   let showing = <Sport>({
     title: d.program.eventTitle,
     genres: d.program.genres,
