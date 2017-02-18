@@ -22,11 +22,11 @@
     </div>
     <div class="tile-body">
       <div [class]="mov.selected ? 'open' : 'closed'">
-        <p class="movie-genres">{{ joinArray(mov.genres) }}</p>
         <p [class]="mov.qualityRating > -1 ? 'active' : 'inactive'">Rating: {{ mov.qualityRating }}</p>
         <p class="description"><em>{{ mov.description }}</em></p>
-        <p>{{ mov.summary }}</p>
         <p class="cast"><strong>Cast: </strong>{{ joinArray(mov.cast) }}</p>
+        <p class="movie-genres">{{ joinArray(mov.genres) }}</p>
+        <p class="summary">{{ mov.summary }}</p>
       </div>
     </div>
   </div>

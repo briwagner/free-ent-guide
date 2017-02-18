@@ -33,7 +33,7 @@ export class TvmoviesComponent implements OnInit {
     if (!this.moviesShowing) {
       this.tvmoviesservice.getMovies()
                       .subscribe(
-                        p => this.moviesShowing = p,
+                        p => this.moviesShowing = this.removeDupes(p),
                         e => console.log(e),
                         () => console.log('got movies')
                       );
@@ -76,6 +76,18 @@ export class TvmoviesComponent implements OnInit {
     console.log(genre);
     console.log(this.genreFilter);
     console.log(this.moviesShowing.length);
+  }
+
+  removeDupes(arr) {
+    let unique = [];
+    let uniqueIds = [];
+    for (var i = 0; i < arr.length; i++) {
+      if (arr[i].rootId && uniqueIds.indexOf(arr[i].rootId) < 1) {
+        unique.push(arr[i]);
+        uniqueIds.push(arr[i].rootId);
+      }
+    }
+    return unique;
   }
 
   joinArray(arr) {

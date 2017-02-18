@@ -9,4 +9,5 @@ export class Movie {
   cast: Array<string>;
   station: string;
   selected: boolean;
+  rootId: string;
 }

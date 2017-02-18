@@ -47,9 +47,6 @@ export class TvmoviesService {
 }
 
 function toMovie(d) {
-  if (d.program.genres == undefined) {
-    console.log(d);
-  }
   let movie = <Movie>({
     title: d.program.title,
     genres: d.program.genres,
@@ -59,7 +56,8 @@ function toMovie(d) {
     cast: d.program.topCast,
     station: d.station.callSign,
     selected: false,
-    tvshowtime: new Date(d.startTime)
+    tvshowtime: new Date(d.startTime),
+    rootId: d.program ? d.program.rootId : null
   });
   return movie;
 }
