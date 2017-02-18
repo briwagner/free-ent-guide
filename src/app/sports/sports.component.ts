@@ -16,9 +16,21 @@ export class SportsComponent implements OnInit {
   ngOnInit() {
     this.sportsservice.getSports()
                       .subscribe(
-                        p => this.sportsShowing = p,
+                        p => this.sportsShowing = this.removeDupes(p),
                         e => console.log(e)
                       );
+  }
+
+  removeDupes(arr) {
+    let unique = [];
+    let uniqueIds = [];
+    for (var i = 0; i < arr.length; i++) {
+      if (uniqueIds.indexOf(arr[i].rootId) < 1) {
+        unique.push(arr[i]);
+        uniqueIds.push(arr[i].rootId);
+      }
+    }
+    return unique;
   }
 
   joinArray(arr) {

@@ -47,15 +47,22 @@ export class SportsService {
 }
 
 function toSport(d) {
+  console.log(d);
   let showing = <Sport>({
     title: d.program.eventTitle,
     genres: d.program.genres,
     description: d.program.shortDescription,
+    image: formatImg(d.program.preferredImage.uri),
     summary: d.program.longDescription,
     station: d.station.callSign,
-    showtime: new Date(d.startTime)
+    showtime: new Date(d.startTime),
+    rootId: d.program ? d.program.rootId : null 
   });
   return showing;
+}
+
+function formatImg(data) {
+  return 'http://developer.tmsimg.com/' + data + '?api_key=' + Api_Key;
 }
 
 function joinArray(arr) {

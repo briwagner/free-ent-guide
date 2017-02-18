@@ -11,9 +11,10 @@ export class GenrePipe implements PipeTransform {
     }
     if (array != undefined) {
       return array.filter(function(show) {
+        // console.log(show.genres.map(g => g.toLowerCase()).indexOf(genre));
         if (show.genres) {
           return show.genres.map(g => g.toLowerCase())
-                    .indexOf(genre.toLowerCase()) == 1;
+                    .indexOf(genre.toLowerCase()) > -1;
         } else {
           return show;
         }

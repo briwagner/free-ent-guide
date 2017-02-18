@@ -63,8 +63,13 @@ p.movie-rating {
     margin-left: 15px;
 }
 
-p.summary {
+p.pad-bot {
     padding-bottom: 20px;
+}
+
+p.small-text {
+    font-size: 0.8em;
+    margin:4px 0;
 }
 
 .left-marg {

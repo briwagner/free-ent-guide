@@ -10,11 +10,13 @@
 <!-- movies on tv component -->
 <div class="movies" [ngClass]="active == 'movies' ? 'active' : 'inactive'">
   <h2>Movies on TV</h2>
-  <form class="movies-genre" (ngSubmit)="setFilter(genreInput)">
-    <input type="text" [(ngModel)]="genreInput" placeholder="Select genre" name="genre-filter">
+  <form class="movies-genre" (ngSubmit)="setFilter('movie', movieInput)">
+    <input type="text" [(ngModel)]="movieInput" placeholder="Select genre" name="genre-filter">
     <input type="Submit" value="Apply Filter">
   </form>
-  <div *ngFor="let mov of (moviesShowing | genrePipe:genreFilter)" class="movieTile" (click)="mov.selected = !mov.selected">
+  <p *ngIf=moviesShowing class="small-text">{{(moviesShowing | genrePipe:movieFilter).length}} movies found</p>
+  <div *ngFor="let mov of (moviesShowing | genrePipe:movieFilter)" 
+       class="movieTile" (click)="mov.selected = !mov.selected">
     <div class="tile-header">
       <h3 class="movie-title inline">{{ mov.title }}</h3>
       <p class="inline">{{mov.station}}</p>
@@ -26,7 +28,7 @@
         <p class="description"><em>{{ mov.description }}</em></p>
         <p class="cast"><strong>Cast: </strong>{{ joinArray(mov.cast) }}</p>
         <p class="movie-genres">{{ joinArray(mov.genres) }}</p>
-        <p class="summary">{{ mov.summary }}</p>
+        <p class="pad-bot">{{ mov.summary }}</p>
       </div>
     </div>
   </div>
@@ -35,17 +37,25 @@
 <!-- sports on tv component-->
 <div class="sports" [ngClass]="active == 'sports' ? 'active' : 'inactive'">
   <h2>Sports on TV</h2>
-  <div *ngFor="let show of sportsShowing" class="movieTile" (click)="show.selected = !show.selected">
+  <form class="sports-genre" (ngSubmit)="setFilter('sport', sportInput)">
+    <input type="text" [(ngModel)]="sportInput" placeholder="Select sport" name="sport-filter">
+    <input type="Submit" value="Apply Filter">
+  </form>
+  <p *ngIf="sportsShowing" class="small-text">{{(sportsShowing | genrePipe:sportFilter).length}} events found</p>
+  <div *ngFor="let show of (sportsShowing | genrePipe:sportFilter)" 
+       class="movieTile" (click)="show.selected = !show.selected">
     <div class="tile-header">
       <h3 class="movie-title inline">{{show.title}}</h3>
-      <p class="inline">{{show.station}}</p>
-      <p class="inline left-marg">{{ joinArray(show.genres) }}</p>
+      <p class="inline">{{ joinArray(show.genres) }}</p>
+      <p class="inline left-marg">{{show.showtime | date:'jm' }}</p>
     </div>
     <div class="tile-body">
       <div [class]="show.selected ? 'open' : 'closed'">
+        <img *ngIf="show.selected" src="{{show.image}}" alt="{{show.title}}" class="img-left">
         <p class="description">{{show.description}}</p>
-        <p>{{show.summary}}</p>
-        <p>{{show.showtime | date:'jm' }}</p>
+        <!--<p>{{show.summary}}</p>-->
+        <p class="pad-bot">{{show.station}}</p>
+        <div class="clear"> </div>
       </div>
     </div>
   </div>

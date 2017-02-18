@@ -18,7 +18,8 @@ export class TvmoviesComponent implements OnInit {
   sportsShowing;
   results;
   active: String;
-  genreFilter: String;
+  movieFilter: String;
+  sportFilter: String;
   genreInput: String;
 
   constructor(
@@ -47,7 +48,7 @@ export class TvmoviesComponent implements OnInit {
     if (!this.sportsShowing) {
       this.sportsservice.getSports()
                     .subscribe(
-                      p => this.sportsShowing = p,
+                      p => this.sportsShowing = this.removeDupes(p),
                       e => console.log(e),
                       () => console.log('got sports')
                     );
@@ -71,11 +72,15 @@ export class TvmoviesComponent implements OnInit {
                    );
   }
 
-  setFilter(genre: String) {
-    this.genreFilter = genre;
-    console.log(genre);
-    console.log(this.genreFilter);
-    console.log(this.moviesShowing.length);
+  setFilter(component: String, genre: String) {
+    switch(component) {
+      case 'movie':
+        this.movieFilter = genre;
+        break;
+      case 'sport':
+        this.sportFilter = genre;
+        break;
+    }
   }
 
   removeDupes(arr) {
