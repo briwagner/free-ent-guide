@@ -50,6 +50,14 @@ div.tile-body .open {
     display:initial;
 }
 
+h2 span {
+    font-size: 80%;
+}
+
+h2 span button {
+    vertical-align: middle;
+}
+
 h3.movie-title {
     margin-top:0;
     padding:15px 15px 0;
@@ -138,7 +146,10 @@ div.clear {
     border:none;
 }
 
-div.active,
+div.active {
+    display:block;
+}
+
 p.active {
     display: initial;
 }
@@ -149,6 +160,7 @@ p.inactive {
 }
 
 input[type=text],
+input[type=number],
 input[type=submit] {
     margin: 10px 0;
     padding:8px;
@@ -164,4 +176,8 @@ input[type=submit] {
 
 input[type=submit]:hover {
     background-color:paleturquoise;
+}
+
+app-zip form input {
+    margin: 1em 0;
 }
