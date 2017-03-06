@@ -1,10 +1,12 @@
 <app-zip></app-zip>
-<h2>{{ title }}</h2>
-<div [class]="hasData ? 'hidden' : 'not-hidden'">
-  <div [style.visibility]="validZip() ? 'initial' : 'hidden'" class="get-button">
-    <button (click)="getMovies()">Get movies</button>
-  </div>
+
+<div [ngClass]="validZip() ? 'active' : 'inactive'" class="get-button">
+  <h2>{{ title }}</h2>
+  <form (ngSubmit)="getMovies()">
+    <input type="submit" value="Get movies">
+  </form>
 </div>
+
 <div *ngFor="let mov of moviesShowing" class="movieTile" (click)="mov.selected = !mov.selected">
   <div class="tile-header">
     <h3 class="movie-title inline">{{ mov.title }}</h3>
