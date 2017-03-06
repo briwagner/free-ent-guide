@@ -19,9 +19,9 @@ export class SportsService {
 
   constructor(private http: Http) { }
 
-  getSports() {
+  getSports(date) {
     let params : URLSearchParams = new URLSearchParams();
-    params.set('startDate', formatDate());
+    params.set('startDate', formatDate(date));
     params.set('lineupId', 'USA-TX42500-X');
     params.set("api_key", this.api_key);
     let showings = this.http.get(this.url, {headers: this.getHeaders(),
@@ -92,8 +92,14 @@ function sortShowtimes(showtimes) {
   return arr;
 }
 
-function formatDate() {
+function formatDate(dateObj: Date) {
   let date = new Date();
-  let arr = [date.getFullYear(), ("0" + (date.getMonth() + 1)).slice(-2), ("0" + date.getDate()).slice(-2)];
+  if (dateObj) {
+    date.setDate(dateObj.getDate());
+  }
+  let arr = [date.getFullYear(), 
+             ("0" + (date.getMonth() + 1)).slice(-2),
+             // For some reason, api is pulling in yesterday by default. So we apply offset. 
+             ("0" + (date.getDate() + 1)).slice(-2)];
   return arr.join("-");
 }
