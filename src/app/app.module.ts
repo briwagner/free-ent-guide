@@ -11,6 +11,8 @@ import { MoviesComponent } from './movies/movies.component';
 import { SportsComponent } from './sports/sports.component';
 import { TvmoviesComponent } from './tvmovies/tvmovies.component';
 import { ZipComponent } from './zip/zip.component';
+import { LandingComponent } from './landing/landing.component';
+import { MenuComponent } from './menu/menu.component';
 
 // services
 import { MoviesService } from './services/movies.service';
@@ -20,14 +22,18 @@ import { UserService } from './services/user.service';
 import { TvShowSearchService } from './services/tv-show-search.service';
 
 // development
-import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
-import { InMemoryDataService } from './services/in-memory-data.service';
-import { DataSvcService } from './services/data-svc.service';
-import { LandingComponent } from './landing/landing.component';
-import { MenuComponent } from './menu/menu.component';
+// import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
+// import { InMemoryDataService } from './services/in-memory-data.service';
+// import { DataSvcService } from './services/data-svc.service';
+
+// pipes
 import { StripHTMLtagsPipe } from './strip-htmltags.pipe';
 import { GenrePipe } from './genre.pipe';
 
+// production mode
+import { enableProdMode } from '@angular/core';
+
+enableProdMode();
 
 @NgModule({
   declarations: [
@@ -50,7 +56,6 @@ import { GenrePipe } from './genre.pipe';
     // InMemoryWebApiModule.forRoot(InMemoryDataService, {apiBase: 'v11/movies/'})
   ],
   providers: [
-    DataSvcService,
     MoviesService,
     TvmoviesService,
     SportsService,
