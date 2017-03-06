@@ -1,11 +1,11 @@
-<div [style.visibility]="validZip() ? 'initial' : 'hidden'">
+<div style="height:110px;" [ngClass]="validZip() ? 'active' : 'inactive'">
   <p class="inline">Your ZIP {{ zipCode }}</p>
   <button class="inline" (click)="clearZip()">X</button>
 </div>
-<div [style.visibility]="validZip() ? 'hidden' : 'initial'">
-  <p>Enter your ZIP to get started.</p>
+
+<div class="form" style="height:110px;" [ngClass]="validZip() ? 'inactive' : 'active'">
   <form (ngSubmit)="storeZip(zipCode)">
-    <input type="number" name="zip_code" [(ngModel)]="zipCode" placeholder="Enter ZIP">
-    <button type="submit">Save ZIP</button>
+    <input type="number" name="zip_code" [(ngModel)]="zipCode" placeholder="Enter ZIP to start">
+    <input type="submit" value="Save ZIP">
   </form>
 </div>
