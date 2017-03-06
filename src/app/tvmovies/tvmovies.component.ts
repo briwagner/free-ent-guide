@@ -13,21 +13,26 @@ import { GenrePipe } from '../genre.pipe';
 })
 export class TvmoviesComponent implements OnInit {
 
-  title: String = 'Movies on TV';
+  title: string = 'Movies on TV';
   moviesShowing;
   sportsShowing;
   results;
-  active: String;
-  movieFilter: String;
-  sportFilter: String;
-  genreInput: String;
+  active: string;
+  movieFilter: string;
+  sportFilter: string;
+  genreInput: string;
+  date_offset: number;
+  sched_date;
 
   constructor(
     private tvmoviesservice: TvmoviesService, 
     private sportsservice: SportsService,
     private searchservice: TvShowSearchService) { }
 
-  ngOnInit() { }
+  ngOnInit() { 
+    this.date_offset = 0;
+    this.sched_date = new Date();
+  }
 
   getMovies () {
     this.active = "movies";
@@ -46,7 +51,7 @@ export class TvmoviesComponent implements OnInit {
   getSports() {
     this.active = "sports";
     if (!this.sportsShowing) {
-      this.sportsservice.getSports()
+      this.sportsservice.getSports(this.sched_date)
                     .subscribe(
                       p => this.sportsShowing = this.removeDupes(p),
                       e => console.log(e),
@@ -72,7 +77,7 @@ export class TvmoviesComponent implements OnInit {
                    );
   }
 
-  setFilter(component: String, genre: String) {
+  setFilter(component: string, genre: string) {
     switch(component) {
       case 'movie':
         this.movieFilter = genre;
@@ -93,6 +98,15 @@ export class TvmoviesComponent implements OnInit {
       }
     }
     return unique;
+  }
+
+  changeDate(offset) {
+    this.date_offset += offset;
+    let date = new Date();
+    let newDate = date.setDate(date.getDate() + this.date_offset);
+    this.sched_date = new Date(newDate);
+    this.sportsShowing = null;
+    this.getSports();
   }
 
   joinArray(arr) {

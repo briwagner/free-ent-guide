@@ -15,6 +15,7 @@
     <input type="Submit" value="Apply Filter">
   </form>
   <p *ngIf=moviesShowing class="small-text">{{(moviesShowing | genrePipe:movieFilter).length}} movies found</p>
+  
   <div *ngFor="let mov of (moviesShowing | genrePipe:movieFilter)" 
        class="movieTile" (click)="mov.selected = !mov.selected">
     <div class="tile-header">
@@ -36,7 +37,11 @@
 
 <!-- sports on tv component-->
 <div class="sports" [ngClass]="active == 'sports' ? 'active' : 'inactive'">
-  <h2>Sports on TV</h2>
+  <h2>Sports on TV - <span class='date'>
+    <button (click)="changeDate(-1)"><</button>
+    {{sched_date | date: 'M/d'}}
+    <button (click)="changeDate(1)">></button>
+    </span></h2>
   <form class="sports-genre" (ngSubmit)="setFilter('sport', sportInput)">
     <input type="text" [(ngModel)]="sportInput" placeholder="Select sport" name="sport-filter">
     <input type="Submit" value="Apply Filter">
@@ -54,6 +59,7 @@
         <img *ngIf="show.selected" src="{{show.image}}" alt="{{show.title}}" class="img-left">
         <p class="description">{{show.description}}</p>
         <!--<p>{{show.summary}}</p>-->
+        <p>{{show.showtime | date: 'M/d'}}</p>
         <p class="pad-bot">{{show.station}}</p>
         <div class="clear"> </div>
       </div>
