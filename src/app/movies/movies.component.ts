@@ -52,6 +52,7 @@ export class MoviesComponent implements OnInit {
 
   clearMovies() {
     this.moviesShowing = [];
+    this.userZip = '';
   }
 
   validZip() {
