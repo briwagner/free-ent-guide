@@ -17,6 +17,7 @@ export class TvmoviesComponent implements OnInit {
   moviesShowing;
   sportsShowing;
   results;
+  loading: Boolean;
   active: string;
   movieFilter: string;
   sportFilter: string;
@@ -32,16 +33,18 @@ export class TvmoviesComponent implements OnInit {
   ngOnInit() { 
     this.date_offset = 0;
     this.sched_date = new Date();
+    this.loading = false;
   }
 
   getMovies () {
     this.active = "movies";
     if (!this.moviesShowing) {
+      this.loading = true;
       this.tvmoviesservice.getMovies()
                       .subscribe(
                         p => this.moviesShowing = this.removeDupes(p),
                         e => console.log(e),
-                        () => console.log('got movies')
+                        () => this.loadedShows()
                       );
     } else {
       console.log('already got movies');
@@ -51,15 +54,20 @@ export class TvmoviesComponent implements OnInit {
   getSports() {
     this.active = "sports";
     if (!this.sportsShowing) {
+      this.loading = true;
       this.sportsservice.getSports(this.sched_date)
                     .subscribe(
                       p => this.sportsShowing = this.removeDupes(p),
                       e => console.log(e),
-                      () => console.log('got sports')
+                      () => this.loadedShows()
                     );
     } else {
       console.log('already got sports');
     }
+  }
+
+  loadedShows() {
+    this.loading = false;
   }
 
   getSearch() {

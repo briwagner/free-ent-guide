@@ -8,13 +8,17 @@ import { SportsService } from '../services/sports.service';
 })
 export class SportsComponent implements OnInit {
 
-  title: String = "Sports on TV";
+  title: string = "Sports on TV";
   sportsShowing;
 
   constructor(private sportsservice: SportsService) { }
 
   ngOnInit() {
-    this.sportsservice.getSports()
+    this.fetchSports();
+  }
+
+  fetchSports() {
+    this.sportsservice.getSports(0)
                       .subscribe(
                         p => this.sportsShowing = this.removeDupes(p),
                         e => console.log(e)

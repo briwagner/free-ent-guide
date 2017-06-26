@@ -14,12 +14,15 @@ export class MoviesComponent implements OnInit {
   moviesShowing;
   userZip;
   hasData;
+  loading = false;
 
   constructor(
     private moviesservice: MoviesService,
     private userservice: UserService
   ) {
-      this.userservice.userZip$.subscribe(newVal =>  this.userZip = newVal);
+      this.userservice.userZip$.subscribe(
+        newVal =>  newVal == '' ? this.clearMovies() : this.userZip = newVal
+      );
    }
 
   ngOnInit() {
@@ -27,6 +30,7 @@ export class MoviesComponent implements OnInit {
   }
 
   hasMovies() {
+    this.loading = false;
     if (this.moviesShowing.length > 0) {
       this.hasData = true;
       return true;
@@ -36,12 +40,18 @@ export class MoviesComponent implements OnInit {
   }
 
   getMovies() {
+    this.clearMovies();
+    this.loading = true;
     this.moviesservice.getMovies(this.userZip)
                       .subscribe(
                         p => this.moviesShowing = p,
-                        e => console.log(e),
+                        e => console.log(e, 'error getting movies'),
                         () => this.hasMovies()
                       );
+  }
+
+  clearMovies() {
+    this.moviesShowing = [];
   }
 
   validZip() {

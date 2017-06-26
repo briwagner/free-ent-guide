@@ -7,6 +7,10 @@
   </ul>
 </div>
 
+<div class="loading-spinner" [hidden]="!loading">
+  <img src="/assets/images/04-spinner.gif" alt="Loading">
+</div>
+
 <!-- movies on tv component -->
 <div class="movies" [ngClass]="active == 'movies' ? 'active' : 'inactive'">
   <h2>Movies on TV</h2>
