@@ -21,7 +21,9 @@ export class MoviesComponent implements OnInit {
     private userservice: UserService
   ) {
       this.userservice.userZip$.subscribe(
-        newVal =>  newVal == '' ? this.clearMovies() : this.userZip = newVal
+        newVal => {
+          newVal == '' ? this.clearMovies() : this.userZip = newVal;
+        }
       );
    }
 
@@ -52,7 +54,8 @@ export class MoviesComponent implements OnInit {
 
   clearMovies() {
     this.moviesShowing = [];
-    this.userZip = '';
+    // why do this? it clears the zip when I hit 'get movies'
+    // this.userZip = '';
   }
 
   validZip() {

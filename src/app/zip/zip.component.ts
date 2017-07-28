@@ -16,16 +16,18 @@ export class ZipComponent implements OnInit {
   }
 
   ngOnInit() {
+    localStorage.removeItem('zipCode');
   }
 
   storeZip(data) {
-    console.log('updated with ' + data);
+    localStorage.setItem('zipCode', data);
     this.zipCode = data;
     this.userservice.storeZip(data);
   }
 
   clearZip() {
     this.userservice.storeZip('');
+    localStorage.removeItem('zipCode');
   }
 
   validZip() {
