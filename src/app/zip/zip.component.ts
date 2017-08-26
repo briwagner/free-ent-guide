@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { URLSearchParams } from '@angular/http';
 import { FormsModule } from '@angular/forms';
 import { UserService } from '../services/user.service';
 
@@ -17,17 +18,29 @@ export class ZipComponent implements OnInit {
 
   ngOnInit() {
     localStorage.removeItem('zipCode');
+    this.getQuery();
+  }
+
+  getQuery() {
+    if (location.search.includes('zip')) {
+      let params = new URLSearchParams(location.search);
+      // this.zipCode = params.get('zip');
+      console.log('getting query ' + params.get('zip'));
+      this.userservice.storeZip(params.get('zip'));
+    }
   }
 
   storeZip(data) {
     localStorage.setItem('zipCode', data);
+    window.history.pushState({}, 'Movies in ' + data, window.location.pathname + "?zip=" + data);
     this.zipCode = data;
     this.userservice.storeZip(data);
   }
 
   clearZip() {
-    this.userservice.storeZip('');
     localStorage.removeItem('zipCode');
+    window.history.pushState({}, 'Movies', window.location.pathname);
+    this.userservice.storeZip('');
   }
 
   validZip() {
