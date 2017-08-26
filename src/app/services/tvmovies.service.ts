@@ -14,7 +14,7 @@ import { Api_Key } from '../api_key';
 export class TvmoviesService {
 
   private url = 'http://data.tmsapi.com/v1.1/movies/airings';
-  private api_key = Api_Key;
+  private api_key = Api_Key.tmsapi;
   private headers = new Headers({'Content-Type': 'application/json'});
 
   constructor(private http: Http) { }
