@@ -1,1 +1,13 @@
 <h2>Welcome to Entertainment Guide</h2>
+
+<div class="discovers">
+  <h3>{{discoverCount}} New Movie Releases for {{date | date:'shortDate'}}</h3>
+  <div *ngFor="let mov of discovers" class="movieTile" (click)="mov.selected = !mov.selected">
+    <div class="tile-header">
+      <h3 class="movie-title inline">{{ mov.title }}</h3>
+    </div>
+    <div class="tile-body">
+      <p>{{ mov.description }}</p>
+    </div>
+  </div>
+</div>

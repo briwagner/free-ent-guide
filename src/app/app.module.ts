@@ -20,6 +20,7 @@ import { TvmoviesService } from './services/tvmovies.service';
 import { SportsService } from './services/sports.service';
 import { UserService } from './services/user.service';
 import { TvShowSearchService } from './services/tv-show-search.service';
+import { DiscoverMoviesService } from './services/discover-movies.service';
 
 // development
 // import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
@@ -60,7 +61,8 @@ enableProdMode();
     TvmoviesService,
     SportsService,
     UserService,
-    TvShowSearchService
+    TvShowSearchService,
+    DiscoverMoviesService
   ],
   bootstrap: [AppComponent]
 })

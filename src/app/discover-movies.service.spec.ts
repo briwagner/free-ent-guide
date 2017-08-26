@@ -1,6 +1,6 @@
 import { TestBed, inject } from '@angular/core/testing';
 
-import { DiscoverMoviesService } from './discover-movies.service';
+import { DiscoverMoviesService } from './services/discover-movies.service';
 
 describe('DiscoverMoviesService', () => {
   beforeEach(() => {
