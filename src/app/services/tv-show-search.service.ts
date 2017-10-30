@@ -35,7 +35,7 @@ export class TvShowSearchService {
 function toShow(data) {
   let show = <Show>({
     title: data.show.name,
-    channel: data.show.network.name,
+    channel: data.show.network ? data.show.network.name : 'unlisted',
     summary: data.show.summary,
     runtime: data.show.runtime,
     genres: data.show.genres,
