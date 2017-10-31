@@ -26,8 +26,29 @@ export class DiscoverMoviesService {
   }
 
   buildUrl(date) {
+    // For Friday/Saturday, show current Friday. Else get last Friday.
+    switch(date.getDay()){
+      case 0:
+        date.setDate(date.getDate() - 2);
+        break; 
+      case 1:
+        date.setDate(date.getDate() - 3);
+        break;
+      case 2:
+        date.setDate(date.getDate() - 4);
+        break;
+      case 3:
+        date.setDate(date.getDAte() - 5);
+        break;
+      case 4: 
+        date.setDate(date.getDate() - 6);
+        break;
+      case 6:
+        date.setDate(date.getDate() - 1);
+        break;
+    }
     let dateFormat = date.getFullYear() + "-" + this.padNum(date.getMonth() + 1) + "-" + this.padNum(date.getDate());
-    dateFormat = "2017-08-23";
+    // dateFormat = "2017-10-23";
     return this.baseUrl + "api_key=" + this.api_key + "&primary_release_date.gte=" + dateFormat + "&adult=false";
   }
 
@@ -49,9 +70,12 @@ export class DiscoverMoviesService {
 }
 
 function toMovie(data) {
+  let baseUrl_poster = "http://image.tmdb.org/t/p/w185";
     let movie = {
+      id: data.id,
       title : data.title,
-      description: data.overview
+      description: data.overview,
+      poster_img: data.poster_path ? baseUrl_poster + data.poster_path : ''
     }
     return movie;
   }

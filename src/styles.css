@@ -34,8 +34,19 @@ div.tile-header {
     cursor:pointer;
 }
 
+.discovers .tile-header {
+    background: #999;
+    color: navy;
+}
+
+.discovers .movieTile {
+    background: #efefef;
+    color: navy;
+}
+
 div.tile-body {
     margin:0 15px;
+    padding-bottom: 5px;
 }
 
 div.tile-body > p {
