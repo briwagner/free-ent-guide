@@ -738,7 +738,7 @@ var DiscoverMoviesService = (function () {
                 date.setDate(date.getDate() - 4);
                 break;
             case 3:
-                date.setDate(date.getDAte() - 5);
+                date.setDate(date.getDate() - 5);
                 break;
             case 4:
                 date.setDate(date.getDate() - 6);
