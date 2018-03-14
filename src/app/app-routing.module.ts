@@ -18,12 +18,12 @@ const routes: Routes = [
     component: MoviesComponent
   },
   {
-      path: 'television',
-      component: TvmoviesComponent
+    path: 'television',
+    component: TvmoviesComponent
   },
   {
-      path: 'sports',
-      component: SportsComponent
+    path: 'sports',
+    component: SportsComponent
   },
   {
     path: '**',

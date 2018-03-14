@@ -24,13 +24,17 @@ export class TvmoviesComponent implements OnInit {
   genreInput: string;
   date_offset: number;
   sched_date;
+  // Inputs from template.
+  movieInput;
+  sportInput;
+  queryString;
 
   constructor(
-    private tvmoviesservice: TvmoviesService, 
+    private tvmoviesservice: TvmoviesService,
     private sportsservice: SportsService,
     private searchservice: TvShowSearchService) { }
 
-  ngOnInit() { 
+  ngOnInit() {
     this.date_offset = 0;
     this.sched_date = new Date();
     this.loading = false;
