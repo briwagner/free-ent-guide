@@ -13,14 +13,15 @@ import {Api_Key} from '../api_key';
 @Injectable()
 export class DiscoverMoviesService {
 
-  private baseUrl = "https://api.themoviedb.org/3/discover/movie?";
-  private api_key = Api_Key.moviedb;
+  private baseUrl = "http://localhost:8000/v1/discover";
 
   constructor(private http: Http) { }
 
   getMovies(date) {
-    let url = this.buildUrl(date);
-    let movies = this.http.get(url)
+    let dateQ = this.buildUrl(date);
+    let params : URLSearchParams = new URLSearchParams();
+    params.set('date', dateQ);
+    let movies = this.http.get(this.baseUrl, {search: params})
       .map(this.convertMovies);
     return movies;
   }
@@ -30,7 +31,7 @@ export class DiscoverMoviesService {
     switch(date.getDay()){
       case 0:
         date.setDate(date.getDate() - 2);
-        break; 
+        break;
       case 1:
         date.setDate(date.getDate() - 3);
         break;
@@ -40,16 +41,16 @@ export class DiscoverMoviesService {
       case 3:
         date.setDate(date.getDate() - 5);
         break;
-      case 4: 
+      case 4:
         date.setDate(date.getDate() - 6);
         break;
       case 6:
         date.setDate(date.getDate() - 1);
         break;
     }
+    // Date should be formatted like: "2017-10-23";
     let dateFormat = date.getFullYear() + "-" + this.padNum(date.getMonth() + 1) + "-" + this.padNum(date.getDate());
-    // dateFormat = "2017-10-23";
-    return this.baseUrl + "api_key=" + this.api_key + "&primary_release_date.gte=" + dateFormat + "&adult=false";
+    return dateFormat;
   }
 
   convertMovies(data: Response) {

@@ -13,18 +13,17 @@ import { Api_Key } from '../api_key';
 @Injectable()
 export class MoviesService {
 
-  private url = 'http://data.tmsapi.com/v1.1/movies/showings';
-  private api_key = Api_Key.tmsapi;
+  private url = "http://localhost:8000/v1/movies";
+  // Should be using this headers??
   private headers = new Headers({'Content-Type': 'application/json'});
 
   constructor(private http: Http) { }
 
   getMovies(userZip) {
+    // Why are we doing this check?
     let zipCode = userZip > 1 ? userZip : '20002';
     let params : URLSearchParams = new URLSearchParams();
-    params.set('startDate', formatDate());
     params.set('zip', zipCode);
-    params.set("api_key", this.api_key);
     let movies = this.http.get(this.url, {headers: this.getHeaders(),
                                           search: params})
                           .map(this.convertMovies)
@@ -41,6 +40,7 @@ export class MoviesService {
 
   getHeaders() {
     let headers = new Headers();
+    // Do we want to set content-type header here??
     headers.append('Accept', 'application/json');
     return headers;
   }
@@ -92,7 +92,7 @@ function sortShowtimes(showtimes) {
 function formatDate() {
   let date = new Date();
   let arr = [date.getFullYear(),
-             ("0" + (date.getMonth() + 1)).slice(-2), 
+             ("0" + (date.getMonth() + 1)).slice(-2),
              ("0" + date.getDate()).slice(-2)];
   return arr.join("-");
 }
