@@ -8,24 +8,20 @@ import 'rxjs/add/operator/catch';
 
 import { Movie } from '../models/movie';
 
-import { Api_Key } from '../api_key';
-
 @Injectable()
 export class TvmoviesService {
 
-  private url = 'http://data.tmsapi.com/v1.1/movies/airings';
-  private api_key = Api_Key.tmsapi;
+  private url = 'http://localhost:8000/v1/tv-movies';
   private headers = new Headers({'Content-Type': 'application/json'});
 
   constructor(private http: Http) { }
 
   getMovies() {
     let params : URLSearchParams = new URLSearchParams();
-    params.set('startDate', formatDate());
-    params.set('lineupId', 'USA-TX42500-X');
-    params.set("api_key", this.api_key);
-    let movies = this.http.get(this.url, {headers: this.getHeaders(),
-                                          search: params})
+    params.set('date', formatDate());
+    let movies = this.http.get(this.url,
+                               {headers: this.getHeaders(),
+                               search: params})
                           .map(this.convertMovies)
     return movies;
   }
@@ -93,7 +89,7 @@ function sortShowtimes(showtimes) {
 function formatDate() {
   let date = new Date();
   let arr = [date.getFullYear(),
-             ("0" + (date.getMonth() + 1)).slice(-2), 
+             ("0" + (date.getMonth() + 1)).slice(-2),
              // Must offset date; api returns yesterday by default.
              ("0" + (date.getDate() + 1)).slice(-2)];
   return arr.join("-");

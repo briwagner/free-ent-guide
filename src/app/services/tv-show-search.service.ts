@@ -11,13 +11,13 @@ import { Show } from '../models/show';
 @Injectable()
 export class TvShowSearchService {
 
-  private url = 'http://api.tvmaze.com/search/shows';
+  private url = 'http://localhost:8000/v1/tv-search';
 
   constructor(private http: Http) { }
 
   findShow(searchQ) {
     let params : URLSearchParams = new URLSearchParams();
-    params.set('q', searchQ);
+    params.set('title', searchQ);
     let searchResults = this.http.get(this.url, {search: params})
                           .map(this.makeResult);
     return searchResults;
