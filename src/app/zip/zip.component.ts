@@ -12,22 +12,34 @@ export class ZipComponent implements OnInit {
 
   zipCode;
 
-  constructor(private userservice: UserService) { 
+  constructor(private userservice: UserService) {
     this.userservice.userZip$.subscribe(newVal =>  this.zipCode = newVal);
   }
 
   ngOnInit() {
-    localStorage.removeItem('zipCode');
-    this.getQuery();
+    // Check params for zip code and use if present.
+    // REgex to remove leading '?' character.
+    let ppp = new URLSearchParams(location.search);
+    // console.log(ppp.paramsMap);
+    if (location.search.includes('zip')) {
+      this.getQuery();
+    } else {
+      // Check localStorage for zip code and use.
+      if (localStorage.getItem('zipCode')) {
+        this.storeZip(localStorage.getItem('zipCode'));
+      }
+    }
   }
 
+  /**
+   * What does this do??
+   */
   getQuery() {
-    if (location.search.includes('zip')) {
-      let params = new URLSearchParams(location.search);
-      // this.zipCode = params.get('zip');
-      console.log('getting query ' + params.get('zip'));
-      this.userservice.storeZip(params.get('zip'));
-    }
+    let params = new URLSearchParams(location.search);
+    // regex to find this ...?
+    // this.zipCode = params.get('zip');
+    // console.log({zip: this.zipCode});
+    this.userservice.storeZip(params.get('zip'));
   }
 
   storeZip(data) {
