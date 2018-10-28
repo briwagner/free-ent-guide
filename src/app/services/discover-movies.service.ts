@@ -13,7 +13,7 @@ import {Api_Key} from '../api_key';
 @Injectable()
 export class DiscoverMoviesService {
 
-  private baseUrl = "http://localhost:8000/v1/discover";
+  private baseUrl = "http://api.free-entertainment-guide.com/v1/discover";
 
   constructor(private http: Http) { }
 

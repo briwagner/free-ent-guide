@@ -11,7 +11,7 @@ import { Show } from '../models/show';
 @Injectable()
 export class TvShowSearchService {
 
-  private url = 'http://localhost:8000/v1/tv-search';
+  private url = 'http://api.free-entertainment-guide.com/v1/tv-search';
 
   constructor(private http: Http) { }
 

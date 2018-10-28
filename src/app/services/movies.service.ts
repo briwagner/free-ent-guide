@@ -13,7 +13,7 @@ import { Api_Key } from '../api_key';
 @Injectable()
 export class MoviesService {
 
-  private url = "http://localhost:8000/v1/movies";
+  private url = "http://api.free-entertainment-guide.com/v1/movies";
   // Should be using this headers??
   private headers = new Headers({'Content-Type': 'application/json'});
 

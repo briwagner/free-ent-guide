@@ -13,19 +13,17 @@ import { Api_Key } from '../api_key';
 @Injectable()
 export class SportsService {
 
-  private url = 'http://data.tmsapi.com/v1.1/sports/all/events/airings';
-  private api_key = Api_Key.tmsapi;
+  private url = 'http://api.free-entertainment-guide.com/v1/tv-sports';
   private headers = new Headers({'Content-Type': 'application/json'});
 
   constructor(private http: Http) { }
 
   getSports(date) {
     let params : URLSearchParams = new URLSearchParams();
-    params.set('startDate', formatDate(date));
-    params.set('lineupId', 'USA-TX42500-X');
-    params.set("api_key", this.api_key);
-    let showings = this.http.get(this.url, {headers: this.getHeaders(),
-                                          search: params})
+    params.set('date', formatDate(date));
+    let showings = this.http.get(this.url,
+                                 {headers: this.getHeaders(),
+                                 search: params})
                           .map(this.convertShowings)
     return showings;
   }
@@ -55,7 +53,7 @@ function toSport(d) {
     summary: d.program.longDescription,
     station: d.station.callSign,
     showtime: new Date(d.startTime),
-    rootId: d.program ? d.program.rootId : null 
+    rootId: d.program ? d.program.rootId : null
   });
   return showing;
 }
@@ -97,9 +95,9 @@ function formatDate(dateObj: Date) {
   if (dateObj) {
     date.setDate(dateObj.getDate());
   }
-  let arr = [date.getFullYear(), 
+  let arr = [date.getFullYear(),
              ("0" + (date.getMonth() + 1)).slice(-2),
-             // For some reason, api is pulling in yesterday by default. So we apply offset. 
+             // For some reason, api is pulling in yesterday by default. So we apply offset.
              ("0" + (date.getDate() + 1)).slice(-2)];
   return arr.join("-");
 }

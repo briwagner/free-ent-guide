@@ -11,7 +11,7 @@ import { Movie } from '../models/movie';
 @Injectable()
 export class TvmoviesService {
 
-  private url = 'http://localhost:8000/v1/tv-movies';
+  private url = 'http://api.free-entertainment-guide.com/v1/tv-movies';
   private headers = new Headers({'Content-Type': 'application/json'});
 
   constructor(private http: Http) { }
