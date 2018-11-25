@@ -22,11 +22,6 @@ import { UserService } from './services/user.service';
 import { TvShowSearchService } from './services/tv-show-search.service';
 import { DiscoverMoviesService } from './services/discover-movies.service';
 
-// development
-// import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
-// import { InMemoryDataService } from './services/in-memory-data.service';
-// import { DataSvcService } from './services/data-svc.service';
-
 // pipes
 import { StripHTMLtagsPipe } from './strip-htmltags.pipe';
 import { GenrePipe } from './genre.pipe';
@@ -54,7 +49,6 @@ enableProdMode();
     FormsModule,
     HttpModule,
     EntertainmentRouter
-    // InMemoryWebApiModule.forRoot(InMemoryDataService, {apiBase: 'v11/movies/'})
   ],
   providers: [
     MoviesService,
