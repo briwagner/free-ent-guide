@@ -50,8 +50,6 @@ export class TvmoviesComponent implements OnInit {
                         e => console.log(e),
                         () => this.loadedShows()
                       );
-    } else {
-      console.log('already got movies');
     }
   }
 
@@ -65,8 +63,6 @@ export class TvmoviesComponent implements OnInit {
                       e => console.log(e),
                       () => this.loadedShows()
                     );
-    } else {
-      console.log('already got sports');
     }
   }
 
@@ -76,7 +72,6 @@ export class TvmoviesComponent implements OnInit {
 
   getSearch() {
     this.active = "search";
-    console.log('go search');
   }
 
   findShow(query) {
@@ -85,7 +80,6 @@ export class TvmoviesComponent implements OnInit {
                    .subscribe(
                      p => this.results = p,
                      e => console.log(e, 'error'),
-                     () => console.log('got search')
                    );
   }
 
