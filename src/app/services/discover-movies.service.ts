@@ -1,9 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { Http, Response, URLSearchParams } from '@angular/http';
 import { HttpClient, HttpParams} from '@angular/common/http';
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/toPromise';
 import {map} from 'rxjs/operators';
 
 import { Movie } from '../models/movie';

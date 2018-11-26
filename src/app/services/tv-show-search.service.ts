@@ -1,10 +1,9 @@
 import { Injectable } from '@angular/core';
 
-import { Headers, Http, Response, URLSearchParams } from '@angular/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
+import { map } from 'rxjs/operators';
 import 'rxjs/add/operator/toPromise';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/catch';
 
 import { Show } from '../models/show';
 
@@ -13,33 +12,49 @@ export class TvShowSearchService {
 
   private url = 'http://api.free-entertainment-guide.com/v1/tv-search';
 
-  constructor(private http: Http) { }
+  constructor(private http: HttpClient) { }
 
+  /**
+   * Fetch data.
+   *
+   * @param {string} searchQ
+   * @return {Array<Show>}
+   */
   findShow(searchQ) {
-    let params : URLSearchParams = new URLSearchParams();
-    params.set('title', searchQ);
-    let searchResults = this.http.get(this.url, {search: params})
-                          .map(this.makeResult);
+    let params = new HttpParams().set('title', searchQ);
+    let searchResults = this.http
+                            .get(this.url, {
+                              params: params
+                            })
+                          .pipe(map(resp => this.makeResult(resp)));
     return searchResults;
   }
 
-  makeResult(response: Response) {
-    if (response.json()) {
-      return response.json().map(toShow);
-    } else {
-      return false;
-    }
+  /**
+   * Process raw response.
+   *
+   * @param {Object} response - Response data.
+   * @return {Array<Show>}
+   */
+  makeResult(response) {
+    return response.map(toShow);
   }
 }
 
+/**
+ * Apply data model to raw response item.
+ *
+ * @param {object} data
+ * @return {Show}
+ */
 function toShow(data) {
-  let show = <Show>({
+  let show = new Show({
     title: data.show.name,
-    channel: data.show.network ? data.show.network.name : 'unlisted',
+    channel: data.show.network,
     summary: data.show.summary,
     runtime: data.show.runtime,
     genres: data.show.genres,
-    image: data.show.image ? data.show.image.medium : '',
+    image: data.show.image,
     link: data.show._links.self.href,
     prev_ep: data.show._links.previousepisode ? data.show._links.previousepisode.href : '',
     next_ep: data.show._links.nextepisode ? data.show._links.nextepisode.href : ''});

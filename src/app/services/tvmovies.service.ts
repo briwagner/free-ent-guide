@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 
-import { Headers, Http, Response, URLSearchParams } from '@angular/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { Headers } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
+import { map } from 'rxjs/operators';
 import 'rxjs/add/operator/toPromise';
-import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
 import { Movie } from '../models/movie';
@@ -14,26 +15,40 @@ export class TvmoviesService {
   private url = 'http://api.free-entertainment-guide.com/v1/tv-movies';
   private headers = new Headers({'Content-Type': 'application/json'});
 
-  constructor(private http: Http) { }
+  constructor(private http: HttpClient) { }
 
+  /**
+   * Fetch data.
+   *
+   * @return {Array<Movie>}
+   */
   getMovies() {
-    let params : URLSearchParams = new URLSearchParams();
-    params.set('date', formatDate());
-    let movies = this.http.get(this.url,
-                               {headers: this.getHeaders(),
-                               search: params})
-                          .map(this.convertMovies)
+    let params = new HttpParams().set('date', formatDate());
+    let movies = this.http
+                     .get(this.url, {
+                        //  TODO: do we need headers??
+                        //  headers: this.getHeaders(),
+                         params: params
+                      })
+                      .pipe(map(resp => this.convertMovies(resp)));
     return movies;
   }
 
-  convertMovies(response: Response) {
-    if (response.json()){
-      return response.json().map(toMovie);
-    } else {
-      return false;
-    }
+  /**
+   * Process raw response.
+   *
+   * @param {Object} response - Response data
+   * @return {Array<Movie>}
+   */
+  convertMovies(response) {
+    return response.map(toMovie);
   }
 
+  /**
+   * TODO: we need headers?
+   *
+   * @return {Headers}
+   */
   getHeaders() {
     let headers = new Headers();
     headers.append('Accept', 'application/json');
@@ -42,13 +57,19 @@ export class TvmoviesService {
 
 }
 
+/**
+ * Apply data model to raw response item.
+ *
+ * @param {object} d
+ * @return {Movie}
+ */
 function toMovie(d) {
-  let movie = <Movie>({
+  let movie = new Movie({
     title: d.program.title,
     genres: d.program.genres,
     description: d.program.shortDescription,
     summary: d.program.longDescription,
-    qualityRating: d.qualityRating ? d.qualityRating.value : "-1",
+    qualityRating: d.qualityRating,
     cast: d.program.topCast,
     station: d.station.callSign,
     selected: false,
@@ -58,6 +79,13 @@ function toMovie(d) {
   return movie;
 }
 
+/**
+ * Helper function for display.
+ * TODO: is this better as a filter, etc.?
+ *
+ * @param {Array} arr
+ * @return {string || any}
+ */
 function joinArray(arr) {
   if (typeof arr == 'object' && arr.length > 0) {
     return arr.join(", ");
@@ -66,26 +94,11 @@ function joinArray(arr) {
   }
 }
 
-function sortShowtimes(showtimes) {
-  let timeObj = {};
-  let arr = [];
-  for (let i = 0; i < showtimes.length; i++) {
-    let id = showtimes[i].theatre.id;
-    if (timeObj[id] && showtimes[i].dateTime) {
-      timeObj[id].times.push(showtimes[i].dateTime);
-    } else {
-      timeObj[id] = {
-        'name': showtimes[i].theatre.name,
-        'times': [showtimes[i].dateTime]
-      };
-    }
-  }
-  for (var prop in timeObj) {
-    arr.push(timeObj[prop]);
-  }
-  return arr;
-}
-
+/**
+ * Prepare date string for http request
+ *
+ * @return {string}
+ */
 function formatDate() {
   let date = new Date();
   let arr = [date.getFullYear(),

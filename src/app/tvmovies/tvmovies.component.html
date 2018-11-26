@@ -19,13 +19,13 @@
     <input type="Submit" value="Apply Filter">
   </form>
   <p *ngIf=moviesShowing class="small-text">{{(moviesShowing | genrePipe:movieFilter).length}} movies found</p>
-  
-  <div *ngFor="let mov of (moviesShowing | genrePipe:movieFilter)" 
+
+  <div *ngFor="let mov of (moviesShowing | genrePipe:movieFilter)"
        class="movieTile" (click)="mov.selected = !mov.selected">
     <div class="tile-header">
       <h3 class="movie-title inline">{{ mov.title }}</h3>
       <p class="inline">{{mov.station}}</p>
-      <p class="inline left-marg">{{mov.tvshowtime | date:'jm'}}</p>
+      <p class="inline left-marg">{{mov.tvshowtime | date:'shortTime'}}</p>
     </div>
     <div class="tile-body">
       <div [class]="mov.selected ? 'open' : 'closed'">
@@ -51,12 +51,12 @@
     <input type="Submit" value="Apply Filter">
   </form>
   <p *ngIf="sportsShowing" class="small-text">{{(sportsShowing | genrePipe:sportFilter).length}} events found</p>
-  <div *ngFor="let show of (sportsShowing | genrePipe:sportFilter)" 
+  <div *ngFor="let show of (sportsShowing | genrePipe:sportFilter)"
        class="movieTile" (click)="show.selected = !show.selected">
     <div class="tile-header">
       <h3 class="movie-title inline">{{show.title}}</h3>
       <p class="inline">{{ joinArray(show.genres) }}</p>
-      <p class="inline left-marg">{{show.showtime | date:'jm' }}</p>
+      <p class="inline left-marg">{{show.showtime | date:'shortTime' }}</p>
     </div>
     <div class="tile-body">
       <div [class]="show.selected ? 'open' : 'closed'">
@@ -76,8 +76,8 @@
   <h2>Search for a Show</h2>
   <div class="form">
     <form (ngSubmit)="findShow(queryString)">
-        <input type="text" name="search_box" 
-              placeholder="Search for a show by name" 
+        <input type="text" name="search_box"
+              placeholder="Search for a show by name"
               [(ngModel)]="queryString">
         <input type="submit" value="Search">
     </form>
@@ -88,7 +88,7 @@
       <div class="tile-header">
         <h3 class="movie-title inline">{{ show.title }}</h3>
         <p class="inline">on {{ show.channel }}</p>
-        <p class="inline left-marg"><em>{{ show.runtime }} minutes</em></p>
+        <p class="inline left-marg" *ngIf="show.runtime"><em>{{ show.runtime }} minutes</em></p>
       </div>
       <div class="tile-body">
         <img src="{{ show.image }}" alt="{{show.title}}" class="img-left">
@@ -99,6 +99,6 @@
         <p *ngIf="show.next_ep"><a href={{show.next_ep}}>Next Episode</a></p>
         <div class="clear"> </div>
       </div>
-    </div> 
+    </div>
   </div>
 </div>

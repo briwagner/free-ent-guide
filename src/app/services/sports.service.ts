@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Headers, Http, Response, URLSearchParams } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
+import { map } from 'rxjs/operators';
 import 'rxjs/add/operator/toPromise';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/catch';
 
 import { Sport } from '../models/sport';
 
@@ -16,26 +16,40 @@ export class SportsService {
   private url = 'http://api.free-entertainment-guide.com/v1/tv-sports';
   private headers = new Headers({'Content-Type': 'application/json'});
 
-  constructor(private http: Http) { }
+  constructor(private http: HttpClient) { }
 
+  /**
+   * Fetch data.
+   *
+   * @param {string} date
+   * @return {Array<Sport>}
+   */
   getSports(date) {
-    let params : URLSearchParams = new URLSearchParams();
-    params.set('date', formatDate(date));
-    let showings = this.http.get(this.url,
-                                 {headers: this.getHeaders(),
-                                 search: params})
-                          .map(this.convertShowings)
+    let params = new HttpParams().set('date', formatDate(date));
+    let showings = this.http
+                       .get(this.url, {
+                            //  headers: this.getHeaders(),
+                          params: params
+                        })
+                      .pipe(map(resp => this.convertShowings(resp)));
     return showings;
   }
 
-  convertShowings(response: Response) {
-    if (response.json()){
-      return response.json().map(toSport);
-    } else {
-      return false;
-    }
+  /**
+   * Process raw response.
+   *
+   * @param {Object} response
+   * @return {Array<Sport>}
+   */
+  convertShowings(response) {
+    return response.map(toSport);
   }
 
+  /**
+   * TODO: do we want this??
+   *
+   * @return {Headers}
+   */
   getHeaders() {
     let headers = new Headers();
     headers.append('Accept', 'application/json');
@@ -44,24 +58,43 @@ export class SportsService {
 
 }
 
+/**
+ * Apply data model to raw response item.
+ *
+ * @param {object} d
+ * @return {Sport}
+ */
 function toSport(d) {
-  let showing = <Sport>({
+  let sport = new Sport({
     title: d.program.eventTitle,
     genres: d.program.genres,
     description: d.program.shortDescription,
     image: formatImg(d.program.preferredImage.uri),
     summary: d.program.longDescription,
     station: d.station.callSign,
-    showtime: new Date(d.startTime),
+    showtime: d.startTime,
     rootId: d.program ? d.program.rootId : null
   });
-  return showing;
+  return sport;
 }
 
+/**
+ * Helper function for display.
+ * TODO: better as filter??
+ *
+ * @param {string} data
+ * @return {string}
+ */
 function formatImg(data) {
-  return 'http://developer.tmsimg.com/' + data + '?api_key=' + Api_Key;
+  return 'http://developer.tmsimg.com/' + data + '?api_key=' + Api_Key.tmsapi;
 }
 
+/**
+ * TODO: we ever use this?
+ *
+ * @param arr{Array}
+ * @return {string}
+ */
 function joinArray(arr) {
   if (typeof arr == 'object' && arr.length > 0) {
     return arr.join(", ");
@@ -70,26 +103,12 @@ function joinArray(arr) {
   }
 }
 
-function sortShowtimes(showtimes) {
-  let timeObj = {};
-  let arr = [];
-  for (let i = 0; i < showtimes.length; i++) {
-    let id = showtimes[i].theatre.id;
-    if (timeObj[id] && showtimes[i].dateTime) {
-      timeObj[id].times.push(showtimes[i].dateTime);
-    } else {
-      timeObj[id] = {
-        'name': showtimes[i].theatre.name,
-        'times': [showtimes[i].dateTime]
-      };
-    }
-  }
-  for (var prop in timeObj) {
-    arr.push(timeObj[prop]);
-  }
-  return arr;
-}
-
+/**
+ * Prepare date string for http request.
+ *
+ * @param {Date} dateObj
+ * @return {string}
+ */
 function formatDate(dateObj: Date) {
   let date = new Date();
   if (dateObj) {

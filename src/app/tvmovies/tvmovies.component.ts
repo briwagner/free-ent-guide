@@ -98,7 +98,7 @@ export class TvmoviesComponent implements OnInit {
     let unique = [];
     let uniqueIds = [];
     for (var i = 0; i < arr.length; i++) {
-      if (arr[i].rootId && uniqueIds.indexOf(arr[i].rootId) < 1) {
+      if (arr[i].rootId && uniqueIds.indexOf(arr[i].rootId) < 0) {
         unique.push(arr[i]);
         uniqueIds.push(arr[i].rootId);
       }
