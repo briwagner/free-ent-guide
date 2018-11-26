@@ -1,32 +1,37 @@
 import { Injectable } from '@angular/core';
 
 import { Http, Response, URLSearchParams } from '@angular/http';
+import { HttpClient, HttpParams} from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/toPromise';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/catch';
+import {map} from 'rxjs/operators';
 
 import { Movie } from '../models/movie';
-
-import {Api_Key} from '../api_key';
 
 @Injectable()
 export class DiscoverMoviesService {
 
   private baseUrl = "http://api.free-entertainment-guide.com/v1/discover";
 
-  constructor(private http: Http) { }
+  constructor(private http: HttpClient) { }
 
+  /**
+   * @param {string} date - Date to query.
+   * @return {Array<Movie>}
+   */
   getMovies(date) {
-    let dateQ = this.buildUrl(date);
-    let params : URLSearchParams = new URLSearchParams();
-    params.set('date', dateQ);
-    let movies = this.http.get(this.baseUrl, {search: params})
-      .map(this.convertMovies);
-    return movies;
+    let dateQ = this.buildDate(date);
+    let param = new HttpParams().set('date', dateQ);
+    let resp = this.http.get(this.baseUrl, {params: param})
+                        .pipe(map(resp => this.convertMovies(resp)));
+    return resp;
   }
 
-  buildUrl(date) {
+  /**
+   * @param {string} date
+   * @return {string}
+   */
+  buildDate(date) {
     // For Friday/Saturday, show current Friday. Else get last Friday.
     switch(date.getDay()){
       case 0:
@@ -53,13 +58,23 @@ export class DiscoverMoviesService {
     return dateFormat;
   }
 
-  convertMovies(data: Response) {
-    if (data.json()){
-      let json = data.json();
-      return json.results.filter(m => m.original_language == 'en').map(toMovie);
-    }
+  /**
+   * Filter raw response to limit to English-language,
+   *   & apply data model.
+   *
+   * @param {Object} data - Response data.
+   * @return {Array<Movie>}
+   */
+  convertMovies(data: any) {
+    return data.results.filter(m => m.original_language == 'en').map(toMovie);
   }
 
+  /**
+   * All numbers in date elements should have two digits.
+   *
+   * @param {number} int
+   * @return {string}
+   */
   padNum(int) {
     if (int.toString().length == 1) {
       return "0" + int;
@@ -70,13 +85,18 @@ export class DiscoverMoviesService {
 
 }
 
+/**
+ * Apply data model to raw response item.
+ *
+ * @param {object} data
+ * @return {Movie}
+ */
 function toMovie(data) {
-  let baseUrl_poster = "http://image.tmdb.org/t/p/w185";
-    let movie = {
-      id: data.id,
-      title : data.title,
-      description: data.overview,
-      poster_img: data.poster_path ? baseUrl_poster + data.poster_path : ''
-    }
-    return movie;
-  }
+  let movie = new Movie({
+    id: data.id,
+    title : data.title,
+    description: data.overview,
+    poster: data.poster_path
+  });
+  return movie;
+}
