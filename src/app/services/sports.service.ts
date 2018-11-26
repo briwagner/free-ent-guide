@@ -1,10 +1,8 @@
 import { Injectable } from '@angular/core';
 
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { Headers, Http, Response, URLSearchParams } from '@angular/http';
-import { Observable } from 'rxjs/Observable';
+import { Headers } from '@angular/http';
 import { map } from 'rxjs/operators';
-import 'rxjs/add/operator/toPromise';
 
 import { Sport } from '../models/sport';
 

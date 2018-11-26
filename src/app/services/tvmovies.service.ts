@@ -2,10 +2,7 @@ import { Injectable } from '@angular/core';
 
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Headers } from '@angular/http';
-import { Observable } from 'rxjs/Observable';
 import { map } from 'rxjs/operators';
-import 'rxjs/add/operator/toPromise';
-import 'rxjs/add/operator/catch';
 
 import { Movie } from '../models/movie';
 
