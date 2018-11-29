@@ -227,6 +227,7 @@ input[type=submit]:hover {
     background-color:paleturquoise;
 }
 
-app-zip form input {
-    margin: 1em 0;
+.loading-spinner {
+    max-width: 300px;
+    height: auto;
 }

@@ -11,6 +11,7 @@ export class MoviesOnTvComponent implements OnInit {
   moviesShowing;
   movieFilter: string;
   loading: Boolean;
+  movieInput: string;
 
   constructor(private tvmoviesservice: TvmoviesService) { }
 
