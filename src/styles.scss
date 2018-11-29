@@ -22,31 +22,31 @@ li {
 ul.app-menu {
     display: flex;
     flex-direction: row;
-}
 
-ul.app-menu li {
-    width: 50%;
+    li {
+        width: 50%;
+    }
 }
 
 .title-bar {
     display: flex;
     flex-direction: row;
-}
 
-.title-bar h2 {
-    margin-right: 25px;
-}
+    h2 {
+        margin-right: 25px;
+    }
 
-.title-bar .app-zip {
-    margin-top: 7px;
-}
+    .app-zip {
+        margin-top: 7px;
+    }
 
-.title-bar .zip-set {
-    margin-top: 15px;
-    font-size: 19px;
-}
-.title-bar .zip-set button {
-    vertical-align: text-top;
+    .zip-set {
+        margin-top: 15px;
+        font-size: 19px;
+        button {
+            vertical-align: text-top;
+        }
+    }
 }
 
 div.movieTile {
@@ -64,39 +64,41 @@ div.tile-header {
     cursor:pointer;
 }
 
-.discovers .tile-header {
-    background: #999;
-    color: navy;
-}
+.discovers {
+    .tile-header {
+        background: #999;
+        color: navy;
+    }
 
-.discovers .movieTile {
-    background: #efefef;
-    color: navy;
+    .movieTile {
+        background: #efefef;
+        color: navy;
+    }
 }
 
 div.tile-body {
     margin:0 15px;
     padding-bottom: 5px;
-}
 
-div.tile-body > p {
-    margin-top:10px;
-}
+    > p {
+        margin-top:10px;
+    }
 
-div.tile-body .closed {
-    display:none;
-}
+    .closed {
+        display:none;
+    }
 
-div.tile-body .open {
-    display:initial;
+    .open {
+        display:initial;
+    }
 }
 
 h2 span {
     font-size: 80%;
-}
 
-h2 span button {
-    vertical-align: middle;
+    button {
+        vertical-align: middle;
+    }
 }
 
 h3.movie-title {
@@ -104,21 +106,23 @@ h3.movie-title {
     padding:15px 15px 0;
 }
 
-p.movie-genres {
-    font-style: italic;
-}
+p {
+    &.movie-genres {
+        font-style: italic;
+    }
 
-p.movie-rating {
-    margin-left: 15px;
-}
+    &.movie-rating {
+        margin-left: 15px;
+    }
 
-p.pad-bot {
-    padding-bottom: 20px;
-}
+    &.pad-bot {
+        padding-bottom: 20px;
+    }
 
-p.small-text {
-    font-size: 0.8em;
-    margin: 10px 0;
+    &.small-text {
+        font-size: 0.8em;
+        margin: 10px 0;
+    }
 }
 
 .left-marg {
@@ -160,40 +164,38 @@ div.clear {
 
 .sub-menu {
     width: 100%;
+
+    ul {
+        display:flex;
+        flex-direction: row;
+        width:100%;
+        margin:0;
+        padding:0;
+        li {
+            width: 33.333%;
+            background-color:#efefef;
+            border-right:4px solid #a4a4a4;
+            text-align: center;
+            padding: 10px 0;
+
+            a {
+                text-decoration: none;
+                padding: 0 40px;
+                &.active {
+                    background-color:paleturquoise;
+                    &.inactive {
+                        background-color:#efefef;
+                    }
+                }
+            }
+
+            &:last-child {
+                border:none;
+            }
+        }
+    }
 }
 
-.sub-menu ul {
-    display:flex;
-    flex-direction: row;
-    width:100%;
-    margin:0;
-    padding:0;
-}
-
-.sub-menu ul li {
-    width: 33.333%;
-    background-color:#efefef;
-    border-right:4px solid #a4a4a4;
-    text-align: center;
-    padding: 10px 0;
-}
-
-.sub-menu ul li a {
-    text-decoration: none;
-    padding: 0 40px;
-}
-
-.sub-menu ul li.active {
-    background-color:paleturquoise;
-}
-
-.sub-menu ul li.inactive {
-    background-color:#efefef;
-}
-
-.sub-menu ul li:last-child {
-    border:none;
-}
 
 div.active {
     display:block;
@@ -221,10 +223,10 @@ input[type=submit] {
     background-color:#efefef;
     padding:9px;
     cursor:pointer;
-}
 
-input[type=submit]:hover {
-    background-color:paleturquoise;
+    &:hover {
+        background-color:paleturquoise;
+    }
 }
 
 .loading-spinner {
