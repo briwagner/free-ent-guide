@@ -1,0 +1,30 @@
+<div class="loading-spinner" [hidden]="!loading">
+  <img src="/assets/images/01-progress.gif" alt="Loading">
+</div>
+
+<div class="movies" [hidden]="!moviesShowing">
+  <h2>Movies on TV</h2>
+  <form class="movies-genre" (ngSubmit)="setFilter(movieInput)">
+    <input type="text" [(ngModel)]="movieInput" placeholder="Select genre" name="genre-filter">
+    <input type="Submit" value="Apply Filter">
+  </form>
+  <p *ngIf=moviesShowing class="small-text"><em>{{(moviesShowing | genrePipe:movieFilter).length}} movies found</em></p>
+
+  <div *ngFor="let mov of (moviesShowing | genrePipe:movieFilter)"
+       class="movieTile" (click)="mov.selected = !mov.selected">
+    <div class="tile-header">
+      <h3 class="movie-title inline">{{ mov.title }}</h3>
+      <p class="inline">{{mov.station}}</p>
+      <p class="inline left-marg">{{mov.tvshowtime | date:'shortTime'}}</p>
+    </div>
+    <div class="tile-body">
+      <div [class]="mov.selected ? 'open' : 'closed'">
+        <p [class]="mov.qualityRating > -1 ? 'active' : 'inactive'">Rating: {{ mov.qualityRating }}</p>
+        <p class="description"><em>{{ mov.description }}</em></p>
+        <p class="cast"><strong>Cast: </strong>{{ joinArray(mov.cast) }}</p>
+        <p class="movie-genres">{{ joinArray(mov.genres) }}</p>
+        <p class="pad-bot">{{ mov.summary }}</p>
+      </div>
+    </div>
+  </div>
+</div>

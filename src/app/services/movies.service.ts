@@ -44,7 +44,7 @@ export class MoviesService {
    * @return {Array<Movie>}
    */
   convertMovies(response) {
-    return response.map(toMovie);
+    return response.map((curr, i) => toMovie(curr, i));
   }
 
   /**
@@ -65,12 +65,13 @@ export class MoviesService {
  * @param {object} d
  * @return {Movie}
  */
-function toMovie(d) {
+function toMovie(d, i) {
   let movie = new Movie({
+    id: i,
     title: d.title,
     genres: d.genres,
     description: d.shortDescription,
-    summary: d.longDescription,
+    longDescription: d.longDescription,
     qualityRating: d.qualityRating,
     cast: d.topCast,
     selected: false,

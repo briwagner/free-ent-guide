@@ -38,7 +38,7 @@ export class TvmoviesService {
    * @return {Array<Movie>}
    */
   convertMovies(response) {
-    return response.map(toMovie);
+    return response.map((curr, i) => toMovie(curr, i));
   }
 
   /**
@@ -60,12 +60,13 @@ export class TvmoviesService {
  * @param {object} d
  * @return {Movie}
  */
-function toMovie(d) {
+function toMovie(d, i) {
   let movie = new Movie({
+    id: i,
     title: d.program.title,
     genres: d.program.genres,
     description: d.program.shortDescription,
-    summary: d.program.longDescription,
+    longDescription: d.program.longDescription,
     qualityRating: d.qualityRating,
     cast: d.program.topCast,
     station: d.station.callSign,

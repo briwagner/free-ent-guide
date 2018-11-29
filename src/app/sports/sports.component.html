@@ -1,15 +1,34 @@
-<h2>{{ title }}</h2>
-<div *ngFor="let show of sportsShowing" class="movieTile">
-  <h3>{{show.title}}</h3>
-  <p>{{ joinArray(show.genres) }}</p>
-  <p>{{show.station}}</p>
-  <p>{{show.description}}</p>
-  <div class="summary-container">
-    <div class="summary">
-      <div class="fadeout"></div>
-    <p>{{show.summary}}</p>
+<div class="loading-spinner" [hidden]="!loading">
+  <img src="/assets/images/01-progress.gif" alt="Loading">
+</div>
+
+<div class="sports" [hidden]="!sportsShowing">
+  <h2>Sports on TV - <span class='date'>
+    <button (click)="changeDate(-1)"><</button>
+    {{sched_date | date: 'M/d'}}
+    <button (click)="changeDate(1)">></button>
+    </span></h2>
+  <form class="sports-genre" (ngSubmit)="setFilter(sportInput)">
+    <input type="text" [(ngModel)]="sportInput" placeholder="Search by sport" name="sport-filter">
+    <input type="Submit" value="Apply Filter">
+  </form>
+  <p *ngIf="sportsShowing" class="small-text"><em>{{(sportsShowing | genrePipe:sportFilter).length}} events found</em></p>
+  <div *ngFor="let show of (sportsShowing | genrePipe:sportFilter)"
+       class="movieTile" (click)="show.selected = !show.selected">
+    <div class="tile-header">
+      <h3 class="movie-title inline">{{show.title}}</h3>
+      <p class="inline">{{ joinArray(show.genres) }}</p>
+      <p class="inline left-marg">{{show.showtime | date:'shortTime' }}</p>
     </div>
-    <p class="summary-more">More</p>
+    <div class="tile-body">
+      <div [class]="show.selected ? 'open' : 'closed'">
+        <img *ngIf="show.selected" src="{{show.image}}" alt="{{show.title}}" class="img-left">
+        <p class="description">{{show.description}}</p>
+        <!--<p>{{show.summary}}</p>-->
+        <p>{{show.showtime | date: 'M/d'}}</p>
+        <p class="pad-bot">{{show.station}}</p>
+        <div class="clear"> </div>
+      </div>
+    </div>
   </div>
-  <p>{{show.showtime | date:'jm' }}</p>
 </div>

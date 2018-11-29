@@ -6,11 +6,11 @@ import { UserService } from '../services/user.service';
 @Component({
   selector: 'app-zip',
   templateUrl: './zip.component.html',
-  styleUrls: ['./zip.component.css'],
 })
 export class ZipComponent implements OnInit {
 
   zipCode;
+  hasZip: boolean = false;
 
   constructor(private userservice: UserService) {
     this.userservice.userZip$.subscribe(newVal =>  this.zipCode = newVal);
@@ -47,12 +47,14 @@ export class ZipComponent implements OnInit {
     window.history.pushState({}, 'Movies in ' + data, window.location.pathname + "?zip=" + data);
     this.zipCode = data;
     this.userservice.storeZip(data);
+    this.hasZip = true;
   }
 
   clearZip() {
     localStorage.removeItem('zipCode');
     window.history.pushState({}, 'Movies', window.location.pathname);
     this.userservice.storeZip('');
+    this.hasZip = false;
   }
 
   validZip() {

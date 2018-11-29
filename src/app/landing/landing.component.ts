@@ -8,7 +8,6 @@ import { StripHTMLtagsPipe } from '../strip-htmltags.pipe';
 @Component({
   selector: 'app-landing',
   templateUrl: './landing.component.html',
-  styleUrls: ['./landing.component.css']
 })
 export class LandingComponent implements OnInit {
 
@@ -32,7 +31,7 @@ export class LandingComponent implements OnInit {
     this.discoverMovies.getMovies(this.date)
       .subscribe(
         p => {
-          this.discovers = p; 
+          this.discovers = p;
           this.discoverCount = p.length;
         },
         e => console.log('error', e)

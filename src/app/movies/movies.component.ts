@@ -13,8 +13,8 @@ export class MoviesComponent implements OnInit {
   title: String = 'Movies';
   moviesShowing;
   userZip;
-  hasData;
-  loading = false;
+  hasData: Boolean = false;
+  loading: Boolean = false;
 
   constructor(
     private moviesservice: MoviesService,
@@ -28,7 +28,6 @@ export class MoviesComponent implements OnInit {
    }
 
   ngOnInit() {
-    this.hasData = false;
   }
 
   hasMovies() {
@@ -54,6 +53,7 @@ export class MoviesComponent implements OnInit {
 
   clearMovies() {
     this.moviesShowing = [];
+    this.hasData = false;
     // why do this? it clears the zip when I hit 'get movies'
     // this.userZip = '';
   }

@@ -1,0 +1,35 @@
+<div class="loading-spinner" [hidden]="!loading">
+  <img src="/assets/images/01-progress.gif" alt="Loading">
+</div>
+
+<div class="search">
+  <h2>Search for a Show</h2>
+  <div class="form">
+    <form (ngSubmit)="findShow(queryString)">
+        <input type="text" name="search_box"
+              placeholder="Search for a show by name"
+              [(ngModel)]="queryString">
+        <input type="submit" value="Search">
+    </form>
+  </div>
+  <div class="results" [hidden]="!results">
+    <h3>Results</h3>
+    <p class="small-text"><em>Searching for: {{queryString}}</em></p>
+    <div class="show" *ngFor="let show of results" class="movieTile">
+      <div class="tile-header">
+        <h3 class="movie-title inline">{{ show.title }}</h3>
+        <p class="inline">on {{ show.channel }}</p>
+        <p class="inline left-marg" *ngIf="show.runtime"><em>{{ show.runtime }} minutes</em></p>
+      </div>
+      <div class="tile-body">
+        <img src="{{ show.image }}" alt="{{show.title}}" class="img-left">
+        <p>{{ show.summary | stripHTMLtags }}</p>
+        <p class="inline">{{ joinArray(show.genres) }}</p>
+        <p><a href="{{show.link}}">More</a></p>
+        <p *ngIf="show.prev_ep"><a href={{show.prev_ep}}>Previous Episode</a></p>
+        <p *ngIf="show.next_ep"><a href={{show.next_ep}}>Next Episode</a></p>
+        <div class="clear"> </div>
+      </div>
+    </div>
+  </div>
+</div>

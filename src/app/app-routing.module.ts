@@ -4,8 +4,11 @@ import { Routes, RouterModule } from '@angular/router';
 // components
 import { MoviesComponent } from './movies/movies.component';
 import { TvmoviesComponent} from './tvmovies/tvmovies.component';
+import { MoviesOnTvComponent} from './movies-on-tv/movies-on-tv.component';
 import { SportsComponent } from './sports/sports.component';
+import { SearchComponent } from './search/search.component';
 import { LandingComponent } from './landing/landing.component';
+import { AuthGuard } from './auth.guard';
 
 const routes: Routes = [
   {
@@ -19,11 +22,21 @@ const routes: Routes = [
   },
   {
     path: 'television',
-    component: TvmoviesComponent
-  },
-  {
-    path: 'sports',
-    component: SportsComponent
+    component: TvmoviesComponent,
+    canActivate: [AuthGuard],
+    children: [
+      {
+        path: 'movies',
+        component: MoviesOnTvComponent
+      },
+      {
+        path: 'sports',
+        component: SportsComponent
+      }, {
+        path: 'search',
+        component: SearchComponent
+      }
+    ]
   },
   {
     path: '**',

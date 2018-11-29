@@ -19,16 +19,46 @@ li {
   list-style: none;
 }
 
+ul.app-menu {
+    display: flex;
+    flex-direction: row;
+}
+
+ul.app-menu li {
+    width: 50%;
+}
+
+.title-bar {
+    display: flex;
+    flex-direction: row;
+}
+
+.title-bar h2 {
+    margin-right: 25px;
+}
+
+.title-bar .app-zip {
+    margin-top: 7px;
+}
+
+.title-bar .zip-set {
+    margin-top: 15px;
+    font-size: 19px;
+}
+.title-bar .zip-set button {
+    vertical-align: text-top;
+}
+
 div.movieTile {
     width:100%;
     padding:0;
     background:linear-gradient(lightcyan, lightblue);
     margin-bottom:10px;
-    border-radius:12px;
+    border-radius:6px;
 }
 
 div.tile-header {
-    border-radius: 12px 12px 0 0;
+    border-radius: 6px 6px 0 0;
     background:navy;
     color:white;
     cursor:pointer;
@@ -88,7 +118,7 @@ p.pad-bot {
 
 p.small-text {
     font-size: 0.8em;
-    margin:4px 0;
+    margin: 10px 0;
 }
 
 .left-marg {
@@ -128,21 +158,29 @@ div.clear {
     margin-right: 10px;
 }
 
+.sub-menu {
+    width: 100%;
+}
+
 .sub-menu ul {
+    display:flex;
+    flex-direction: row;
+    width:100%;
     margin:0;
     padding:0;
-    width:100%;
-    display:flex;
 }
 
 .sub-menu ul li {
-    display:inline-block;
+    width: 33.333%;
     background-color:#efefef;
     border-right:4px solid #a4a4a4;
-    width:33.3333%;
-    padding: 10px 0;
     text-align: center;
-    cursor:pointer;
+    padding: 10px 0;
+}
+
+.sub-menu ul li a {
+    text-decoration: none;
+    padding: 0 40px;
 }
 
 .sub-menu ul li.active {

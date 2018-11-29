@@ -23,12 +23,16 @@ import { UserService } from './services/user.service';
 import { TvShowSearchService } from './services/tv-show-search.service';
 import { DiscoverMoviesService } from './services/discover-movies.service';
 
+import { AuthGuard } from './auth.guard';
+
 // pipes
 import { StripHTMLtagsPipe } from './strip-htmltags.pipe';
 import { GenrePipe } from './genre.pipe';
 
 // production mode
 import { enableProdMode } from '@angular/core';
+import { SearchComponent } from './search/search.component';
+import { MoviesOnTvComponent } from './movies-on-tv/movies-on-tv.component';
 
 enableProdMode();
 
@@ -43,7 +47,9 @@ enableProdMode();
     LandingComponent,
     MenuComponent,
     StripHTMLtagsPipe,
-    GenrePipe
+    GenrePipe,
+    SearchComponent,
+    MoviesOnTvComponent
   ],
   imports: [
     BrowserModule,

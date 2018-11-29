@@ -1,7 +1,9 @@
-<app-zip></app-zip>
-
-<div [ngClass]="validZip() ? 'active' : 'inactive'" class="get-button">
+<div class="title-bar">
   <h2>{{ title }}</h2>
+  <app-zip></app-zip>
+</div>
+
+<div [ngClass]="!hasData && userZip? 'active' : 'inactive'" class="get-button">
   <form (ngSubmit)="getMovies()">
     <input type="submit" value="Get movies">
   </form>
