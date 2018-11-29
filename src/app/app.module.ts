@@ -14,6 +14,8 @@ import { TvmoviesComponent } from './tvmovies/tvmovies.component';
 import { ZipComponent } from './zip/zip.component';
 import { LandingComponent } from './landing/landing.component';
 import { MenuComponent } from './menu/menu.component';
+import { SearchComponent } from './search/search.component';
+import { MoviesOnTvComponent } from './movies-on-tv/movies-on-tv.component';
 
 // services
 import { MoviesService } from './services/movies.service';
@@ -31,8 +33,6 @@ import { GenrePipe } from './genre.pipe';
 
 // production mode
 import { enableProdMode } from '@angular/core';
-import { SearchComponent } from './search/search.component';
-import { MoviesOnTvComponent } from './movies-on-tv/movies-on-tv.component';
 
 enableProdMode();
 

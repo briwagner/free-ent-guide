@@ -12,6 +12,7 @@ export class Movie {
   selected: boolean;
   poster_img: string;
   rootId: string;
+  release: Date;
 
   constructor(data) {
     this.id = data.id;
@@ -27,6 +28,7 @@ export class Movie {
     this.station = data.station;
     this.selected = false;
     this.rootId = data.rootId;
+    this.release = data.release;
   }
 
   public setPoster (path: string): string {

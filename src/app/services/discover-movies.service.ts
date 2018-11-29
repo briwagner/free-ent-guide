@@ -93,7 +93,8 @@ function toMovie(data) {
     id: data.id,
     title : data.title,
     description: data.overview,
-    poster: data.poster_path
+    poster: data.poster_path,
+    release: new Date(data.release_date)
   });
   return movie;
 }

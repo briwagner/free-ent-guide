@@ -8,7 +8,8 @@
     </div>
     <div class="tile-body">
       <p>{{ mov.description }}</p>
-        <img *ngIf="mov.poster_img"  src="{{ mov.poster_img }}" alt="{{ mov.title }}">
+      <img *ngIf="mov.poster_img"  src="{{ mov.poster_img }}" alt="{{ mov.title }}">
+      <p>Releases: {{ mov.release | date:'mediumDate'}}</p>
     </div>
   </div>
 </div>
