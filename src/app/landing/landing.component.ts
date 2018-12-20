@@ -34,7 +34,7 @@ export class LandingComponent implements OnInit {
           this.discovers = p;
           this.discoverCount = p.length;
         },
-        e => console.log('error', e)
+        e => console.log('Error:', e.message)
       );
   }
 
