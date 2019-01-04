@@ -49,6 +49,7 @@ export class SportsComponent implements OnInit {
 
   setFilter(genre: string) {
     this.sportFilter = genre;
+    this.sportInput = genre;
   }
 
   removeDupes(arr) {

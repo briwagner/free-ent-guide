@@ -233,3 +233,20 @@ input[type=submit] {
     max-width: 300px;
     height: auto;
 }
+
+.filter-btn {
+    display: flex;
+    button {
+        background: navy;
+        border: 1px solid navy;
+        border-radius: 4px;
+        font-size: .9rem;
+        color: white;
+        margin-right: 5px;
+        padding: 5px 15px;
+        &.reset {
+            color: navy;
+            background: lightcyan;
+        }
+    }
+}

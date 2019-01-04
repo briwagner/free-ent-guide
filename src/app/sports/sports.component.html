@@ -12,6 +12,14 @@
     <input type="text" [(ngModel)]="sportInput" placeholder="Search by sport" name="sport-filter">
     <input type="Submit" value="Apply Filter">
   </form>
+  <div class="filter-btn">
+    <button type="button" (click)="setFilter('football')">Football</button>
+    <button type="button" (click)="setFilter('soccer')">Soccer</button>
+    <button type="button" (click)="setFilter('hockey')">Hockey</button>
+    <button type="button" (click)="setFilter('basketball')">Basketball</button>
+    <button type="button" (click)="setFilter('baseball')">Baseball</button>
+    <button type="button" class="reset" (click)="setFilter('')">Reset</button>
+  </div>
   <p *ngIf="sportsShowing" class="small-text"><em>{{(sportsShowing | genrePipe:sportFilter).length}} events found</em></p>
   <div *ngFor="let show of (sportsShowing | genrePipe:sportFilter)"
        class="movieTile" (click)="show.selected = !show.selected">
