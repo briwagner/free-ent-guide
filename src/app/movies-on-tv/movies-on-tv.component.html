@@ -8,6 +8,18 @@
     <input type="text" [(ngModel)]="movieInput" placeholder="Select genre" name="genre-filter">
     <input type="Submit" value="Apply Filter">
   </form>
+  <div class="filter-btn">
+    <button type="button" (click)="setFilter('children')">Family</button>
+    <button type="button" (click)="setFilter('animated')">Animated</button>
+    <button type="button" (click)="setFilter('comedy')">Comedy</button>
+    <button type="button" (click)="setFilter('drama')">Drama</button>
+    <button type="button" (click)="setFilter('action')">Action</button>
+    <button type="button" (click)="setFilter('adventure')">Adventure</button>
+    <button type="button" (click)="setFilter('science fiction')">Sci-fi</button>
+    <button type="button" (click)="setFilter('thriller')">Thriller</button>
+    <button type="button" (click)="setFilter('horror')">Horror</button>
+    <button type="button" class="reset" (click)="setFilter('')">Reset</button>
+  </div>
   <p *ngIf=moviesShowing class="small-text"><em>{{(moviesShowing | genrePipe:movieFilter).length}} movies found</em></p>
 
   <div *ngFor="let mov of (moviesShowing | genrePipe:movieFilter)"

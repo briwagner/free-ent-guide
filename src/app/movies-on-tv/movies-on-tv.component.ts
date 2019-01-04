@@ -40,6 +40,7 @@ export class MoviesOnTvComponent implements OnInit {
 
   setFilter(genre: string) {
     this.movieFilter = genre;
+    this.movieInput = genre;
   }
 
   removeDupes(arr) {
