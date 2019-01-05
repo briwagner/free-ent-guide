@@ -24,9 +24,8 @@
   <div *ngFor="let show of (sportsShowing | genrePipe:sportFilter)"
        class="movieTile" (click)="show.selected = !show.selected">
     <div class="tile-header">
-      <h3 class="movie-title inline">{{show.title}}</h3>
-      <p class="inline">{{ joinArray(show.genres) }}</p>
-      <p class="inline left-marg">{{show.showtime | date:'shortTime' }}</p>
+      <h3 class="movie-title">{{show.title}}</h3>
+      <p>{{ joinArray(show.genres) }} - {{show.showtime | date:'shortTime' }}</p>
     </div>
     <div class="tile-body">
       <div [class]="show.selected ? 'open' : 'closed'">

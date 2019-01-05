@@ -20,109 +20,143 @@ li {
 }
 
 ul.app-menu {
-    display: flex;
-    flex-direction: row;
-
-    li {
-        width: 50%;
-    }
+  display: flex;
+  flex-direction: row;
+  li {
+    width: 50%;
+  }
 }
 
 .title-bar {
-    display: flex;
-    flex-direction: row;
+  h2 {
+    margin-right: 25px;
+  }
+}
 
-    h2 {
-        margin-right: 25px;
-    }
-
-    .app-zip {
-        margin-top: 7px;
-    }
-
-    .zip-set {
-        margin-top: 15px;
-        font-size: 19px;
-        button {
-            vertical-align: text-top;
-        }
-    }
+.zip-set {
+  width: 100%;
+  background: #efefef;
+  font-size: .9rem;
+  padding: 0 1rem;
+  p {
+    margin: .5rem .5rem .5rem 0;
+  }
+  button {
+    vertical-align: text-bottom;
+    border: 1px solid navy;
+    border-radius: 4px;
+    background: navy;
+    color: white;
+  }
 }
 
 div.movieTile {
-    width:100%;
-    padding:0;
-    background:linear-gradient(lightcyan, lightblue);
-    margin-bottom:10px;
-    border-radius:6px;
+  width:100%;
+  background:linear-gradient(#efefef, lightcyan);
+  border-radius:4px;
+  margin-bottom:10px;
+  padding:0;
 }
 
 div.tile-header {
-    border-radius: 6px 6px 0 0;
-    background:navy;
-    color:white;
-    cursor:pointer;
+  border-radius: 4px 4px 0 0;
+  background:linear-gradient(rgba(0,0,128,1), rgba(0,0,128,0.75));
+  color:white;
+  cursor:pointer;
+
+  p {
+    margin: 0 .75rem;
+  }
 }
 
 .discovers {
-    .tile-header {
-        background: #999;
-        color: navy;
-    }
+  display: flex;
+  flex-flow: row wrap;
+  h4 {
+    width: 100%;
+    margin: .5rem;
+  }
+  .tile-header {
+    color: white;
+    border-radius: 0;
+  }
 
-    .movieTile {
-        background: #efefef;
-        color: navy;
+  .movieTile {
+    width: 33%;
+    background: #efefef;
+    color: navy;
+    margin-right: .2%;
+    border-radius: 0;
+    @media (max-width: 768px) {
+      width: 49.5%;
     }
+  }
+}
+
+.movie-ctr {
+  display: flex;
+  flex-flow: row wrap;
+
+  .tile-header {
+    padding-bottom: .5rem;
+  }
+}
+
+.sports .tile-header {
+  display: flex;
+  flex-direction: column;
+  p {
+    margin: 0 .75rem .75rem;
+  }
 }
 
 div.tile-body {
-    margin:0 15px;
-    padding-bottom: 5px;
+  margin:0 15px;
+  padding-bottom: 5px;
 
-    > p {
-        margin-top:10px;
-    }
+  > p {
+    margin-top:10px;
+  }
 
-    .closed {
-        display:none;
-    }
+  .closed {
+    display:none;
+  }
 
-    .open {
-        display:initial;
-    }
+  .open {
+    display:initial;
+  }
 }
 
 h2 span {
-    font-size: 80%;
+  font-size: 80%;
 
-    button {
-        vertical-align: middle;
-    }
+  button {
+    vertical-align: middle;
+  }
 }
 
 h3.movie-title {
-    margin-top:0;
-    padding:15px 15px 0;
+  margin: .75rem;
+  padding: 0;
 }
 
 p {
-    &.movie-genres {
-        font-style: italic;
-    }
+  &.movie-genres {
+    font-style: italic;
+  }
 
-    &.movie-rating {
-        margin-left: 15px;
-    }
+  &.movie-rating {
+    margin-left: 15px;
+  }
 
-    &.pad-bot {
-        padding-bottom: 20px;
-    }
+  &.pad-bot {
+    padding-bottom: 20px;
+  }
 
-    &.small-text {
-        font-size: 0.8em;
-        margin: 10px 0;
-    }
+  &.small-text {
+    font-size: 0.8em;
+    margin: 10px 0;
+  }
 }
 
 .left-marg {
@@ -130,123 +164,125 @@ p {
 }
 
 .hidden {
-    display:none;
+  display:none;
 }
 
 .not-hidden {
-    display:initial;
+  display:initial;
 }
 
 ul.showtimes-list li {
-    display:inline-block;
-    margin-right:10px;
+  display:inline-block;
+  margin-right:10px;
 }
 
 div.clear {
-    clear:both;
-    height:10px;
+  clear:both;
+  height:10px;
 }
 
 .inline {
-    display: inline-block;
-    margin-right:10px;
+  display: inline-block;
+  margin-right:10px;
 }
 
 .show img {
-    float:left;
-    margin: 0 10px 10px 0;
+  float:left;
+  margin: 0 10px 10px 0;
 }
 
 .img-left {
-    float:left;
-    margin-right: 10px;
+  float:left;
+  margin-right: 10px;
 }
 
 .sub-menu {
-    width: 100%;
+  width: 100%;
 
-    ul {
-        display:flex;
-        flex-direction: row;
-        width:100%;
-        margin:0;
-        padding:0;
-        li {
-            width: 33.333%;
+  ul {
+    display:flex;
+    flex-direction: row;
+    width:100%;
+    margin:0;
+    padding:0;
+    li {
+      width: 33.333%;
+      background-color:#efefef;
+      border-right:4px solid #a4a4a4;
+      text-align: center;
+      padding: 10px 0;
+
+      a {
+        text-decoration: none;
+        padding: 0 40px;
+        &.active {
+          background-color:paleturquoise;
+          &.inactive {
             background-color:#efefef;
-            border-right:4px solid #a4a4a4;
-            text-align: center;
-            padding: 10px 0;
-
-            a {
-                text-decoration: none;
-                padding: 0 40px;
-                &.active {
-                    background-color:paleturquoise;
-                    &.inactive {
-                        background-color:#efefef;
-                    }
-                }
-            }
-
-            &:last-child {
-                border:none;
-            }
+          }
         }
+      }
+
+      &:last-child {
+        border:none;
+      }
     }
+  }
 }
 
 
 div.active {
-    display:block;
+  display:block;
 }
 
 p.active {
-    display: initial;
+  display: initial;
 }
 
 div.inactive,
 p.inactive {
-    display: none;
+  display: none;
 }
 
 input[type=text],
 input[type=number],
 input[type=submit] {
-    margin: 10px 0;
-    padding:8px;
-    font-size:1.2em;
+  margin: 10px 0;
+  padding:8px;
+  font-size:1.2em;
 }
 
 input[type=submit] {
-    border: 1px solid #a4a4a4;
-    background-color:#efefef;
-    padding:9px;
-    cursor:pointer;
+  border: 1px solid #a4a4a4;
+  background-color:#efefef;
+  padding:9px;
+  cursor:pointer;
 
-    &:hover {
-        background-color:paleturquoise;
-    }
+  &:hover {
+    background-color:paleturquoise;
+  }
 }
 
 .loading-spinner {
-    max-width: 300px;
-    height: auto;
+  max-width: 300px;
+  height: auto;
 }
 
 .filter-btn {
-    display: flex;
-    button {
-        background: navy;
-        border: 1px solid navy;
-        border-radius: 4px;
-        font-size: .9rem;
-        color: white;
-        margin-right: 5px;
-        padding: 5px 15px;
-        &.reset {
-            color: navy;
-            background: lightcyan;
-        }
+  display: flex;
+  flex-flow: row wrap;
+  button {
+    background: navy;
+    border: 1px solid navy;
+    border-radius: 4px;
+    font-size: .9rem;
+    color: white;
+    margin-right: .25rem;
+    margin-bottom: .25rem;
+    padding: 5px 15px;
+    &.reset {
+      color: navy;
+      background: lightcyan;
     }
+  }
 }
