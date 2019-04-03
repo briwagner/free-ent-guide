@@ -1,31 +1,23 @@
-# DemoNG2
+# Free Entertainment Guide
 
-This project was generated with [angular-cli](https://github.com/angular/angular-cli) version 1.0.0-beta.24.
+[www.free-entertainment-guide.com](www.free-entertainment-guide.com)
 
-## Development server
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+## Project Details
 
-## Code scaffolding
+This project leverages third-party APIs to provide information on movies and television programming. It is a work in progress, as the (free) resources are available to deliver the content.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive/pipe/service/class/module`.
+## Backend Data
 
-## Build
+The progamming data is provided directly from third-party sources. But it relies on a custom backend to protect the API keys for each of the providers. That backend is built in Golang and communicates with a Redis caching layer to limit the amount of API queries.
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `-prod` flag for a production build.
+## Planned Enhancements
 
-## Running unit tests
+- Display news and updates on television programming
+- Create a user-controlled space for saving favorite programs, etc.
+- Integrate Angular route guards for user-controlled spaces
+- Integrate backend to supply authentication via JSON web token
+- Link to movie theater purchasing options
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+## Build Tools
 
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-Before running the tests make sure you are serving the app via `ng serve`.
-
-## Deploying to Github Pages
-
-Run `ng github-pages:deploy` to deploy to Github Pages.
-
-## Further help
-
-To get more help on the `angular-cli` use `ng help` or go check out the [Angular-CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+This project was generated with [angular-cli](https://github.com/angular/angular-cli).
