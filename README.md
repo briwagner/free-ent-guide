@@ -10,6 +10,8 @@ This project leverages third-party APIs to provide information on movies and tel
 
 The progamming data is provided directly from third-party sources. But it relies on a custom backend to protect the API keys for each of the providers. That backend is built in Golang and communicates with a Redis caching layer to limit the amount of API queries.
 
+More information here: https://github.com/briwagner/free-ent-guide-backend
+
 ## Planned Enhancements
 
 - Display news and updates on television programming
