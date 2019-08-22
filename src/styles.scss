@@ -56,6 +56,10 @@ div.movieTile {
   border-radius:4px;
   margin-bottom:10px;
   padding:0;
+
+  img {
+    max-width: 100%;
+  }
 }
 
 div.tile-header {
