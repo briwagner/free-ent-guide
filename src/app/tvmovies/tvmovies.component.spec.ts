@@ -4,6 +4,8 @@ import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 
 import { TvmoviesComponent } from './tvmovies.component';
+import { FormsModule } from '@angular/forms';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('TvmoviesComponent', () => {
   let component: TvmoviesComponent;
@@ -11,6 +13,7 @@ describe('TvmoviesComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      imports: [FormsModule, RouterTestingModule],
       declarations: [ TvmoviesComponent ]
     })
     .compileComponents();

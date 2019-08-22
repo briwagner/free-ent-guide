@@ -1,9 +1,13 @@
 /* tslint:disable:no-unused-variable */
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { DebugElement } from '@angular/core';
+import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
 
 import { MoviesComponent } from './movies.component';
+import { ZipComponent } from 'app/zip/zip.component';
+import {MoviesService} from '../services/movies.service';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { UserService } from 'app/services/user.service';
 
 describe('MoviesComponent', () => {
   let component: MoviesComponent;
@@ -11,7 +15,10 @@ describe('MoviesComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ MoviesComponent ]
+      imports: [HttpClientTestingModule],
+      declarations: [ MoviesComponent ],
+      providers: [ZipComponent, MoviesService, UserService],
+      schemas: [NO_ERRORS_SCHEMA]
     })
     .compileComponents();
   }));

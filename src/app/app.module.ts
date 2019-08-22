@@ -7,7 +7,6 @@ import { EntertainmentRouter } from './app-routing.module';
 
 // components
 import { AppComponent } from './app.component';
-import { HeroesComponent } from './heroes/heroes.component';
 import { MoviesComponent } from './movies/movies.component';
 import { SportsComponent } from './sports/sports.component';
 import { TvmoviesComponent } from './tvmovies/tvmovies.component';
@@ -39,7 +38,6 @@ enableProdMode();
 @NgModule({
   declarations: [
     AppComponent,
-    HeroesComponent,
     MoviesComponent,
     ZipComponent,
     SportsComponent,

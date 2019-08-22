@@ -4,6 +4,8 @@ import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 
 import { ZipComponent } from './zip.component';
+import { FormsModule } from '@angular/forms';
+import { UserService } from 'app/services/user.service';
 
 describe('ZipComponent', () => {
   let component: ZipComponent;
@@ -11,7 +13,9 @@ describe('ZipComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ZipComponent ]
+      imports: [FormsModule],
+      declarations: [ ZipComponent ],
+      providers: [UserService]
     })
     .compileComponents();
   }));

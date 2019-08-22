@@ -4,6 +4,9 @@ import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 
 import { LandingComponent } from './landing.component';
+import { TvShowSearchService } from 'app/services/tv-show-search.service';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import {DiscoverMoviesService} from '../services/discover-movies.service';
 
 describe('LandingComponent', () => {
   let component: LandingComponent;
@@ -11,7 +14,9 @@ describe('LandingComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ LandingComponent ]
+      imports: [HttpClientTestingModule],
+      declarations: [ LandingComponent ],
+      providers: [TvShowSearchService, DiscoverMoviesService]
     })
     .compileComponents();
   }));
