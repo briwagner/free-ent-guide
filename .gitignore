@@ -38,7 +38,5 @@ testem.log
 .DS_Store
 Thumbs.db
 
-# api key
-/src/app/api_key.ts
 # demo content
 /src/app/services/rawmovies.ts
