@@ -11,43 +11,33 @@ export class ZipComponent implements OnInit {
 
   zipCode;
   hasZip: boolean = false;
+  formError: boolean = false;
 
   constructor(private userservice: UserService) {
     this.userservice.userZip$.subscribe(newVal =>  this.zipCode = newVal);
   }
 
   ngOnInit() {
-    // Check params for zip code and use if present.
-    // REgex to remove leading '?' character.
-    let ppp = new URLSearchParams(location.search);
-    // console.log(ppp.paramsMap);
-    if (location.search.includes('zip')) {
-      this.getQuery();
-    } else {
-      // Check localStorage for zip code and use.
-      if (localStorage.getItem('zipCode')) {
-        this.storeZip(localStorage.getItem('zipCode'));
-      }
+    // Check localStorage for zip code and use.
+    if (localStorage.getItem('zipCode')) {
+      this.storeZip(localStorage.getItem('zipCode'));
+    } else if (location.search.includes('zip')) {
+      let params =  new URLSearchParams(location.search.substring(1));
+      this.storeZip(params.get("zip"))
     }
   }
 
-  /**
-   * What does this do??
-   */
-  getQuery() {
-    let params = new URLSearchParams(location.search);
-    // regex to find this ...?
-    // this.zipCode = params.get('zip');
-    // console.log({zip: this.zipCode});
-    this.userservice.storeZip(params.get('zip'));
-  }
-
   storeZip(data) {
-    localStorage.setItem('zipCode', data);
-    window.history.pushState({}, 'Movies in ' + data, window.location.pathname + "?zip=" + data);
-    this.zipCode = data;
-    this.userservice.storeZip(data);
-    this.hasZip = true;
+    if (this.validZip(data)) {
+      localStorage.setItem('zipCode', data);
+      window.history.pushState({}, 'Movies in ' + data, window.location.pathname + "?zip=" + data);
+      this.zipCode = data;
+      this.userservice.storeZip(data);
+      this.hasZip = true;
+      this.formError = false;
+    } else {
+      this.formError = true;
+    }
   }
 
   clearZip() {
@@ -57,10 +47,9 @@ export class ZipComponent implements OnInit {
     this.hasZip = false;
   }
 
-  validZip() {
-    let systemZip = this.userservice.userZipSubject.getValue();
-    if (systemZip != undefined) {
-      if (systemZip.toString().length == 5) {
+  validZip(zip: number) {
+    if (zip != undefined) {
+      if (zip.toString().length == 5) {
         return true;
       }
     }

@@ -1,13 +1,30 @@
 <div class="discovers">
-  <h4>New Movie Releases for {{date | date:'shortDate'}}</h4>
-  <div *ngFor="let mov of discovers" class="movieTile" (click)="mov.selected = !mov.selected">
-    <div class="tile-header">
-      <h3 class="movie-title inline">{{ mov.title }}</h3>
+  <h4>New Movie Releases from {{date | date:'shortDate'}}</h4>
+  <ng-container *ngIf="isLoading">
+    <div *ngFor="let i of [1,2,3,4,5,6]"
+        [@fadeOut]="'loading'"
+         class="movieTile dummy">
+      <div class="tile-header">
+        <h3 class="movie-title inline">__</h3>
+      </div>
+      <div class="tile-body">
+        <p>__</p>
+      </div>
     </div>
-    <div class="tile-body">
-      <p>{{ mov.description }}</p>
-      <img *ngIf="mov.poster_img"  src="{{ mov.poster_img }}" alt="{{ mov.title }}">
-      <p>Releases: {{ mov.release | date:'mediumDate'}}</p>
+  </ng-container>
+
+  <ng-container *ngIf="!isLoading">
+    <div *ngFor="let mov of discovers"
+         [@fadeIn]
+         class="movieTile">
+      <div class="tile-header">
+        <h3 class="movie-title inline">{{ mov.title }}</h3>
+      </div>
+      <div class="tile-body">
+        <p>{{ mov.description }}</p>
+        <img *ngIf="mov.poster_img"  src="{{ mov.poster_img }}" alt="{{ mov.title }}">
+        <p>Releases: {{ mov.release | date:'mediumDate'}}</p>
+      </div>
     </div>
-  </div>
+  </ng-container>
 </div>

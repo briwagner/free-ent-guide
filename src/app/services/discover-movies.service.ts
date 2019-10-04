@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { environment } from '../../environments/environment';
 
 import { HttpClient, HttpParams} from '@angular/common/http';
 import {map} from 'rxjs/operators';
@@ -8,7 +9,7 @@ import { Movie } from '../models/movie';
 @Injectable()
 export class DiscoverMoviesService {
 
-  private baseUrl = "http://api.free-entertainment-guide.com/v1/discover";
+  private baseUrl = environment.apiBase + "/discover"
 
   constructor(private http: HttpClient) { }
 

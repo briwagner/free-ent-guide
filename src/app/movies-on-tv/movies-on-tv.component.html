@@ -3,33 +3,33 @@
 </div>
 
 <div class="movies" [hidden]="!moviesShowing">
-  <h2>Movies on TV</h2>
+  <h2 class="section-title">Movies on TV</h2>
   <form class="movies-genre" (ngSubmit)="setFilter(movieInput)">
     <input type="text" [(ngModel)]="movieInput" placeholder="Select genre" name="genre-filter">
-    <input type="Submit" value="Apply Filter">
+    <input type="Submit" value="Filter">
   </form>
   <div class="filter-btn">
-    <button type="button" (click)="setFilter('children')">Family</button>
-    <button type="button" (click)="setFilter('animated')">Animated</button>
-    <button type="button" (click)="setFilter('comedy')">Comedy</button>
-    <button type="button" (click)="setFilter('drama')">Drama</button>
-    <button type="button" (click)="setFilter('action')">Action</button>
-    <button type="button" (click)="setFilter('adventure')">Adventure</button>
-    <button type="button" (click)="setFilter('science fiction')">Sci-fi</button>
-    <button type="button" (click)="setFilter('thriller')">Thriller</button>
-    <button type="button" (click)="setFilter('horror')">Horror</button>
+    <button type="button" [class.active]="movieFilter == 'children'" (click)="setFilter('children')">Family</button>
+    <button type="button" [class.active]="movieFilter == 'animated'" (click)="setFilter('animated')">Animated</button>
+    <button type="button" [class.active]="movieFilter == 'comedy'" (click)="setFilter('comedy')">Comedy</button>
+    <button type="button" [class.active]="movieFilter == 'drama'" (click)="setFilter('drama')">Drama</button>
+    <button type="button" [class.active]="movieFilter == 'action'" (click)="setFilter('action')">Action</button>
+    <button type="button" [class.active]="movieFilter == 'adventure'" (click)="setFilter('adventure')">Adventure</button>
+    <button type="button" [class.active]="movieFilter == 'science fiction'" (click)="setFilter('science fiction')">Sci-fi</button>
+    <button type="button" [class.active]="movieFilter == 'thriller'" (click)="setFilter('thriller')">Thriller</button>
+    <button type="button" [class.active]="movieFilter == 'horror'" (click)="setFilter('horror')">Horror</button>
     <button type="button" class="reset" (click)="setFilter('')">Reset</button>
   </div>
   <p *ngIf=moviesShowing class="small-text"><em>{{(moviesShowing | genrePipe:movieFilter).length}} movies found</em></p>
 
-  <div *ngFor="let mov of (moviesShowing | genrePipe:movieFilter)"
+  <div *ngFor="let mov of (moviesShowing | genrePipe:movieFilter)" [@fadeIn]
        class="movieTile" (click)="mov.selected = !mov.selected">
     <div class="tile-header">
       <h3 class="movie-title inline">{{ mov.title }}</h3>
       <p class="inline">{{mov.station}}</p>
       <p class="inline left-marg">{{mov.tvshowtime | date:'shortTime'}}</p>
     </div>
-    <div class="tile-body">
+    <div class="tile-body" [hidden]="!mov.selected" [@expand]>
       <div [class]="mov.selected ? 'open' : 'closed'">
         <p [class]="mov.qualityRating > -1 ? 'active' : 'inactive'">Rating: {{ mov.qualityRating }}</p>
         <p class="description"><em>{{ mov.description }}</em></p>

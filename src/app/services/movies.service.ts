@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { environment } from '../../environments/environment';
 
 import { HttpClient, HttpParams} from '@angular/common/http';
 import { Headers } from '@angular/http';
@@ -9,7 +10,7 @@ import { Movie } from '../models/movie';
 @Injectable()
 export class MoviesService {
 
-  private url = "http://api.free-entertainment-guide.com/v1/movies";
+  private url = environment.apiBase + "/movies";
 
   // Should be using this headers??
   // TODO: resolve this. Content-type or Accept? Or Both?

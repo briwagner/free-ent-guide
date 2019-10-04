@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { environment } from '../../environments/environment';
 
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Headers } from '@angular/http';
@@ -9,7 +10,7 @@ import { Movie } from '../models/movie';
 @Injectable()
 export class TvmoviesService {
 
-  private url = 'http://api.free-entertainment-guide.com/v1/tv-movies';
+  private url = environment.apiBase + '/tv-movies';
   private headers = new Headers({'Content-Type': 'application/json'});
 
   constructor(private http: HttpClient) { }

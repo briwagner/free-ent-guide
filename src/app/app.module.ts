@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { HttpClientModule } from '@angular/common/http';
 import { EntertainmentRouter } from './app-routing.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 // components
 import { AppComponent } from './app.component';
@@ -54,7 +55,8 @@ enableProdMode();
     FormsModule,
     HttpModule,
     HttpClientModule,
-    EntertainmentRouter
+    EntertainmentRouter,
+    BrowserAnimationsModule
   ],
   providers: [
     MoviesService,

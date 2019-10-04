@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { environment } from '../../environments/environment';
 
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Headers } from '@angular/http';
@@ -11,7 +12,8 @@ import { Api_Key } from '../api_key';
 @Injectable()
 export class SportsService {
 
-  private url = 'http://api.free-entertainment-guide.com/v1/tv-sports';
+  private url = environment.apiBase + '/tv-sports';
+
   private headers = new Headers({'Content-Type': 'application/json'});
 
   constructor(private http: HttpClient) { }

@@ -3,21 +3,21 @@
 </div>
 
 <div class="sports" [hidden]="!sportsShowing">
-  <h2>Sports on TV - <span class='date'>
-    <button (click)="changeDate(-1)"><</button>
+  <h2 class="section-title">Sports on TV - <span class='date'>
+    <button class="btn-icon" (click)="changeDate(-1)"><i class="material-icons">arrow_left</i></button>
     {{sched_date | date: 'M/d'}}
-    <button (click)="changeDate(1)">></button>
+    <button class="btn-icon" (click)="changeDate(1)"><i class="material-icons">arrow_right</i></button>
     </span></h2>
   <form class="sports-genre" (ngSubmit)="setFilter(sportInput)">
     <input type="text" [(ngModel)]="sportInput" placeholder="Search by sport" name="sport-filter">
-    <input type="Submit" value="Apply Filter">
+    <input type="Submit" value="Filter">
   </form>
   <div class="filter-btn">
-    <button type="button" (click)="setFilter('football')">Football</button>
-    <button type="button" (click)="setFilter('soccer')">Soccer</button>
-    <button type="button" (click)="setFilter('hockey')">Hockey</button>
-    <button type="button" (click)="setFilter('basketball')">Basketball</button>
-    <button type="button" (click)="setFilter('baseball')">Baseball</button>
+    <button type="button" [class.active]="sportFilter == 'football'" (click)="setFilter('football')">Football</button>
+    <button type="button" [class.active]="sportFilter == 'soccer'" (click)="setFilter('soccer')">Soccer</button>
+    <button type="button" [class.active]="sportFilter == 'hockey'" (click)="setFilter('hockey')">Hockey</button>
+    <button type="button" [class.active]="sportFilter == 'basketball'" (click)="setFilter('basketball')">Basketball</button>
+    <button type="button" [class.active]="sportFilter == 'baseball'" (click)="setFilter('baseball')">Baseball</button>
     <button type="button" class="reset" (click)="setFilter('')">Reset</button>
   </div>
   <p *ngIf="sportsShowing" class="small-text"><em>{{(sportsShowing | genrePipe:sportFilter).length}} events found</em></p>

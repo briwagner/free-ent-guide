@@ -16,7 +16,10 @@
 
 <div class="movie-ctr">
 
-  <div *ngFor="let mov of moviesShowing" class="movieTile" (click)="mov.selected = !mov.selected">
+  <div *ngFor="let mov of moviesShowing"
+       [@fadeIn]
+       class="movieTile"
+       (click)="mov.selected = !mov.selected">
     <div class="tile-header">
       <h3 class="movie-title inline">{{ mov.title }}</h3>
       <p class="inline" [style.visibility]="mov.qualityRating > -1 ? 'visible' : 'hidden'">Rating: {{ mov.qualityRating }}</p>

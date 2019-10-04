@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { environment } from '../../environments/environment';
 
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { map } from 'rxjs/operators';
@@ -8,7 +9,7 @@ import { Show } from '../models/show';
 @Injectable()
 export class TvShowSearchService {
 
-  private url = 'http://api.free-entertainment-guide.com/v1/tv-search';
+  private url = environment.apiBase + '/tv-search';
 
   constructor(private http: HttpClient) { }
 

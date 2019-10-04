@@ -1,17 +1,30 @@
 import { Component, OnInit } from '@angular/core';
 import { TvmoviesService } from '../services/tvmovies.service';
 import { GenrePipe } from '../genre.pipe';
+import { trigger, state, style, animate, transition } from '@angular/animations';
+
+import { Movie } from '../models/movie';
 
 @Component({
   selector: 'app-movies-on-tv',
   templateUrl: './movies-on-tv.component.html',
+  animations: [
+    trigger('fadeIn', [
+      state('void', style({opacity:0})),
+      transition(':enter', animate(1000))
+    ]),
+    trigger('expand', [
+      state('void', style({opacity: 0})),
+      transition(':enter', animate(2000))
+    ])
+  ]
 })
 export class MoviesOnTvComponent implements OnInit {
 
-  moviesShowing;
+  moviesShowing: Array<Movie>;
   movieFilter: string;
-  loading: Boolean;
   movieInput: string;
+  loading: Boolean;
 
   constructor(private tvmoviesservice: TvmoviesService) { }
 

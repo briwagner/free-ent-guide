@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { trigger, state, style, animate, transition } from '@angular/animations';
 
 import { MoviesService } from '../services/movies.service';
 import { UserService } from '../services/user.service';
@@ -6,6 +7,12 @@ import { UserService } from '../services/user.service';
 @Component({
   selector: 'app-movies',
   templateUrl: './movies.component.html',
+  animations: [
+    trigger('fadeIn', [
+      state('void', style({opacity:0})),
+      transition(':enter', animate(750))
+    ])
+  ]
 })
 export class MoviesComponent implements OnInit {
 
@@ -33,10 +40,8 @@ export class MoviesComponent implements OnInit {
     this.loading = false;
     if (this.moviesShowing.length > 0) {
       this.hasData = true;
-      return true;
     }
     this.hasData = false;
-    return false;
   }
 
   getMovies() {
@@ -45,7 +50,7 @@ export class MoviesComponent implements OnInit {
     this.moviesservice.getMovies(this.userZip)
                       .subscribe(
                         p => this.moviesShowing = p,
-                        e => console.log(e, 'error getting movies'),
+                        e => {console.log(e, 'error getting movies'); this.loading = false},
                         () => this.hasMovies()
                       );
   }
