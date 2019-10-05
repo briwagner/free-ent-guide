@@ -25,8 +25,8 @@ export class LandingComponent implements OnInit {
   results; // what is this for?
   date: Date;
   discovers;
-  discoverCount;
   isLoading: boolean = true;
+  errorMsg: string = '';
 
   constructor(
     private showSearch: TvShowSearchService,
@@ -42,11 +42,11 @@ export class LandingComponent implements OnInit {
   getMovies() {
     this.discoverMovies.getMovies(this.date)
       .subscribe(
-        p => {
-          this.discovers = p;
-          this.discoverCount = p.length;
+        p => this.discovers = p,
+        e => {
+          console.log('Error:', e.message)
+          this.errorMsg = "Failed to get listings.";
         },
-        e => console.log('Error:', e.message),
         () => this.isLoading = false
       );
   }

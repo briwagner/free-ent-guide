@@ -33,6 +33,8 @@ import { GenrePipe } from './genre.pipe';
 
 // production mode
 import { enableProdMode } from '@angular/core';
+import { TvMenuComponent } from './tv-menu/tv-menu.component';
+import { LoadingDotsComponent } from './loading-dots/loading-dots.component';
 
 enableProdMode();
 
@@ -48,7 +50,9 @@ enableProdMode();
     StripHTMLtagsPipe,
     GenrePipe,
     SearchComponent,
-    MoviesOnTvComponent
+    MoviesOnTvComponent,
+    TvMenuComponent,
+    LoadingDotsComponent
   ],
   imports: [
     BrowserModule,

@@ -232,16 +232,30 @@ div.clear {
     width:100%;
     margin:0;
     padding:0;
+    @media screen and (max-width: 620px) {
+      flex-direction: column;
+    }
     li {
       width: 33.333%;
-      background-color:#efefef;
-      border-right:4px solid #a4a4a4;
+      background-color: #efefef;
+      border-right: 4px solid #a4a4a4;
+      border-bottom: 2px solid transparent;
       text-align: center;
-      padding: 10px 0;
+      @media screen and (max-width: 620px) {
+        width: 100%;
+        border-right: 0px;
+        border-bottom: 2px solid #a4a4a4;
+      }
+      &:hover {
+        border-bottom: 2px solid navy;
+      }
 
       a {
+        display: block;
         text-decoration: none;
-        padding: 0 40px;
+        padding: 10px 0;
+        color: navy;
+        font-weight: 600;
         &.active {
           background-color:paleturquoise;
           &.inactive {
@@ -251,7 +265,7 @@ div.clear {
       }
 
       &:last-child {
-        border:none;
+        border-right: none;
       }
     }
   }
@@ -320,4 +334,15 @@ input[type=submit] {
 
 button.btn-icon {
   padding: 0;
+}
+
+div.error-msg {
+  text-align: center;
+  padding: 0.2rem;
+  background-color: rgba(pink, .3);
+  i {
+    vertical-align: middle;
+    padding-left: .5rem;
+    padding-right: .5rem;
+  }
 }

@@ -1,5 +1,11 @@
-<div class="loading-spinner" [hidden]="!loading">
-  <img src="/assets/images/01-progress.gif" alt="Loading">
+<app-tv-menu></app-tv-menu>
+
+<ng-container *ngIf="loading">
+  <app-loading-dots ></app-loading-dots>
+</ng-container>
+
+<div class="error-msg" [hidden]="!errorMsg">
+  <h3><i class="material-icons">warning</i>{{ errorMsg }}</h3>
 </div>
 
 <div class="movies" [hidden]="!moviesShowing">

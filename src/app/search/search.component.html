@@ -1,6 +1,4 @@
-<div class="loading-spinner" [hidden]="!loading">
-  <img src="/assets/images/01-progress.gif" alt="Loading">
-</div>
+<app-tv-menu></app-tv-menu>
 
 <div class="search">
   <h2 class="section-title">Search for a Show</h2>
@@ -12,9 +10,17 @@
         <input type="submit" value="Search">
     </form>
   </div>
-  <div class="results" [hidden]="!results">
-    <h3>Results</h3>
-    <p class="small-text"><em>Searching for: {{queryString}}</em></p>
+
+  <div class="error-msg" [hidden]="!errorMsg">
+    <h3><i class="material-icons">warning</i>{{ errorMsg }}</h3>
+  </div>
+
+  <ng-container *ngIf="loading">
+    <app-loading-dots ></app-loading-dots>
+  </ng-container>
+
+  <div class="results" [hidden]="results?.length < 1">
+    <p class="small-text"><em>Results for: {{queryString}}</em></p>
     <div class="show" *ngFor="let show of results" class="movieTile">
       <div class="tile-header">
         <h3 class="movie-title inline">{{ show.title }}</h3>

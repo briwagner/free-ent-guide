@@ -3,6 +3,7 @@ import { trigger, state, style, animate, transition } from '@angular/animations'
 
 import { MoviesService } from '../services/movies.service';
 import { UserService } from '../services/user.service';
+import { Movie } from '../models/movie';
 
 @Component({
   selector: 'app-movies',
@@ -17,10 +18,11 @@ import { UserService } from '../services/user.service';
 export class MoviesComponent implements OnInit {
 
   title: String = 'Movies';
-  moviesShowing;
-  userZip;
+  moviesShowing: Array<Movie>;
+  userZip: any;
   hasData: Boolean = false;
   loading: Boolean = false;
+  errorMsg: String = '';
 
   constructor(
     private moviesservice: MoviesService,
@@ -38,6 +40,7 @@ export class MoviesComponent implements OnInit {
 
   hasMovies() {
     this.loading = false;
+    this.errorMsg = "";
     if (this.moviesShowing.length > 0) {
       this.hasData = true;
     }
@@ -50,7 +53,11 @@ export class MoviesComponent implements OnInit {
     this.moviesservice.getMovies(this.userZip)
                       .subscribe(
                         p => this.moviesShowing = p,
-                        e => {console.log(e, 'error getting movies'); this.loading = false},
+                        e => {
+                          console.log(e, 'error getting movies');
+                          this.loading = false;
+                          this.errorMsg = "Failed to get listings";
+                        },
                         () => this.hasMovies()
                       );
   }

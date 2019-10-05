@@ -22,9 +22,10 @@ import { Movie } from '../models/movie';
 export class MoviesOnTvComponent implements OnInit {
 
   moviesShowing: Array<Movie>;
-  movieFilter: string;
-  movieInput: string;
+  movieFilter: String;
+  movieInput: String;
   loading: Boolean;
+  errorMsg: String = '';
 
   constructor(private tvmoviesservice: TvmoviesService) { }
 
@@ -40,7 +41,8 @@ export class MoviesOnTvComponent implements OnInit {
                         p => this.moviesShowing = this.removeDupes(p),
                         e => {
                           console.log(e)
-                          this.loadedShows()
+                          this.loadedShows();
+                          this.errorMsg = "Failed to get listings";
                         },
                         () => this.loadedShows()
                       );

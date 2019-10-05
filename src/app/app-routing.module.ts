@@ -22,21 +22,20 @@ const routes: Routes = [
   },
   {
     path: 'television',
-    component: TvmoviesComponent,
-    canActivate: [AuthGuard],
-    children: [
-      {
-        path: 'movies',
-        component: MoviesOnTvComponent
-      },
-      {
-        path: 'sports',
-        component: SportsComponent
-      }, {
-        path: 'search',
-        component: SearchComponent
-      }
-    ]
+    component: MoviesOnTvComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'television/movies',
+    component: MoviesOnTvComponent,
+  },
+  {
+    path: 'television/sports',
+    component: SportsComponent
+  },
+  {
+    path: 'television/search',
+    component: SearchComponent
   },
   {
     path: '**',

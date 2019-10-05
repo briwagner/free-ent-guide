@@ -1,0 +1,12 @@
+.loading-dots {
+  width: 100%;
+  height: 50px;
+  background: #efefef;
+  margin: 0.25rem 0;
+}
+
+.loading-cr {
+  cy: 26px;
+  cx: 50px;
+  fill: navy;
+}

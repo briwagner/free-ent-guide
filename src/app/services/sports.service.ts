@@ -114,9 +114,31 @@ function formatDate(dateObj: Date) {
   if (dateObj) {
     date.setDate(dateObj.getDate());
   }
-  let arr = [date.getFullYear(),
-             ("0" + (date.getMonth() + 1)).slice(-2),
-             // For some reason, api is pulling in yesterday by default. So we apply offset.
-             ("0" + (date.getDate() + 1)).slice(-2)];
-  return arr.join("-");
+  let dateFormatted = [
+    date.getFullYear(),
+    ("0" + (date.getMonth() + 1)).slice(-2),
+    ("0" + (date.getDate())).slice(-2)
+  ].join("-");
+  dateFormatted = dateFormatted + "T";
+
+  // Convert locale date to UTC.
+  let tz = date.getTimezoneOffset();
+  let offsetHrs = Math.abs(tz / 60);
+  let offsetMins = Math.abs(tz % 60);
+  let utcHours, utcMins;
+  // West of UTC.
+  if (tz > 0) {
+    utcHours = date.getHours() + offsetHrs;
+    utcMins = date.getMinutes() + offsetMins;
+  } else { // East of UTC.
+    utcHours = date.getHours() - offsetHrs;
+    utcMins = date.getMinutes() - offsetMins;
+  }
+  dateFormatted += ("0" + utcHours).slice(-2);
+  dateFormatted += ":";
+  dateFormatted += ("0" + utcMins).slice(-2);
+  // Only seems reliable to send UTC to api, so append the TZ code.
+  dateFormatted += "Z";
+
+  return dateFormatted;
 }

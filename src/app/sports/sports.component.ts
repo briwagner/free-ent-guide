@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { SportsService } from '../services/sports.service';
+import { TvMenuComponent } from '../tv-menu/tv-menu.component';
 import { GenrePipe } from '../genre.pipe';
+import { Sport } from '../models/sport';
 
 @Component({
   selector: 'app-sports',
@@ -8,22 +10,19 @@ import { GenrePipe } from '../genre.pipe';
 })
 export class SportsComponent implements OnInit {
 
-  title: string = "Sports on TV";
-  sportsShowing;
-  results;
-  loading: Boolean;
-  active: string;
-  sportFilter: string;
-  date_offset: number;
-  sched_date;
-  sportInput;
+  title: String = "Sports on TV";
+  sportsShowing: Array<Sport>;
+  loading: Boolean = false;
+  sportFilter: String;
+  dateOffset: number = 0;
+  schedDate: Date;
+  sportInput: String;
+  errorMsg: String = '';
 
   constructor(private sportsservice: SportsService) { }
 
   ngOnInit() {
-    this.date_offset = 0;
-    this.sched_date = new Date();
-    this.loading = false;
+    this.schedDate = new Date();
     this.getSports()
   }
 
@@ -32,12 +31,13 @@ export class SportsComponent implements OnInit {
     // Don't query for results again, if data is present.
     if (this.sportsShowing) return;
 
-    this.sportsservice.getSports(this.sched_date)
+    this.sportsservice.getSports(this.schedDate)
                       .subscribe(
                         p => this.sportsShowing = this.removeDupes(p),
                         e => {
-                          console.log(e)
-                          // this.loadedShows()
+                          console.log(e);
+                          this.loadedShows();
+                          this.errorMsg = "Failed to get listings.";
                         },
                         () => this.loadedShows()
                       );
@@ -65,10 +65,10 @@ export class SportsComponent implements OnInit {
   }
 
   changeDate(offset) {
-    this.date_offset += offset;
+    this.dateOffset += offset;
     let date = new Date();
-    let newDate = date.setDate(date.getDate() + this.date_offset);
-    this.sched_date = new Date(newDate);
+    let newDate = date.setDate(date.getDate() + this.dateOffset);
+    this.schedDate = new Date(newDate);
     this.sportsShowing = null;
     this.getSports();
   }

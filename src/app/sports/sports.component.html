@@ -1,11 +1,17 @@
-<div class="loading-spinner" [hidden]="!loading">
-  <img src="/assets/images/01-progress.gif" alt="Loading">
+<app-tv-menu></app-tv-menu>
+
+<div class="error-msg" [hidden]="!errorMsg">
+  <h3><i class="material-icons">warning</i>{{ errorMsg }}</h3>
 </div>
+
+<ng-container *ngIf="loading">
+  <app-loading-dots ></app-loading-dots>
+</ng-container>
 
 <div class="sports" [hidden]="!sportsShowing">
   <h2 class="section-title">Sports on TV - <span class='date'>
     <button class="btn-icon" (click)="changeDate(-1)"><i class="material-icons">arrow_left</i></button>
-    {{sched_date | date: 'M/d'}}
+    {{schedDate | date: 'M/d'}}
     <button class="btn-icon" (click)="changeDate(1)"><i class="material-icons">arrow_right</i></button>
     </span></h2>
   <form class="sports-genre" (ngSubmit)="setFilter(sportInput)">
