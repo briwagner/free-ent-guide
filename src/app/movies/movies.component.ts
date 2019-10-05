@@ -17,12 +17,12 @@ import { Movie } from '../models/movie';
 })
 export class MoviesComponent implements OnInit {
 
-  title: String = 'Movies';
+  title: string = 'Movies';
   moviesShowing: Array<Movie>;
   userZip: any;
   hasData: Boolean = false;
   loading: Boolean = false;
-  errorMsg: String = '';
+  errorMsg: string = '';
 
   constructor(
     private moviesservice: MoviesService,

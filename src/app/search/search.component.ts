@@ -10,8 +10,8 @@ export class SearchComponent implements OnInit {
 
   results: Array<Show>;
   loading: Boolean;
-  queryString: String;
-  errorMsg: String = '';
+  queryString: string;
+  errorMsg: string = '';
 
   constructor(private searchservice: TvShowSearchService) { }
 

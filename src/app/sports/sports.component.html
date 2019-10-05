@@ -1,4 +1,4 @@
-<app-tv-menu></app-tv-menu>
+<app-tv-menu [activePath]="'sports'"></app-tv-menu>
 
 <div class="error-msg" [hidden]="!errorMsg">
   <h3><i class="material-icons">warning</i>{{ errorMsg }}</h3>
@@ -14,7 +14,7 @@
     {{schedDate | date: 'M/d'}}
     <button class="btn-icon" (click)="changeDate(1)"><i class="material-icons">arrow_right</i></button>
     </span></h2>
-  <form class="sports-genre" (ngSubmit)="setFilter(sportInput)">
+  <form class="sports-genre" (ngSubmit)="setFilter(sportInput)" [hidden]=true>
     <input type="text" [(ngModel)]="sportInput" placeholder="Search by sport" name="sport-filter">
     <input type="Submit" value="Filter">
   </form>

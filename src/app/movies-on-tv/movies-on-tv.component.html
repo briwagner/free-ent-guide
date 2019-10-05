@@ -1,4 +1,4 @@
-<app-tv-menu></app-tv-menu>
+<app-tv-menu [activePath]="'movies'"></app-tv-menu>
 
 <ng-container *ngIf="loading">
   <app-loading-dots ></app-loading-dots>
@@ -10,7 +10,7 @@
 
 <div class="movies" [hidden]="!moviesShowing">
   <h2 class="section-title">Movies on TV</h2>
-  <form class="movies-genre" (ngSubmit)="setFilter(movieInput)">
+  <form class="movies-genre" (ngSubmit)="setFilter(movieInput)" [hidden]=true>
     <input type="text" [(ngModel)]="movieInput" placeholder="Select genre" name="genre-filter">
     <input type="Submit" value="Filter">
   </form>

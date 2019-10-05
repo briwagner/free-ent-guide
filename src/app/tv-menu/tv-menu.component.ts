@@ -1,14 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-tv-menu',
   templateUrl: './tv-menu.component.html',
 })
-export class TvMenuComponent implements OnInit {
+export class TvMenuComponent {
 
-  constructor() { }
-
-  ngOnInit() {
-  }
-
+  @Input() activePath: string;
 }

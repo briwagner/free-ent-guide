@@ -151,6 +151,7 @@ div.tile-body {
 h2 {
   &.section-title {
     margin: 0.75rem 0 0.25rem;
+    font-size: 1.25rem;
   }
 
   span {
@@ -257,7 +258,7 @@ div.clear {
         color: navy;
         font-weight: 600;
         &.active {
-          background-color:paleturquoise;
+          background-color:#daf1f1;
           &.inactive {
             background-color:#efefef;
           }

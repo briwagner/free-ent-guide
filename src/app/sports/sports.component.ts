@@ -10,14 +10,14 @@ import { Sport } from '../models/sport';
 })
 export class SportsComponent implements OnInit {
 
-  title: String = "Sports on TV";
+  title: string = "Sports on TV";
   sportsShowing: Array<Sport>;
   loading: Boolean = false;
-  sportFilter: String;
+  sportFilter: string;
   dateOffset: number = 0;
   schedDate: Date;
-  sportInput: String;
-  errorMsg: String = '';
+  sportInput: string;
+  errorMsg: string = '';
 
   constructor(private sportsservice: SportsService) { }
 

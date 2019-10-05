@@ -22,10 +22,10 @@ import { Movie } from '../models/movie';
 export class MoviesOnTvComponent implements OnInit {
 
   moviesShowing: Array<Movie>;
-  movieFilter: String;
-  movieInput: String;
+  movieFilter: string;
+  movieInput: string;
   loading: Boolean;
-  errorMsg: String = '';
+  errorMsg: string = '';
 
   constructor(private tvmoviesservice: TvmoviesService) { }
 

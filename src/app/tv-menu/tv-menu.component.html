@@ -1,7 +1,7 @@
 <div class="sub-menu">
   <ul>
-    <li><a href="/television/movies">Movies on TV</a></li>
-    <li><a href="/television/sports">Sports on TV</a></li>
-    <li><a href="/television/search">Search for a Show</a></li>
+    <li><a href="/television/movies" [class.active]="activePath == 'movies'">Movies on TV</a></li>
+    <li><a href="/television/sports" [class.active]="activePath == 'sports'">Sports on TV</a></li>
+    <li><a href="/television/search" [class.active]="activePath == 'search'">Search for a Show</a></li>
   </ul>
 </div>
