@@ -18,10 +18,11 @@ export class TvmoviesService {
   /**
    * Fetch data.
    *
+   * @param {Date} date
    * @return {Array<Movie>}
    */
-  getMovies() {
-    let params = new HttpParams().set('date', formatDate());
+  getMovies(date) {
+    let params = new HttpParams().set('date', formatDate(date));
     let movies = this.http
                      .get(this.url, {
                         //  TODO: do we need headers??
@@ -96,13 +97,39 @@ function joinArray(arr) {
 /**
  * Prepare date string for http request
  *
+ * @param {Date} dateObj
  * @return {string}
  */
-function formatDate() {
+function formatDate(dateObj) {
   let date = new Date();
-  let arr = [date.getFullYear(),
-             ("0" + (date.getMonth() + 1)).slice(-2),
-             // Must offset date; api returns yesterday by default.
-             ("0" + (date.getDate() + 1)).slice(-2)];
-  return arr.join("-");
+  if (dateObj) {
+    date.setDate(dateObj.getDate());
+  }
+  let dateFormatted = [
+    date.getFullYear(),
+    ("0" + (date.getMonth() + 1)).slice(-2),
+    ("0" + (date.getDate())).slice(-2)
+  ].join("-");
+  dateFormatted = dateFormatted + "T";
+
+  // Convert locale date to UTC.
+  let tz = date.getTimezoneOffset();
+  let offsetHrs = Math.abs(tz / 60);
+  let offsetMins = Math.abs(tz % 60);
+  let utcHours, utcMins;
+  // West of UTC.
+  if (tz > 0) {
+    utcHours = date.getHours() + offsetHrs;
+    utcMins = date.getMinutes() + offsetMins;
+  } else { // East of UTC.
+    utcHours = date.getHours() - offsetHrs;
+    utcMins = date.getMinutes() - offsetMins;
+  }
+  dateFormatted += ("0" + utcHours).slice(-2);
+  dateFormatted += ":";
+  dateFormatted += ("0" + utcMins).slice(-2);
+  // Only seems reliable to send UTC to api, so append the TZ code.
+  dateFormatted += "Z";
+
+  return dateFormatted;
 }

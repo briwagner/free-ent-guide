@@ -26,17 +26,19 @@ export class MoviesOnTvComponent implements OnInit {
   movieInput: string;
   loading: Boolean;
   errorMsg: string = '';
+  schedDate: Date;
 
   constructor(private tvmoviesservice: TvmoviesService) { }
 
   ngOnInit() {
+    this.schedDate = new Date();
     this.getMovies()
   }
 
   getMovies () {
     if (!this.moviesShowing) {
       this.loading = true;
-      this.tvmoviesservice.getMovies()
+      this.tvmoviesservice.getMovies(this.schedDate)
                       .subscribe(
                         p => this.moviesShowing = this.removeDupes(p),
                         e => {

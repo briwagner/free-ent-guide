@@ -13,7 +13,6 @@ import { Api_Key } from '../api_key';
 export class SportsService {
 
   private url = environment.apiBase + '/tv-sports';
-
   private headers = new Headers({'Content-Type': 'application/json'});
 
   constructor(private http: HttpClient) { }
