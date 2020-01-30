@@ -35,18 +35,9 @@ export class MoviesComponent implements OnInit {
       );
    }
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
-  hasMovies() {
-    this.loading = false;
-    this.errorMsg = "";
-    if (this.moviesShowing.length > 0) {
-      this.hasData = true;
-    }
-    this.hasData = false;
-  }
-
+  // Call to fetch the movie data.
   getMovies() {
     this.clearMovies();
     this.loading = true;
@@ -60,6 +51,17 @@ export class MoviesComponent implements OnInit {
                         },
                         () => this.hasMovies()
                       );
+  }
+
+  // Clean up after fetching movies.
+  hasMovies() {
+    this.loading = false;
+    this.errorMsg = "";
+    if (this.moviesShowing.length > 0) {
+      this.hasData = true;
+    } else {
+      this.hasData = false;
+    }
   }
 
   clearMovies() {

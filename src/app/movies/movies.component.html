@@ -22,9 +22,9 @@
 
   <div *ngFor="let mov of moviesShowing"
        [@fadeIn]
-       class="movieTile"
+       class="movieTile">
+    <div class="tile-header"
        (click)="mov.selected = !mov.selected">
-    <div class="tile-header">
       <h3 class="movie-title inline">{{ mov.title }}</h3>
       <p class="inline" [style.visibility]="mov.qualityRating > -1 ? 'visible' : 'hidden'">Rating: {{ mov.qualityRating }}</p>
       <p class="movie-genres">{{ joinArray(mov.genres) }}</p>
@@ -38,7 +38,9 @@
         <div class="showtimes">
           <!--<p>showtimes: {{ mov.showtimes.length }}</p>-->
           <div *ngFor="let showtime of mov.showtimes">
-            <h5>{{ showtime.name }}</h5>
+            <h5>{{ showtime.name }}
+              <span *ngIf="showtime.ticketURI"><a href="{{showtime.ticketURI}}" target="blank"><i class="material-icons">shopping_basket</i></a></span>
+            </h5>
             <ul class="showtimes-list">
               <li *ngFor="let time of showtime.times">{{ time | slice:-5 }}</li>
             </ul>

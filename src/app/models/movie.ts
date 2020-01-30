@@ -59,7 +59,8 @@ export class Movie {
       } else {
         timeObj[id] = {
           'name': showtimes[i].theatre.name,
-          'times': [showtimes[i].dateTime]
+          'times': [showtimes[i].dateTime],
+          'ticketURI' : showtimes[i].ticketURI
         };
       }
     }
