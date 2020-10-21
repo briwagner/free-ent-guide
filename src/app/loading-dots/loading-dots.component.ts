@@ -34,7 +34,6 @@ export class LoadingDotsComponent implements OnInit {
       .pipe(takeUntil(this.ngUnsubscribe))
       .subscribe(x => {
         this.dots.push(x)
-        console.log(x)
       })
   }
 
