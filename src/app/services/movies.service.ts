@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
 
 import { HttpClient, HttpParams} from '@angular/common/http';
-import { Headers } from '@angular/http';
 import { map } from 'rxjs/operators';
 
 import { Movie } from '../models/movie';
@@ -11,10 +10,6 @@ import { Movie } from '../models/movie';
 export class MoviesService {
 
   private url = environment.apiBase + "/movies";
-
-  // Should be using this headers??
-  // TODO: resolve this. Content-type or Accept? Or Both?
-  private headers = new Headers({'Content-Type': 'application/json'});
 
   constructor(private http: HttpClient) { }
 
@@ -31,7 +26,6 @@ export class MoviesService {
     let params = new HttpParams().set('zip', zipCode);
     let movies = this.http
                      .get(this.url, {
-                        //  headers: this.getHeaders(),
                          params: params
                       })
                      .pipe(map(resp => this.convertMovies(resp)))
@@ -45,17 +39,10 @@ export class MoviesService {
    * @return {Array<Movie>}
    */
   convertMovies(response) {
+    if (!Array.isArray(response)) {
+      return [];
+    }
     return response.map((curr, i) => toMovie(curr, i));
-  }
-
-  /**
-   * @return {Headers}
-   */
-  getHeaders() {
-    let headers = new Headers();
-    // Do we want to set content-type header here??
-    headers.append('Accept', 'application/json');
-    return headers;
   }
 
 }

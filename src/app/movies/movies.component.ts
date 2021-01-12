@@ -43,9 +43,14 @@ export class MoviesComponent implements OnInit {
     this.loading = true;
     this.moviesservice.getMovies(this.userZip)
                       .subscribe(
-                        p => this.moviesShowing = p,
+                        p => {
+                          this.moviesShowing = p;
+                          // API may return empty response.
+                          if (this.moviesShowing.length == 0) {
+                            this.errorMsg = "No showings found.";
+                          }
+                        },
                         e => {
-                          console.log(e, 'error getting movies');
                           this.loading = false;
                           this.errorMsg = "Failed to get listings";
                         },
@@ -53,10 +58,11 @@ export class MoviesComponent implements OnInit {
                       );
   }
 
-  // Clean up after fetching movies.
+  /**
+   * Clean up after fetching movies.
+   */
   hasMovies() {
     this.loading = false;
-    this.errorMsg = "";
     if (this.moviesShowing.length > 0) {
       this.hasData = true;
     } else {
@@ -64,7 +70,11 @@ export class MoviesComponent implements OnInit {
     }
   }
 
+  /**
+   * Reset page in response to user interaction.
+   */
   clearMovies() {
+    this.errorMsg = '';
     this.moviesShowing = [];
     this.hasData = false;
     // why do this? it clears the zip when I hit 'get movies'
