@@ -1,11 +1,20 @@
 <div class="app-zip">
-  <div class="zip-set" [hidden]="!hasZip">
-    <p class="inline">Your ZIP {{ zipCode }}</p>
-    <button class="inline" (click)="clearZip()"><i class="material-icons">clear</i></button>
+  <div class="zip-set" *ngIf="hasZip">
+    <div class="zip-set__active">
+      <p class="inline">Your ZIP {{ zipCode }}</p>
+      <button class="inline" (click)="clearZip()"><i class="material-icons">clear</i></button>
+    </div>
+    <div class="zip-set__inactive" *ngIf="userZips?.length > 0">
+      <span>Use another zip:</span>
+      <ul class="zip-set__saved-zips">
+        <li *ngFor="let zip of userZips">{{zip}}</li>
+      </ul>
+    </div>
   </div>
 
   <div class="form" [hidden]="hasZip">
-    <form (ngSubmit)="storeZip(zipCode)">
+    <form (ngSubmit)="storeZip(zipCode)" id="zipcode-set">
+      <label for="zip_code">Zip code</label>
       <input type="number"
              name="zip_code"
              [(ngModel)]="zipCode"
@@ -13,5 +22,19 @@
       <input type="submit" value="Save ZIP">
       <span [hidden]="!formError">Please enter a valid U.S. zip code.</span>
     </form>
+    <form (ngSubmit)="fetchZips()" id="zipcode-username">
+      <label for="user_name">Username</label>
+      <input type="text"
+             name="user_name"
+             [(ngModel)]="username"
+             placeholder="Username">
+      <input type="submit" value="Show My Zips">
+    </form>
+
+    <div class="flash-msg" *ngIf="flash">{{flash}}</div>
+
+    <ul class="zip-list">
+      <li *ngFor="let zip of userZips"><button (click)="storeZip(zip)">Use {{zip}}</button></li>
+    </ul>
   </div>
 </div>

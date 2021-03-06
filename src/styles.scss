@@ -35,7 +35,15 @@ ul.app-menu {
   }
 }
 
+.app-zip {
+  label {
+    display: none;
+  }
+}
+
 .zip-set {
+  display: flex;
+  flex-direction: row;
   width: auto;
   background: #efefef;
   font-size: .9rem;
@@ -52,6 +60,23 @@ ul.app-menu {
     border-radius: 4px;
     background: navy;
     color: white;
+  }
+
+  .zip-set__inactive {
+    display: flex;
+    flex-direction: row;
+    margin-left: 2em;
+
+    li,
+    span {
+      margin: 0.5em 0 0.5em 1em;
+    }
+  }
+
+  ul.zip-set__saved-zips {
+    display: flex;
+    flex-direction: row;
+    margin: 0;
   }
 }
 
@@ -352,10 +377,15 @@ button.btn-icon {
 div.error-msg {
   text-align: center;
   padding: 0.2rem;
-  background-color: rgba(pink, .3);
+  background-color: rgba(pink, 0.3);
   i {
     vertical-align: middle;
     padding-left: .5rem;
     padding-right: .5rem;
   }
+}
+
+div.flash-msg {
+  padding: 0.2rem;
+  background-color: rgba(pink, 0.3);
 }

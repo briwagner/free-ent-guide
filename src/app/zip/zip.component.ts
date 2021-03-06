@@ -12,6 +12,9 @@ export class ZipComponent implements OnInit {
   zipCode;
   hasZip: boolean = false;
   formError: boolean = false;
+  username: string;
+  userZips: Array<string>;
+  flash: string;
 
   constructor(private userservice: UserService) {
     this.userservice.userZip$.subscribe(newVal =>  this.zipCode = newVal);
@@ -27,6 +30,10 @@ export class ZipComponent implements OnInit {
     }
   }
 
+  /**
+   * Copy user input from form field into app, browser storage.
+   * @param data
+   */
   storeZip(data) {
     if (this.validZip(data)) {
       localStorage.setItem('zipCode', data);
@@ -40,6 +47,9 @@ export class ZipComponent implements OnInit {
     }
   }
 
+  /**
+   * Reset form field.
+   */
   clearZip() {
     localStorage.removeItem('zipCode');
     window.history.pushState({}, 'Movies', window.location.pathname);
@@ -47,6 +57,11 @@ export class ZipComponent implements OnInit {
     this.hasZip = false;
   }
 
+  /**
+   * Validate zip code entered in form field.
+   * @param {number} zip
+   * @return {boolean}
+   */
   validZip(zip: number) {
     if (zip != undefined) {
       if (zip.toString().length == 5) {
@@ -54,6 +69,23 @@ export class ZipComponent implements OnInit {
       }
     }
     return false;
+  }
+
+  /**
+   * Get user zip codes from backend
+   */
+  fetchZips() {
+    this.userservice.fetchUserZips(this.username)
+      .subscribe(
+        p => {
+          this.userZips = p
+        },
+        e => {
+          console.log("Error loading zips", e)
+          this.userZips = [];
+          this.flash = "Unable to load zips."
+        }
+      )
   }
 
 }
