@@ -30,7 +30,10 @@ export class MoviesComponent implements OnInit {
   ) {
       this.userservice.userZip$.subscribe(
         newVal => {
-          newVal == '' ? this.clearUser() : this.userZip = newVal;
+          this.clearUser()
+          if (newVal != '') {
+           this.userZip = newVal;
+          }
         }
       );
    }

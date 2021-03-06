@@ -5,9 +5,9 @@
       <button class="inline" (click)="clearZip()"><i class="material-icons">clear</i></button>
     </div>
     <div class="zip-set__inactive" *ngIf="userZips?.length > 0">
-      <span>Use another zip:</span>
+      <span>Change zip:</span>
       <ul class="zip-set__saved-zips">
-        <li *ngFor="let zip of userZips">{{zip}}</li>
+        <li *ngFor="let zip of userZips"><button (click)="storeZip(zip)">{{zip}}</button></li>
       </ul>
     </div>
   </div>

@@ -58,6 +58,15 @@ export class ZipComponent implements OnInit {
   }
 
   /**
+   * Swap active swap from inactive list.
+   * @param {string} zip
+   */
+  swapZip(zip: string) {
+    this.clearZip();
+    this.storeZip(zip);
+  }
+
+  /**
    * Validate zip code entered in form field.
    * @param {number} zip
    * @return {boolean}
@@ -81,7 +90,7 @@ export class ZipComponent implements OnInit {
           this.userZips = p
         },
         e => {
-          console.log("Error loading zips", e)
+          console.log("Error loading zips")
           this.userZips = [];
           this.flash = "Unable to load zips."
         }
