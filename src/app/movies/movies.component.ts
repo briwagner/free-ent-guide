@@ -40,7 +40,9 @@ export class MoviesComponent implements OnInit {
 
   ngOnInit() {}
 
-  // Call to fetch the movie data.
+  /**
+   * Call to fetch the movie data.
+   */
   getMovies() {
     this.clearMovies();
     this.loading = true;

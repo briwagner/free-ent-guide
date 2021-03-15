@@ -1,7 +1,9 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Inject } from '@angular/core';
 import { URLSearchParams } from '@angular/http';
 import { FormsModule } from '@angular/forms';
 import { UserService } from '../services/user.service';
+import { CookieService } from 'ngx-cookie-service';
+import jwt_decode, {JwtPayload} from 'jwt-decode';
 
 @Component({
   selector: 'app-zip',
@@ -12,12 +14,19 @@ export class ZipComponent implements OnInit {
   zipCode;
   hasZip: boolean = false;
   formError: boolean = false;
+  hasUser: boolean = false;
   username: string;
+  userToken: any;
   userZips: Array<string>;
   flash: string;
+  addZip: number;
 
-  constructor(private userservice: UserService) {
+  constructor(
+    private userservice: UserService,
+    private cookieService: CookieService
+    ) {
     this.userservice.userZip$.subscribe(newVal =>  this.zipCode = newVal);
+    this.userToken = cookieService.get('entToken')
   }
 
   ngOnInit() {
@@ -27,6 +36,15 @@ export class ZipComponent implements OnInit {
     } else if (location.search.includes('zip')) {
       let params =  new URLSearchParams(location.search.substring(1));
       this.storeZip(params.get("zip"))
+    }
+
+    if (this.userToken != '') {
+      this.hasUser = true;
+      let decoded = jwt_decode<JwtPayload>(this.userToken);
+      this.username = decoded.sub;
+      this.fetchZips();
+    } else {
+      this.hasUser = false;
     }
   }
 
@@ -84,7 +102,8 @@ export class ZipComponent implements OnInit {
    * Get user zip codes from backend
    */
   fetchZips() {
-    this.userservice.fetchUserZips(this.username)
+    let t = this.userToken;
+    this.userservice.fetchUserZips(this.username, t)
       .subscribe(
         p => {
           this.userZips = p
@@ -95,6 +114,39 @@ export class ZipComponent implements OnInit {
           this.flash = "Unable to load zips."
         }
       )
+  }
+
+  /**
+   * Add a new zipcode to User's storage in backend.
+   */
+  addUserZip() {
+    if (this.validZip(this.addZip)) {
+      let newZip = this.addZip.toString();
+      if (this.userZips.indexOf(newZip) != -1) {
+        this.flash = "Zip code " + newZip + " already exists.";
+        this.addZip = null;
+        return
+      }
+      this.userservice.saveUserZip(this.username, this.userToken, newZip)
+        .subscribe(
+          p => {
+            this.userZips = p;
+            this.addZip = null;
+          },
+          e => {
+            console.log(e)
+          }
+        )
+    } else {
+      console.log('bad zip')
+    }
+  }
+
+  /**
+   * User-interaction to clear flash message
+   */
+  clearFlash() {
+    this.flash = '';
   }
 
 }

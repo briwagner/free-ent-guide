@@ -35,6 +35,10 @@ import { GenrePipe } from './genre.pipe';
 import { enableProdMode } from '@angular/core';
 import { TvMenuComponent } from './tv-menu/tv-menu.component';
 import { LoadingDotsComponent } from './loading-dots/loading-dots.component';
+import { UserCreateComponent } from './user-create/user-create.component';
+import { UserLoginComponent } from './user-login/user-login.component';
+import { UserLogoutComponent } from './user-logout/user-logout.component';
+import { CookieService } from 'ngx-cookie-service';
 
 enableProdMode();
 
@@ -52,7 +56,10 @@ enableProdMode();
     SearchComponent,
     MoviesOnTvComponent,
     TvMenuComponent,
-    LoadingDotsComponent
+    LoadingDotsComponent,
+    UserCreateComponent,
+    UserLoginComponent,
+    UserLogoutComponent
   ],
   imports: [
     BrowserModule,
@@ -68,7 +75,8 @@ enableProdMode();
     SportsService,
     UserService,
     TvShowSearchService,
-    DiscoverMoviesService
+    DiscoverMoviesService,
+    CookieService
   ],
   bootstrap: [AppComponent]
 })

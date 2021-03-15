@@ -9,6 +9,9 @@ import { SportsComponent } from './sports/sports.component';
 import { SearchComponent } from './search/search.component';
 import { LandingComponent } from './landing/landing.component';
 import { AuthGuard } from './auth.guard';
+import { UserCreateComponent } from './user-create/user-create.component';
+import { UserLoginComponent } from './user-login/user-login.component';
+import { UserLogoutComponent } from './user-logout/user-logout.component';
 
 const routes: Routes = [
   {
@@ -36,6 +39,18 @@ const routes: Routes = [
   {
     path: 'television/search',
     component: SearchComponent
+  },
+  {
+    path: 'user/new',
+    component: UserCreateComponent
+  },
+  {
+    path: 'user/login',
+    component: UserLoginComponent
+  },
+  {
+    path:'user/logout',
+    component: UserLogoutComponent
   },
   {
     path: '**',
