@@ -79,6 +79,12 @@ ul.app-menu {
     }
   }
 
+  .zip-set__active {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+
   .zip-set__inactive {
     display: flex;
     flex-direction: row;
@@ -360,6 +366,8 @@ p.inactive {
 
 input[type=text],
 input[type=number],
+input[type=email],
+input[type=password],
 input[type=submit] {
   margin: 10px 5px 10px 0;
   padding:0.5rem;
@@ -445,5 +453,17 @@ div.flash-msg {
   i.material-icons {
     vertical-align: sub;
     font-size: 1.2rem;
+  }
+}
+
+#form-user-create,
+#form-user-login {
+  display: flex;
+  flex-direction: column;
+  max-width: 400px;
+  padding: 1em 0.5em;
+
+  input {
+    margin-top: 0.5rem;;
   }
 }

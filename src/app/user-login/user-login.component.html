@@ -1,0 +1,20 @@
+<div class="flash-msg" *ngIf="flash">
+  <p>{{flash}}</p>
+</div>
+<form id="form-user-login" (ngSubmit)="loginUser()">
+  <label for="user-login-email">Email</label>
+  <input type="email"
+         id="user-login-email"
+         name="user-login-email"
+         [(ngModel)]="user_email"
+         placeholder="Email"
+         required>
+  <label for="user-login-password">Password</label>
+  <input type="password"
+         id="user-login-password"
+         name="user-login-password"
+         [(ngModel)]="password"
+         placeholder="Password"
+         required>
+  <input type="submit" value="Login" >
+</form>

@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, Inject } from '@angular/core';
 import { URLSearchParams } from '@angular/http';
+import { NavigationExtras, Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { UserService } from '../services/user.service';
 import { CookieService } from 'ngx-cookie-service';
@@ -23,13 +24,22 @@ export class ZipComponent implements OnInit {
 
   constructor(
     private userservice: UserService,
-    private cookieService: CookieService
+    private router: Router,
+    private cookieService: CookieService,
     ) {
     this.userservice.userZip$.subscribe(newVal =>  this.zipCode = newVal);
     this.userToken = cookieService.get('entToken')
+    const navigation = this.router.getCurrentNavigation();
+    if (navigation.extras.state) {
+      const state = navigation.extras.state as {data: string}
+      this.flash = state.data
+    }
   }
 
   ngOnInit() {
+    // Init user var.
+    this.userZips = [];
+
     // Check localStorage for zip code and use.
     if (localStorage.getItem('zipCode')) {
       this.storeZip(localStorage.getItem('zipCode'));
@@ -109,8 +119,16 @@ export class ZipComponent implements OnInit {
           this.userZips = p
         },
         e => {
-          console.log("Error loading zips")
+          // console.log("Error loading zips", e.status)
           this.userZips = [];
+          if (e.status == '401') {
+            this.flash = "Not authorized. Please <a href='/user/login/'>log in to continue</a>"
+            return
+          }
+          if (e.status == 404) {
+            this.flash = 'No saved zip codes. Add one.'
+            return
+          }
           this.flash = "Unable to load zips."
         }
       )

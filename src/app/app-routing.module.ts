@@ -12,6 +12,7 @@ import { AuthGuard } from './auth.guard';
 import { UserCreateComponent } from './user-create/user-create.component';
 import { UserLoginComponent } from './user-login/user-login.component';
 import { UserLogoutComponent } from './user-logout/user-logout.component';
+import { UserLandingComponent } from './user-landing/user-landing.component';
 
 const routes: Routes = [
   {
@@ -39,6 +40,10 @@ const routes: Routes = [
   {
     path: 'television/search',
     component: SearchComponent
+  },
+  {
+    path: 'user',
+    component: UserLandingComponent
   },
   {
     path: 'user/new',

@@ -29,7 +29,7 @@
 
   <div class="flash__container">
     <div class="flash-msg" [hidden]="!flash">
-      <strong>{{flash}}</strong>
+      <strong [innerHtml]=flash></strong>
       <button class="button" (click)="clearFlash()"><i class="material-icons">clear</i></button>
     </div>
   </div>
@@ -56,7 +56,7 @@
       <input type="submit" value="Show My Zips">
     </form>
 
-    <ul class="zip-list" *ngIf="hasUser">
+    <ul class="zip-list" *ngIf="userZips.length">
       <h3>Select from saved zip codes</h3>
       <li *ngFor="let zip of userZips">
         <button (click)="storeZip(zip)" class="button">Use {{zip}}</button>
