@@ -1,2 +1,7 @@
 <h2>User Logout</h2>
-<button class="button" (click)="logout()">Log out</button>
+<div *ngIf="hasToken">
+  <button class="button" (click)="logout()">Log out</button>
+</div>
+<div *ngIf="!hasToken">
+  <p>You are not logged in.</p>
+</div>

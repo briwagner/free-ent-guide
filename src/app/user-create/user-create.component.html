@@ -1,6 +1,7 @@
 <div class="flash-msg" *ngIf="flash">
   <p [innerHtml]=flash></p>
 </div>
+<h2>Create a user</h2>
 <form id="form-user-create" (ngSubmit)="createUser()">
   <label for="user-create-email">Email</label>
   <input type="email"

@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CookieService } from 'ngx-cookie-service';
-import { Router } from '@angular/router';
+import { NavigationExtras, Router } from '@angular/router';
 
 @Component({
   selector: 'app-user-logout',
@@ -8,21 +7,27 @@ import { Router } from '@angular/router';
 })
 export class UserLogoutComponent implements OnInit {
 
-  constructor(
-    private router: Router,
-    private cookieService: CookieService
-    ) { }
+  private userToken: string
+  hasToken: boolean
+
+  constructor(private router: Router) {
+    if (localStorage.getItem('entToken') === null) {
+      this.hasToken = false;
+    } else {
+      this.userToken = localStorage.getItem('entToken');
+      this.hasToken = true;
+    }
+  }
 
   ngOnInit() {
-    // Todo: Redirect if no token found.
   }
 
   /**
-   * Delete token cookie.
+   * Delete token.
    * Todo: send logout to backend?
    */
   logout() {
-    this.cookieService.delete('entToken', '/')
+    localStorage.removeItem('entToken')
     this.router.navigate(['/'])
   }
 

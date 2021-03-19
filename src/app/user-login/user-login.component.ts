@@ -1,7 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { NavigationExtras, Router } from '@angular/router';
 import { UserService } from '../services/user.service';
-import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-user-login',
@@ -17,17 +16,25 @@ export class UserLoginComponent implements OnInit {
   constructor(
     private userService: UserService,
     private router: Router,
-    private cookieService: CookieService
     ) {
     const navigation = this.router.getCurrentNavigation();
     if (navigation.extras.state) {
       const state = navigation.extras.state as {data: string}
       this.flash = state.data
     }
-    this.userToken = cookieService.get('entToken')
+    if (localStorage.getItem('entToken') != null) {
+      this.userToken = localStorage.getItem('entToken');
+    } else {
+      this.userToken = null;
+    }
   }
 
   ngOnInit() {
+    // TODO: this should be a route guard.
+    if (this.userToken) {
+      const extras: NavigationExtras = {state: {data: "You are logged in."}}
+      this.router.navigate(['/cinema'], extras)
+    }
   }
 
   /**
@@ -37,7 +44,7 @@ export class UserLoginComponent implements OnInit {
     this.userService.loginUser(this.user_email, this.password)
       .subscribe(
         p => {
-          this.cookieService.set('entToken', p, 2, '/')
+          localStorage.setItem('entToken', p)
           const extras: NavigationExtras = {state: {data: "Logged in."}}
           this.router.navigate(['/cinema'], extras)
         },

@@ -3,7 +3,6 @@ import { URLSearchParams } from '@angular/http';
 import { NavigationExtras, Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { UserService } from '../services/user.service';
-import { CookieService } from 'ngx-cookie-service';
 import jwt_decode, {JwtPayload} from 'jwt-decode';
 
 @Component({
@@ -25,10 +24,9 @@ export class ZipComponent implements OnInit {
   constructor(
     private userservice: UserService,
     private router: Router,
-    private cookieService: CookieService,
     ) {
     this.userservice.userZip$.subscribe(newVal =>  this.zipCode = newVal);
-    this.userToken = cookieService.get('entToken')
+    this.userToken = localStorage.getItem('entToken')
     const navigation = this.router.getCurrentNavigation();
     if (navigation.extras.state) {
       const state = navigation.extras.state as {data: string}

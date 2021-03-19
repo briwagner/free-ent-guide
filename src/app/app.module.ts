@@ -24,7 +24,6 @@ import { UserLogoutComponent } from './user-logout/user-logout.component';
 import { ZipComponent } from './zip/zip.component';
 
 // services
-import { CookieService } from 'ngx-cookie-service';
 import { DiscoverMoviesService } from './services/discover-movies.service';
 import { MoviesService } from './services/movies.service';
 import { SportsService } from './services/sports.service';
@@ -77,8 +76,7 @@ enableProdMode();
     SportsService,
     UserService,
     TvShowSearchService,
-    DiscoverMoviesService,
-    CookieService
+    DiscoverMoviesService
   ],
   bootstrap: [AppComponent]
 })
