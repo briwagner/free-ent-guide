@@ -18,7 +18,7 @@ ul.app-menu li.menu-link-lg {
 }
 
 ul.app-menu li.menu-link-sm {
-  flex: 0.4;
+  flex: 0.2;
 }
 
 ul.app-menu li a {
@@ -30,4 +30,10 @@ ul.app-menu li a {
   font-weight: 800;
   border-radius:12px 12px 0 0;
   padding:15px 0;
+}
+
+ul.app-menu i {
+  line-height: 0;
+  font-size: 1.2em;
+  vertical-align: sub;
 }
