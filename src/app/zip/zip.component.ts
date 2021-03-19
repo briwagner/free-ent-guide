@@ -26,7 +26,11 @@ export class ZipComponent implements OnInit {
     private router: Router,
     ) {
     this.userservice.userZip$.subscribe(newVal =>  this.zipCode = newVal);
-    this.userToken = localStorage.getItem('entToken')
+    if (localStorage.getItem('entToken') === null) {
+      this.userToken = null;
+    } else {
+      this.userToken = localStorage.getItem('entToken');
+    }
     const navigation = this.router.getCurrentNavigation();
     if (navigation.extras.state) {
       const state = navigation.extras.state as {data: string}
@@ -46,7 +50,7 @@ export class ZipComponent implements OnInit {
       this.storeZip(params.get("zip"))
     }
 
-    if (this.userToken != '') {
+    if (this.userToken != null) {
       this.hasUser = true;
       let decoded = jwt_decode<JwtPayload>(this.userToken);
       this.username = decoded.sub;

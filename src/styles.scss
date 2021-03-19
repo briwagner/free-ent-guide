@@ -29,6 +29,15 @@ ul.app-menu {
   }
 }
 
+ul.list-inline-buttons {
+  display: flex;
+  flex-flow: row nowrap;
+
+  li {
+    margin-right: 1em;
+  }
+}
+
 .title-bar {
   h2 {
     margin-right: 25px;
@@ -215,6 +224,8 @@ div.tile-body {
 }
 
 h2 {
+  margin: 0.5em;
+
   &.section-title {
     margin: 0.75rem 0 0.25rem;
     font-size: 1.25rem;
@@ -386,6 +397,10 @@ input[type=submit],
   &:hover {
     background-color:paleturquoise;
   }
+}
+
+a.button-link {
+  text-decoration: none;
 }
 
 .loading-spinner {
