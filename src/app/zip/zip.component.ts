@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Inject } from '@angular/core';
-import { URLSearchParams } from '@angular/http';
+import { HttpParams } from '@angular/common/http';
 import { NavigationExtras, Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { UserService } from '../services/user.service';
@@ -46,7 +46,7 @@ export class ZipComponent implements OnInit {
     if (localStorage.getItem('zipCode')) {
       this.storeZip(localStorage.getItem('zipCode'));
     } else if (location.search.includes('zip')) {
-      let params =  new URLSearchParams(location.search.substring(1));
+      let params =  new HttpParams({fromString: location.search.substring(1)});
       this.storeZip(params.get("zip"))
     }
 

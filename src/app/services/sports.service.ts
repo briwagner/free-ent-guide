@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
 
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { Headers } from '@angular/http';
 import { map } from 'rxjs/operators';
 
 import { Sport } from '../models/sport';
@@ -13,7 +12,6 @@ import { Api_Key } from '../api_key';
 export class SportsService {
 
   private url = environment.apiBase + '/tv-sports';
-  private headers = new Headers({'Content-Type': 'application/json'});
 
   constructor(private http: HttpClient) { }
 
@@ -27,7 +25,6 @@ export class SportsService {
     let params = new HttpParams().set('date', formatDate(date));
     let showings = this.http
                        .get(this.url, {
-                            //  headers: this.getHeaders(),
                           params: params
                         })
                       .pipe(map(resp => this.convertShowings(resp)));
@@ -42,17 +39,6 @@ export class SportsService {
    */
   convertShowings(response) {
     return response.map(toSport);
-  }
-
-  /**
-   * TODO: do we want this??
-   *
-   * @return {Headers}
-   */
-  getHeaders() {
-    let headers = new Headers();
-    headers.append('Accept', 'application/json');
-    return headers;
   }
 
 }

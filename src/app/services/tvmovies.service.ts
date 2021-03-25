@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
 
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { Headers } from '@angular/http';
 import { map } from 'rxjs/operators';
 
 import { Movie } from '../models/movie';
@@ -11,7 +10,6 @@ import { Movie } from '../models/movie';
 export class TvmoviesService {
 
   private url = environment.apiBase + '/tv-movies';
-  private headers = new Headers({'Content-Type': 'application/json'});
 
   constructor(private http: HttpClient) { }
 
@@ -25,8 +23,6 @@ export class TvmoviesService {
     let params = new HttpParams().set('date', formatDate(date));
     let movies = this.http
                      .get(this.url, {
-                        //  TODO: do we need headers??
-                        //  headers: this.getHeaders(),
                          params: params
                       })
                       .pipe(map(resp => this.convertMovies(resp)));
@@ -42,18 +38,6 @@ export class TvmoviesService {
   convertMovies(response) {
     return response.map((curr, i) => toMovie(curr, i));
   }
-
-  /**
-   * TODO: we need headers?
-   *
-   * @return {Headers}
-   */
-  getHeaders() {
-    let headers = new Headers();
-    headers.append('Accept', 'application/json');
-    return headers;
-  }
-
 }
 
 /**
