@@ -18,7 +18,7 @@ export class UserLoginComponent implements OnInit {
     private router: Router,
     ) {
     const navigation = this.router.getCurrentNavigation();
-    if (navigation.extras.state) {
+    if (navigation && navigation.extras.state) {
       const state = navigation.extras.state as {data: string}
       this.flash = state.data
     }

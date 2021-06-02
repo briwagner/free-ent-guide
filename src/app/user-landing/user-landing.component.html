@@ -1,5 +1,17 @@
 <ul class="list-inline-buttons">
   <li *ngFor="let link of links">
-    <a href="{{link.url}}" class="button button-link">{{link.title}}</a>
+    <button type=button class="button button-link" (click)="setAction(link.action)">{{link.title}}</button>
   </li>
 </ul>
+
+<div class="user-action" *ngIf="user_action">
+  <div *ngIf="user_action == 'login'">
+    <app-user-login></app-user-login>
+  </div>
+  <div *ngIf="user_action == 'logout'">
+    <app-user-logout></app-user-logout>
+  </div>
+  <div *ngIf="user_action == 'create'">
+    <app-user-create></app-user-create>
+  </div>
+</div>
