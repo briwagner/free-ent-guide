@@ -50,11 +50,27 @@ export class ZipComponent implements OnInit {
       this.storeZip(params.get("zip"))
     }
 
+    // Check user token, if found.
+    this.checkUser();
+  }
+
+  /**
+   * Check for user token, and validate .
+   */
+  checkUser() {
     if (this.userToken != null) {
-      this.hasUser = true;
-      let decoded = jwt_decode<JwtPayload>(this.userToken);
-      this.username = decoded.sub;
-      this.fetchZips();
+      let userToken = jwt_decode<JwtPayload>(this.userToken);
+      // Check if token is expired.
+      if (userToken.exp && userToken.exp - Math.floor(Date.now() / 1000) > 0) {
+        this.hasUser = true;
+        this.username = userToken.sub;
+        this.fetchZips();
+        console.log("Token expiration ", userToken.exp - Math.floor(Date.now() / 1000));
+      } else {
+        this.flash = "Your session has expired. Log in to use your saved zip codes."
+        this.hasUser = false;
+        localStorage.removeItem('entToken');
+      }
     } else {
       this.hasUser = false;
     }
