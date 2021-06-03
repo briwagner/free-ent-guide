@@ -5,5 +5,5 @@
 
 export const environment = {
   production: false,
-  apiBase: "http://127.0.0.1:3004/v1"
+  apiBase: "http://127.0.0.1:9000/v1"
 };
