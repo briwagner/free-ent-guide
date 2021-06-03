@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { NavigationExtras, Router } from '@angular/router';
+import { Router } from '@angular/router';
+import { UserService } from '../services/user.service';
 
 @Component({
   selector: 'app-user-logout',
@@ -10,7 +11,10 @@ export class UserLogoutComponent implements OnInit {
   private userToken: string
   hasToken: boolean
 
-  constructor(private router: Router) {
+  constructor(
+    private router: Router,
+    private userservice: UserService
+    ) {
     if (localStorage.getItem('entToken') === null) {
       this.hasToken = false;
     } else {
@@ -24,11 +28,16 @@ export class UserLogoutComponent implements OnInit {
 
   /**
    * Delete token.
-   * Todo: send logout to backend?
    */
   logout() {
-    localStorage.removeItem('entToken')
-    this.router.navigate(['/'])
+    if (this.hasToken) {
+      localStorage.removeItem('entToken')
+      this.userservice.logoutUser(this.userToken).subscribe(
+        p => console.log('logged out'),
+        e => console.log(e),
+        () => this.router.navigate(['/'])
+      )
+    }
   }
 
 }

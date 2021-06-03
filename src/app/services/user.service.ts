@@ -100,6 +100,7 @@ export class UserService {
    *
    * @param {string} username
    * @param {string} password
+   * @param Observable<string>
    */
   loginUser(username: string, password: string) {
     let url = this.baseUrl + '/token';
@@ -109,6 +110,22 @@ export class UserService {
     });
 
     let resp = this.http.get(url, {responseType: 'text', headers: headers});
+    return resp;
+  }
+
+  /**
+   * Revoke token on backend
+   *
+   * @param {string} token
+   * @return Observable<string>
+   */
+  logoutUser(token: string) {
+    let url = this.baseUrl + '/revoke';
+    let body = {token: token};
+    let headers = new HttpHeaders();
+    headers.append("Content-Type", "application/x-www-form-urlencoded");
+
+    let resp = this.http.post(url, body, {headers: headers});
     return resp;
   }
 
