@@ -59,11 +59,14 @@ export class ZipComponent implements OnInit {
    */
   checkUser() {
     if (this.userToken != null) {
-      let userToken = jwt_decode<JwtPayload>(this.userToken);
+      // Avoid setting type to JwtPayload, as the available properties
+      // are limited, and will fail type validation on compile.
+      let userToken = jwt_decode<any>(this.userToken);
       // Check if token is expired.
       if (userToken.exp && userToken.exp - Math.floor(Date.now() / 1000) > 0) {
         this.hasUser = true;
-        this.username = userToken.sub;
+        // Name is not a defined property on JwtPayload.
+        this.username = userToken.Name;
         this.fetchZips();
         console.log("Token expiration ", userToken.exp - Math.floor(Date.now() / 1000));
       } else {
