@@ -70,7 +70,7 @@ export class ZipComponent implements OnInit {
         this.fetchZips();
         console.log("Token expiration ", userToken.exp - Math.floor(Date.now() / 1000));
       } else {
-        this.flash = "Your session has expired. Log in to use your saved zip codes."
+        this.flash = "Your session has expired. <a href='/user/login'>Log in</a> to use your saved zip codes."
         this.hasUser = false;
         localStorage.removeItem('entToken');
       }
@@ -107,7 +107,7 @@ export class ZipComponent implements OnInit {
   }
 
   /**
-   * Swap active swap from inactive list.
+   * Swap active zip from inactive list.
    * @param {string} zip
    */
   swapZip(zip: string) {
