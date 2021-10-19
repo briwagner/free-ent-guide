@@ -164,6 +164,10 @@ div.movieTile {
       color: rgba(navy, 0);
     }
   }
+
+  .material-icons {
+    font-size: 1.3em;
+  }
 }
 
 div.tile-header {
@@ -258,8 +262,9 @@ h3.movie-title {
 }
 
 p {
-  &.movie-genres {
+  .movie-genres {
     font-style: italic;
+    margin-left: 10px;
   }
 
   &.movie-rating {
@@ -303,6 +308,10 @@ ul.showtimes-list li {
     vertical-align: top;
     color: forestgreen;
   }
+}
+
+.material-icons.material-al-bot {
+  vertical-align: sub;
 }
 
 div.clear {

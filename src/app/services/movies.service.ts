@@ -56,14 +56,16 @@ export class MoviesService {
 function toMovie(d, i) {
   let movie = new Movie({
     id: i,
-    title: d.title,
-    genres: d.genres,
+    cast: d.topCast,
     description: d.shortDescription,
+    genres: d.genres,
     longDescription: d.longDescription,
     qualityRating: d.qualityRating,
-    cast: d.topCast,
+    rating: d.ratings,
+    runtime: d.runTime,
     selected: false,
-    showtimes: d.showtimes
+    showtimes: d.showtimes,
+    title: d.title
   });
   return movie;
 }

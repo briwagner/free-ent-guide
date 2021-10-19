@@ -26,8 +26,10 @@
     <div class="tile-header"
        (click)="mov.selected = !mov.selected">
       <h3 class="movie-title inline">{{ mov.title }}</h3>
-      <p class="inline" [style.visibility]="mov.qualityRating > -1 ? 'visible' : 'hidden'">Rating: {{ mov.qualityRating }}</p>
-      <p class="movie-genres">{{ joinArray(mov.genres) }}</p>
+      <p class="inline">
+        <span *ngFor="let num of [].constructor(mov.qualityRating)" class="material-icons material-al-bot">star</span>
+      </p>
+      <p>{{mov.rating }} <span class="movie-genres">{{ joinArray(mov.genres) }}</span></p>
     </div>
 
     <div class="tile-body">
@@ -48,6 +50,7 @@
         </div>
 
         <p class="summary">{{ mov.summary }}</p>
+        <p>{{ mov.runtime }}</p>
       </div>
 
     </div>

@@ -1,36 +1,46 @@
 export class Movie {
   id: number;
-  title: string;
-  genres: Array<string>=[];
-  qualityRating: string;
-  description: string;
-  summary: string;
-  showtimes: Array<Object>;
-  tvshowtime: Date;
   cast: Array<string>;
-  station: string;
-  selected: boolean;
+  description: string;
+  genres: Array<string>=[];
   poster_img: string;
-  rootId: string;
+  qualityRating: number = 0;
+  rating: string;
   release: Date;
+  rootId: string;
+  runtime: string;
+  selected: boolean;
+  showtimes: Array<Object>;
+  station: string;
+  summary: string;
+  title: string;
+  tvshowtime: Date;
 
   constructor(data) {
     this.id = data.id;
-    this.title = data.title;
-    this.genres = data.genres;
-    this.description = data.description ? data.description : data.shortDescription;
-    this.summary = data.longDescription;
-    this.qualityRating = this.setRating(data.qualityRating);
     this.cast = data.cast;
+    this.description = data.description ? data.description : data.shortDescription;
+    this.genres = data.genres;
     this.poster_img = this.setPoster(data.poster)
-    this.showtimes = this.sortShowtimes(data.showtimes);
-    this.tvshowtime = data.tvshowtime;
-    this.station = data.station;
-    this.selected = false;
-    this.rootId = data.rootId;
+    this.qualityRating = this.setRating(data.qualityRating);
+    this.rating = this.setContentRating(data.rating);
     this.release = data.release;
+    this.rootId = data.rootId;
+    this.runtime = data.runtime;
+    this.selected = false;
+    this.showtimes = this.sortShowtimes(data.showtimes);
+    this.station = data.station;
+    this.summary = data.longDescription;
+    this.title = data.title;
+    this.tvshowtime = data.tvshowtime;
   }
 
+  /**
+   * Format image path.
+   *
+   * @param path string
+   * @returns string
+   */
   public setPoster (path: string): string {
     let baseUrl = "http://image.tmdb.org/t/p/w185";
     if (path) {
@@ -40,14 +50,39 @@ export class Movie {
     }
   }
 
+  /**
+   * Format quality rating.
+   *
+   * @param rating string
+   * @returns string
+   */
   public setRating(rating) {
     if (rating) {
-      return rating.value
+      return parseInt(rating.value)
     } else {
-      return "-1";
+      return 0;
     }
   }
 
+  /**
+   * Extract content rating from payload.
+   *
+   * @param ratings Array<string>
+   * @returns string
+   */
+  public setContentRating(ratings) {
+    if (ratings && ratings.length && ratings[0].code) {
+      return ratings[0].code;
+    }
+    return '';
+  }
+
+  /**
+   * Extract showtimes.
+   *
+   * @param showtimes Array<any>
+   * @returns Array<any>
+   */
   public sortShowtimes(showtimes) {
     if (!showtimes) return;
     let timeObj = {};
