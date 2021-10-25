@@ -5,7 +5,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class DurationPipePipe implements PipeTransform {
 
-  transform(value: any): string {
+  transform(value: string): string {
     var time = '';
     let h = value.match(/\d+(?=H)/)
     let m = value.match(/\d+(?=M)/);
