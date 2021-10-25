@@ -35,6 +35,7 @@ import { AuthGuard } from './auth.guard';
 // pipes
 import { StripHTMLtagsPipe } from './strip-htmltags.pipe';
 import { GenrePipe } from './genre.pipe';
+import { DurationPipePipe } from './duration-pipe.pipe';
 
 // production mode
 import { enableProdMode } from '@angular/core';
@@ -50,8 +51,6 @@ enableProdMode();
     TvmoviesComponent,
     LandingComponent,
     MenuComponent,
-    StripHTMLtagsPipe,
-    GenrePipe,
     SearchComponent,
     MoviesOnTvComponent,
     TvMenuComponent,
@@ -59,7 +58,10 @@ enableProdMode();
     UserCreateComponent,
     UserLoginComponent,
     UserLogoutComponent,
-    UserLandingComponent
+    UserLandingComponent,
+    StripHTMLtagsPipe,
+    GenrePipe,
+    DurationPipePipe
   ],
   imports: [
     BrowserModule,
