@@ -1,24 +1,23 @@
 /* tslint:disable:no-unused-variable */
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
-import { DebugElement } from '@angular/core';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ZipComponent } from './zip.component';
 import { FormsModule } from '@angular/forms';
 import { UserService } from 'app/services/user.service';
+import { HttpClientModule } from '@angular/common/http';
 
 describe('ZipComponent', () => {
   let component: ZipComponent;
   let fixture: ComponentFixture<ZipComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(async () => {
     TestBed.configureTestingModule({
-      imports: [FormsModule],
+      imports: [FormsModule, HttpClientModule],
       declarations: [ ZipComponent ],
       providers: [UserService]
     })
     .compileComponents();
-  }));
+  });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(ZipComponent);
