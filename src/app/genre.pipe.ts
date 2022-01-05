@@ -5,7 +5,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class GenrePipe implements PipeTransform {
 
-  transform(array, genre): any {
+  transform(array: any, genre: string): any {
     if (genre == undefined || genre == '') {
       return array;
     }
