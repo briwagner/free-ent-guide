@@ -4,6 +4,7 @@ import { trigger, state, style, animate, transition } from '@angular/animations'
 import { MoviesService } from '../services/movies.service';
 import { UserService } from '../services/user.service';
 import { Movie } from '../models/movie';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-movies',
@@ -23,6 +24,8 @@ export class MoviesComponent implements OnInit {
   hasData: Boolean = false;
   loading: Boolean = false;
   errorMsg: string = '';
+  schedDate: Date;
+  datepipe: DatePipe;
 
   constructor(
     private moviesservice: MoviesService,
@@ -36,9 +39,12 @@ export class MoviesComponent implements OnInit {
           }
         }
       );
+      this.datepipe = new DatePipe('en-us');
    }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.schedDate = new Date();
+  }
 
   /**
    * Call to fetch the movie data.
@@ -46,7 +52,7 @@ export class MoviesComponent implements OnInit {
   getMovies() {
     this.clearMovies();
     this.loading = true;
-    this.moviesservice.getMovies(this.userZip)
+    this.moviesservice.getMovies(this.userZip, this.datepipe.transform(this.schedDate, "yyyy-MM-dd"))
                       .subscribe(
                         p => {
                           this.moviesShowing = p;
@@ -86,15 +92,26 @@ export class MoviesComponent implements OnInit {
     // this.userZip = '';
   }
 
+  /**
+   * Reset zip.
+   */
   clearZip() {
     this.userZip = '';
   }
 
+  /**
+   * Reset movies and zip selection.
+   */
   clearUser() {
     this.clearMovies();
     this.clearZip();
   }
 
+  /**
+   * Validate user-entered zip.
+   *
+   * @returns bool
+   */
   validZip() {
     if (this.userZip != undefined) {
       if (this.userZip.toString().length == 5) {
@@ -104,7 +121,36 @@ export class MoviesComponent implements OnInit {
     return false;
   }
 
-  joinArray(arr) {
+  /**
+   * Change schedule-date used to fetch listings.
+   *
+   * @param incr string
+   */
+  chgSchedDate(incr: string) {
+    let nd = new Date(this.schedDate);
+    if (incr == "1") {
+      nd.setDate(this.schedDate.getDate() + 1);
+    }
+    if (incr == "-1") {
+      nd.setDate(this.schedDate.getDate() - 1);
+    }
+    let today = new Date();
+    if (nd.getMonth() == today.getMonth() && nd.getDay() < today.getDay()) {
+      this.errorMsg = 'Invalid date';
+      return
+    }
+
+    this.schedDate = nd;
+    this.getMovies();
+  }
+
+  /**
+   * Utility function to merge.
+   *
+   * @param {Array<string>} arr
+   * @returns {Array}
+   */
+  joinArray(arr: Array<string>) {
     if (typeof arr == 'object' && arr.length > 0) {
       return arr.join(", ");
     } else {

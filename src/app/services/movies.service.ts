@@ -17,13 +17,15 @@ export class MoviesService {
    * Fetch data.
    *
    * @param {string} userZip
+   * @param {string} date
    * @return {Array<Movie>}
    */
-  getMovies(userZip) {
+  getMovies(userZip: string, date: string) {
     // TODO: create a user alert if zip doesn't validate.
     // What is a zip validation?
-    let zipCode = userZip > 1 ? userZip : '20002';
-    let params = new HttpParams().set('zip', zipCode);
+    let zip = parseInt(userZip);
+    let zipCode = zip > 1 ? userZip : '20002';
+    let params = new HttpParams().set('zip', zipCode).set('date', date);
     let movies = this.http
                      .get(this.url, {
                          params: params

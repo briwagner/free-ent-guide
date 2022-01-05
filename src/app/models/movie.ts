@@ -1,3 +1,14 @@
+interface Theater {
+  id: number;
+  name: string;
+}
+
+class Showtime {
+  theatre: Theater;
+  dateTime: Date;
+  ticketURI: string;
+}
+
 export class Movie {
   id: number;
   cast: Array<string>;
@@ -9,8 +20,9 @@ export class Movie {
   release: Date;
   rootId: string;
   runtime: string;
+  schedDate: Date;
   selected: boolean;
-  showtimes: Array<Object>;
+  showtimes: Array<Showtime>;
   station: string;
   summary: string;
   title: string;
@@ -27,12 +39,34 @@ export class Movie {
     this.release = data.release;
     this.rootId = data.rootId;
     this.runtime = data.runtime;
+    this.schedDate = this.setDate(data.showtimes);
     this.selected = false;
     this.showtimes = this.sortShowtimes(data.showtimes);
     this.station = data.station;
     this.summary = data.longDescription;
     this.title = data.title;
     this.tvshowtime = data.tvshowtime;
+  }
+
+  /**
+   * Assign schedDate from existing showtimes data.
+   *
+   * @param showtimes Array<Showtime>
+   * @returns Date|null
+   */
+  public setDate(showtimes: Array<Showtime>) {
+    if (!showtimes || !showtimes.length) {
+      return null;
+    }
+
+    var sd;
+    for (let i = 0; i < showtimes.length; i++) {
+      if (showtimes[i].dateTime) {
+        sd = showtimes[i].dateTime;
+        break;
+      }
+    }
+    return sd;
   }
 
   /**

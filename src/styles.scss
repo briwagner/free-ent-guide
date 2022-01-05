@@ -503,3 +503,13 @@ div.flash-msg {
     margin-top: 0.5rem;;
   }
 }
+
+.cinema .date-sel {
+  display: flex;
+  flex-direction: row;
+  padding: 1em 0.5em;
+
+  p {
+    margin: 0.5em;
+  }
+}
