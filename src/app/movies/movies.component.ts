@@ -135,7 +135,7 @@ export class MoviesComponent implements OnInit {
       nd.setDate(this.schedDate.getDate() - 1);
     }
     let today = new Date();
-    if (nd.getMonth() == today.getMonth() && nd.getDay() < today.getDay()) {
+    if (nd.getMonth() == today.getMonth() && nd.getDate() < today.getDate()) {
       this.errorMsg = 'Invalid date';
       return
     }
