@@ -1,5 +1,5 @@
-<div class="flash-msg" *ngIf="flash">
-  <p>{{flash}}</p>
+<div [ngClass]="['flash-msg', flash.status ? flash.status : 'info']" *ngIf="flash.message">
+  <strong [innerHtml]=flash.message></strong>
 </div>
 <h2>Log in</h2>
 <form id="form-user-login" (ngSubmit)="loginUser()">

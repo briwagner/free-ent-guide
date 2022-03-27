@@ -1,5 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { NavigationExtras, Router } from '@angular/router';
+import { Flash } from 'app/models/flash';
 import { UserService } from '../services/user.service';
 
 @Component({
@@ -8,7 +9,7 @@ import { UserService } from '../services/user.service';
 })
 export class UserLoginComponent implements OnInit {
 
-  flash: string
+  flash: Flash
   user_email: string
   password: string
   private userToken: string
@@ -18,9 +19,10 @@ export class UserLoginComponent implements OnInit {
     private router: Router,
     ) {
     const navigation = this.router.getCurrentNavigation();
+    this.flash = new Flash;
     if (navigation && navigation.extras.state) {
       const state = navigation.extras.state as {data: string}
-      this.flash = state.data
+      this.flash.message = state.data
     }
     if (localStorage.getItem('entToken') != null) {
       this.userToken = localStorage.getItem('entToken');
@@ -50,7 +52,8 @@ export class UserLoginComponent implements OnInit {
         },
         e => {
           console.log(e)
-          this.flash = "Error logging in."
+          this.flash.message = "Error logging in."
+          this.flash.status = "warning"
         }
       )
   }

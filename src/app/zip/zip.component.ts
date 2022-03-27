@@ -4,6 +4,7 @@ import { NavigationExtras, Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { UserService } from '../services/user.service';
 import jwt_decode, {JwtPayload} from 'jwt-decode';
+import { Flash } from 'app/models/flash';
 
 @Component({
   selector: 'app-zip',
@@ -18,7 +19,7 @@ export class ZipComponent implements OnInit {
   username: string;
   userToken: any;
   userZips: Array<string>;
-  flash: string;
+  flash: Flash;
   addZip: number;
 
   constructor(
@@ -32,9 +33,10 @@ export class ZipComponent implements OnInit {
       this.userToken = localStorage.getItem('entToken');
     }
     const navigation = this.router.getCurrentNavigation();
+    this.flash = new Flash;
     if (navigation.extras.state) {
       const state = navigation.extras.state as {data: string}
-      this.flash = state.data
+      this.flash.message = state.data
     }
   }
 
@@ -70,7 +72,8 @@ export class ZipComponent implements OnInit {
         this.fetchZips();
         console.log("Token expiration ", userToken.exp - Math.floor(Date.now() / 1000));
       } else {
-        this.flash = "Your session has expired. <a href='/user/login'>Log in</a> to use your saved zip codes."
+        this.flash.message = "Your session has expired. <a href='/user/login'>Log in</a> to use your saved zip codes."
+        this.flash.status = "warning";
         this.hasUser = false;
         localStorage.removeItem('entToken');
       }
@@ -143,14 +146,17 @@ export class ZipComponent implements OnInit {
           // console.log("Error loading zips", e.status)
           this.userZips = [];
           if (e.status == '401') {
-            this.flash = "Not authorized. Please <a href='/user/login/'>log in to continue</a>"
+            this.flash.message = "Not authorized. Please <a href='/user/login/'>log in to continue</a>"
+            this.flash.status = 'warning'
             return
           }
           if (e.status == 404) {
-            this.flash = 'No saved zip codes. Add one.'
+            this.flash.message = 'No saved zip codes. Add one.'
+            this.flash.status = 'info';
             return
           }
-          this.flash = "Unable to load zips."
+          this.flash.message = "Unable to load zips."
+          this.flash.status = 'warning';
         }
       )
   }
@@ -162,7 +168,8 @@ export class ZipComponent implements OnInit {
     if (this.validZip(this.addZip)) {
       let newZip = this.addZip.toString();
       if (this.userZips.indexOf(newZip) != -1) {
-        this.flash = "Zip code " + newZip + " already exists.";
+        this.flash.message = "Zip code " + newZip + " already exists.";
+        this.flash.status = 'warning';
         this.addZip = null;
         return
       }
@@ -185,7 +192,8 @@ export class ZipComponent implements OnInit {
    * User-interaction to clear flash message
    */
   clearFlash() {
-    this.flash = '';
+    this.flash.message = '';
+    this.flash.status = '';
   }
 
 }
