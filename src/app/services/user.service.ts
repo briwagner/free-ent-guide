@@ -8,6 +8,7 @@ import { HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 
 import 'rxjs/add/operator/catch';
 import { map } from 'rxjs/operators';
+import jwt_decode, {JwtPayload} from 'jwt-decode';
 
 @Injectable()
 export class UserService {
@@ -30,6 +31,20 @@ export class UserService {
 
   returnZip() {
     return this.userZipSubject;
+  }
+
+  /**
+   * Validate user token.
+   *
+   * @param {string} token
+   */
+  checkUser(token: string) {
+    let userToken = jwt_decode<any>(token);
+    if (userToken.exp && userToken.exp - Math.floor(Date.now() / 1000) > 0) {
+      return userToken.Name
+    } else {
+      return false
+    }
   }
 
   /**
@@ -61,12 +76,37 @@ export class UserService {
    * @param {string} token
    * @param {string} zip
    */
-  saveUserZip(username: string, t: string, zip: string) {
+  saveUserZip(username: string, token: string, zip: string) {
     let url = this.baseUrl + "/add-zip";
     let param = new HttpParams().set('username', username);
     param = param.append('zip', zip);
     let headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    headers = headers.append('Authorization', 'Bearer ' + t);
+    headers = headers.append('Authorization', 'Bearer ' + token);
+
+    let resp = this.http.post(url, '', {headers: headers, params: param})
+      .pipe(map(resp => {
+        if (resp['zipcodes']) {
+          return resp['zipcodes'];
+        } else {
+          return [];
+        }
+      }));
+    return resp;
+  }
+
+  /**
+   * Delete user zip from storage.
+   *
+   * @param {string} username
+   * @param {string} token
+   * @param {string} zip
+   */
+  deleteZip(username: string, token: string, zip: string) {
+    let url = this.baseUrl + "/delete-zip";
+    let param = new HttpParams().set('username', username);
+    param = param.append('zip', zip);
+    let headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    headers = headers.append('Authorization', 'Bearer ' + token);
 
     let resp = this.http.post(url, '', {headers: headers, params: param})
       .pipe(map(resp => {

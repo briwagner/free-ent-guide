@@ -39,6 +39,7 @@ import { DurationPipePipe } from './duration-pipe.pipe';
 
 // production mode
 import { enableProdMode } from '@angular/core';
+import { UserAccountComponent } from './user-account/user-account.component';
 
 enableProdMode();
 
@@ -61,7 +62,8 @@ enableProdMode();
     UserLandingComponent,
     StripHTMLtagsPipe,
     GenrePipe,
-    DurationPipePipe
+    DurationPipePipe,
+    UserAccountComponent
   ],
   imports: [
     BrowserModule,

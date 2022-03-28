@@ -529,3 +529,44 @@ div.flash-msg {
     margin: 0.5em;
   }
 }
+
+.user-zip__ctr {
+  padding: 0 12px 12px;
+
+  form {
+    input[type="text"],
+    input[type="submit"] {
+      margin-top: 0;
+    }
+
+    label {
+      display: block;
+      font-weight: 600;
+    }
+  }
+}
+
+ul.user-zips {
+  padding-left: 15px;
+  max-width: 7em;
+
+  li {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 0.25em 0 0.25em 0.5em;
+
+    &:nth-child(2n) {
+      background-color: $color-secondary;
+    }
+
+    button {
+      margin-left: auto;
+    }
+
+    .material-icons {
+      font-size: 1.2rem;
+      vertical-align: sub;
+    }
+  }
+}

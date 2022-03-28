@@ -1,0 +1,35 @@
+<h2>{{username}}</h2>
+<div class="flash__container">
+  <div [ngClass]="['flash-msg', flash.status ? flash.status : 'info']" [hidden]="!flash.message">
+    <strong [innerHtml]=flash.message></strong>
+    <button class="button" (click)="clearFlash()"><i class="material-icons">clear</i></button>
+  </div>
+</div>
+
+<div class="user-zips empty">
+  <p *ngIf="userZips.length == 0">No zips found</p>
+</div>
+
+<div class="user-zip__ctr">
+  <ul class="user-zips">
+    <p><strong>Saved zips</strong></p>
+    <li *ngFor="let zip of userZips">
+      {{zip}}
+      <button type="button" (click)="deleteZip(zip)">
+        <i class="material-icons">clear</i>
+      </button>
+    </li>
+  </ul>
+
+  <form (ngSubmit)="storeZip(newZip)" id="new-user-zip">
+    <label for="new_zip">Add zip</label>
+    <input type="text"
+           name="new_zip"
+           [(ngModel)]="newZip"
+           placeholder="Enter ZIP"
+           size="10"
+           pattern="[0-9]*">
+    <input type="submit" value="Save ZIP">
+    <span [hidden]="!formError">Please enter a valid U.S. zip code.</span>
+  </form>
+</div>

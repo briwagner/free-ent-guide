@@ -13,6 +13,7 @@ import { UserCreateComponent } from './user-create/user-create.component';
 import { UserLoginComponent } from './user-login/user-login.component';
 import { UserLogoutComponent } from './user-logout/user-logout.component';
 import { UserLandingComponent } from './user-landing/user-landing.component';
+import { UserAccountComponent } from './user-account/user-account.component';
 
 const routes: Routes = [
   {
@@ -56,6 +57,10 @@ const routes: Routes = [
   {
     path:'user/logout',
     component: UserLogoutComponent
+  },
+  {
+    path: 'user/account',
+    component: UserAccountComponent
   },
   {
     path: '**',
