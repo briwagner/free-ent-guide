@@ -15,7 +15,7 @@
             "outputPath": "dist",
             "index": "src/index.html",
             "main": "src/main.ts",
-            "tsConfig": "src/tsconfig.json",
+            "tsConfig": "tsconfig.json",
             "assets": [
               "src/assets",
               "src/favicon.ico"
@@ -101,7 +101,6 @@
       }
     }
   },
-  "defaultProject": "demo-ng2",
   "schematics": {
     "@schematics/angular:component": {
       "prefix": "app",
