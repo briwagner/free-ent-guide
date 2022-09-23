@@ -50,15 +50,14 @@ export class UserService {
   /**
    * Get stored zips from backend
    *
-   * @param {string} username
-   * @return {Array}
+   * @param {string} t Token for user-auth.
+   * @return {Observable} HTTP response
    */
-  fetchUserZips(username: string, t: string) {
+  fetchUserZips(t: string) {
     let url = this.baseUrl + "/get-zip";
-    let param = new HttpParams().set('username', username);
     let headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     headers = headers.append('Authorization', 'Bearer ' + t);
-    let resp = this.http.get(url, {headers: headers, params: param})
+    let resp = this.http.get(url, {headers: headers})
       .pipe(map(resp => {
         if (resp['zipcodes']) {
           return resp['zipcodes'];
@@ -72,14 +71,13 @@ export class UserService {
   /**
    * Store new zip to user in storage.
    *
-   * @param {string} username
    * @param {string} token
    * @param {string} zip
+   * @return {Observable} HTTP response.
    */
-  saveUserZip(username: string, token: string, zip: string) {
+  saveUserZip(token: string, zip: string) {
     let url = this.baseUrl + "/add-zip";
-    let param = new HttpParams().set('username', username);
-    param = param.append('zip', zip);
+    let param = new HttpParams().set('zip', zip);
     let headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     headers = headers.append('Authorization', 'Bearer ' + token);
 
@@ -95,16 +93,14 @@ export class UserService {
   }
 
   /**
-   * Delete user zip from storage.
+   * Delete single zip from user account in storage.
    *
-   * @param {string} username
    * @param {string} token
    * @param {string} zip
    */
-  deleteZip(username: string, token: string, zip: string) {
+  deleteZip(token: string, zip: string) {
     let url = this.baseUrl + "/delete-zip";
-    let param = new HttpParams().set('username', username);
-    param = param.append('zip', zip);
+    let param = new HttpParams().set('zip', zip);
     let headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     headers = headers.append('Authorization', 'Bearer ' + token);
 

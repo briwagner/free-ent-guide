@@ -37,7 +37,7 @@ export class UserAccountComponent implements OnInit {
   fetchZips() {
     this.username = this.userservice.checkUser(this.userToken);
     if (this.username) {
-      this.userservice.fetchUserZips(this.username, this.userToken)
+      this.userservice.fetchUserZips(this.userToken)
         .subscribe(
           p => {
             this.userZips = p
@@ -67,7 +67,7 @@ export class UserAccountComponent implements OnInit {
    *
    * @param {string} newZip
    */
-  storeZip(newZip) {
+  storeZip(newZip: string) {
     this.clearFlash();
 
     if (!this.validZip(newZip)) {
@@ -76,7 +76,7 @@ export class UserAccountComponent implements OnInit {
       return;
     }
 
-    this.userservice.saveUserZip(this.username, this.userToken, newZip)
+    this.userservice.saveUserZip(this.userToken, newZip)
       .subscribe(
         p => {
           this.userZips = p;
@@ -93,13 +93,14 @@ export class UserAccountComponent implements OnInit {
 
   /**
    * Validate zip code entered in form field.
-   * @param {number} zip
+   * @param {string} zip
    * @return {boolean}
    */
-     validZip(zip: number) {
+     validZip(zip: string) {
       if (zip != undefined) {
         if (zip.toString().length == 5) {
-          return true;
+          var isNumber = /\d/;
+          return isNumber.test(zip);
         }
       }
       return false;
@@ -117,10 +118,10 @@ export class UserAccountComponent implements OnInit {
    *
    * @param {string} zip
    */
-  deleteZip(zip) {
+  deleteZip(zip: string) {
     this.clearFlash();
 
-    this.userservice.deleteZip(this.username, this.userToken, zip)
+    this.userservice.deleteZip(this.userToken, zip)
       .subscribe(
         p => {
           this.flash.message = `Zip ${zip} removed`;

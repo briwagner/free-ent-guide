@@ -20,7 +20,7 @@ export class ZipComponent implements OnInit {
   userToken: any;
   userZips: Array<string>;
   flash: Flash;
-  addZip: number;
+  addZip: string;
 
   constructor(
     private userservice: UserService,
@@ -120,13 +120,14 @@ export class ZipComponent implements OnInit {
 
   /**
    * Validate zip code entered in form field.
-   * @param {number} zip
+   * @param zip Zip code as string.
    * @return {boolean}
    */
-  validZip(zip: number) {
+  validZip(zip: string) {
     if (zip != undefined) {
       if (zip.toString().length == 5) {
-        return true;
+        var isNumber = /\d/;
+        return isNumber.test(zip);
       }
     }
     return false;
@@ -137,7 +138,7 @@ export class ZipComponent implements OnInit {
    */
   fetchZips() {
     let t = this.userToken;
-    this.userservice.fetchUserZips(this.username, t)
+    this.userservice.fetchUserZips(t)
       .subscribe(
         p => {
           this.userZips = p
@@ -165,27 +166,31 @@ export class ZipComponent implements OnInit {
    * Add a new zipcode to User's storage in backend.
    */
   addUserZip() {
-    if (this.validZip(this.addZip)) {
-      let newZip = this.addZip.toString();
-      if (this.userZips.indexOf(newZip) != -1) {
-        this.flash.message = "Zip code " + newZip + " already exists.";
-        this.flash.status = 'warning';
-        this.addZip = null;
-        return
-      }
-      this.userservice.saveUserZip(this.username, this.userToken, newZip)
-        .subscribe(
-          p => {
-            this.userZips = p;
-            this.addZip = null;
-          },
-          e => {
-            console.log(e)
-          }
-        )
-    } else {
-      console.log('bad zip')
+    this.clearFlash();
+
+    if (!this.validZip(this.addZip)) {
+      this.flash.message = 'Please enter a valid U.S. zip code.'
+      this.flash.status = 'warning';
+      return
     }
+
+    let newZip = this.addZip.toString();
+    if (this.userZips.indexOf(newZip) != -1) {
+      this.flash.message = "Zip code " + newZip + " already exists.";
+      this.flash.status = 'warning';
+      this.addZip = null;
+      return
+    }
+    this.userservice.saveUserZip(this.userToken, newZip)
+      .subscribe(
+        p => {
+          this.userZips = p;
+          this.addZip = null;
+        },
+        e => {
+          console.log(e)
+        }
+      )
   }
 
   /**
