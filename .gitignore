@@ -40,3 +40,6 @@ Thumbs.db
 
 # demo content
 /src/app/services/rawmovies.ts
+
+# Local scripts
+*.sh
