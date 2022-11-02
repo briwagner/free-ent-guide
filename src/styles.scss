@@ -601,15 +601,9 @@ ul.user-zips {
   padding: 0.5rem 1rem 1rem;
 
   @media (max-width: 384px) {
-    max-width: 360px;
-    grid-template-columns: 210px 40px 60px;
+    max-width: 280px;
+    grid-template-columns: 190px 30px 60px;
     margin-right: 0;
-
-    .game-team,
-    .game-status,
-    .game-score {
-      font-size: 0.95em;
-    }
   }
 
   &.game-updated {
@@ -681,5 +675,13 @@ ul.user-zips {
 
   .score-home {
     grid-row: 3;
+  }
+
+  @media (max-width: 384px) {
+    .game-team,
+    .game-status,
+    .game-score {
+      font-size: 0.95em;
+    }
   }
 }
