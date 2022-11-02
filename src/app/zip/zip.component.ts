@@ -84,12 +84,14 @@ export class ZipComponent implements OnInit {
 
   /**
    * Copy user input from form field into app, browser storage.
+   *
    * @param data
    */
   storeZip(data) {
     if (this.validZip(data)) {
       localStorage.setItem('zipCode', data);
-      window.history.pushState({}, 'Movies in ' + data, window.location.pathname + "?zip=" + data);
+      // Update URL to add param for zipCode, without page navigation.
+      window.history.replaceState({}, 'Movies in ' + data, window.location.pathname + "?zip=" + data);
       this.zipCode = data;
       this.userservice.storeZip(data);
       this.hasZip = true;

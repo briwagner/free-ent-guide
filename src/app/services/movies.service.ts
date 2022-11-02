@@ -53,6 +53,7 @@ export class MoviesService {
  * Apply data model to raw response item.
  *
  * @param {object} d
+ * @param {number} i
  * @return {Movie}
  */
 function toMovie(d, i) {

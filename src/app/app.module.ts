@@ -24,6 +24,7 @@ import { ZipComponent } from './zip/zip.component';
 
 // services
 import { DiscoverMoviesService } from './services/discover-movies.service';
+import { NHLGamesService } from './services/nhlgames.service';
 import { MoviesService } from './services/movies.service';
 import { SportsService } from './services/sports.service';
 import { TvmoviesService } from './services/tvmovies.service';
@@ -73,12 +74,13 @@ enableProdMode();
     BrowserAnimationsModule
   ],
   providers: [
+    DiscoverMoviesService,
+    NHLGamesService,
     MoviesService,
     TvmoviesService,
     SportsService,
     UserService,
-    TvShowSearchService,
-    DiscoverMoviesService
+    TvShowSearchService
   ],
   bootstrap: [AppComponent]
 })

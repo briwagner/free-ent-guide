@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { ZipComponent } from '../zip/zip.component';
 
 @Component({
   selector: 'app-menu',

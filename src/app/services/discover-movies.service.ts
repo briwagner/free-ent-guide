@@ -14,10 +14,10 @@ export class DiscoverMoviesService {
   constructor(private http: HttpClient) { }
 
   /**
-   * @param {string} date - Date to query.
+   * @param {Date} date - Date to query.
    * @return {Array<Movie>}
    */
-  getMovies(date) {
+  getMovies(date: Date) {
     let dateQ = this.buildDate(date);
     let param = new HttpParams().set('date', dateQ);
     let resp = this.http.get(this.baseUrl, {params: param})
@@ -30,29 +30,33 @@ export class DiscoverMoviesService {
    * @return {string}
    */
   buildDate(date) {
+    // Clone date to avoid modifying original.
+    let d = new Date();
+    d.setFullYear(date.getFullYear());
+    d.setMonth(date.getMonth());
     // For Friday/Saturday, show current Friday. Else get last Friday.
     switch(date.getDay()){
       case 0:
-        date.setDate(date.getDate() - 2);
+        d.setDate(date.getDate() - 2);
         break;
       case 1:
-        date.setDate(date.getDate() - 3);
+        d.setDate(date.getDate() - 3);
         break;
       case 2:
-        date.setDate(date.getDate() - 4);
+        d.setDate(date.getDate() - 4);
         break;
       case 3:
-        date.setDate(date.getDate() - 5);
+        d.setDate(date.getDate() - 5);
         break;
       case 4:
-        date.setDate(date.getDate() - 6);
+        d.setDate(date.getDate() - 6);
         break;
       case 6:
-        date.setDate(date.getDate() - 1);
+        d.setDate(date.getDate() - 1);
         break;
     }
     // Date should be formatted like: "2017-10-23";
-    let dateFormat = date.getFullYear() + "-" + this.padNum(date.getMonth() + 1) + "-" + this.padNum(date.getDate());
+    let dateFormat = d.getFullYear() + "-" + this.padNum(d.getMonth() + 1) + "-" + this.padNum(d.getDate());
     return dateFormat;
   }
 
