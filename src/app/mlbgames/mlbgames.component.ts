@@ -1,45 +1,43 @@
 import { Component, OnInit } from '@angular/core';
-import { DatePipe, formatDate } from '@angular/common';
+import { formatDate } from '@angular/common';
 
-import { NHLGamesService } from '../services/nhlgames.service';
+import { MLBGamesService } from '../services/mlbgamesservice.service';
 import { Game } from '../models/game';
 
 @Component({
-  selector: 'app-nhlgames',
-  templateUrl: './nhlgames.component.html',
-  styleUrls: ['./nhlgames.component.scss']
+  selector: 'app-mlbgames',
+  templateUrl: './mlbgames.component.html',
+  styleUrls: ['../nhlgames/nhlgames.component.scss']
 })
-export class NhlgamesComponent implements OnInit {
+export class MLBGamesComponent implements OnInit {
 
-  // Hold results for NHLGamesService.
-  nhlgames: Object;
+  // Hold results for MLBGamesService.
+  mlbgames: Object;
   // Date to use in queries.
   date: Date;
   // Manage page state.
-  hasNHL: boolean = false;
+  hasMLB: boolean = false;
 
-  constructor(
-    private nhlGamesService: NHLGamesService
-  ) { }
+  constructor(private mlbGamesService: MLBGamesService) { }
 
   ngOnInit(): void {
     this.date = new Date();
-    this.getNHL();
+    this.getMLB();
   }
 
   /**
-   * Fetch NHL games from service and load on component.
+   * Fetch MLB games from service and load on component.
    */
-   getNHL() {
+  getMLB() {
     let d = formatDate(this.date, "yyyy-MM-dd", 'en_us')
-    this.nhlGamesService.getGames(d)
+    this.mlbGamesService.getGames(d)
       .subscribe(
         p => {
           let hash = Object.fromEntries(
             p.map(v => [v.ID, v])
           )
           // console.log(hash)
-          this.nhlgames = hash
+          this.mlbgames = hash
         },
         e => {
           // Do not register error as message to user.
@@ -47,7 +45,7 @@ export class NhlgamesComponent implements OnInit {
           console.log('Error:', e.message);
         },
         () => {
-          this.hasNHL = Object.keys(this.nhlgames).length > 0 ? true : false;
+          this.hasMLB = Object.keys(this.mlbgames).length > 0 ? true : false;
         }
       )
   }
@@ -58,16 +56,16 @@ export class NhlgamesComponent implements OnInit {
    * @param {number} id
    */
      checkGame(id: number) {
-      this.nhlGamesService.getGame(id)
+      this.mlbGamesService.getGame(id)
         .subscribe(
           p => {
             let update = p
-            if (!this.nhlgames[update.ID]) {
+            if (!this.mlbgames[update.ID]) {
               console.log("cannot update game")
             } else {
               // Push updated game back to component.
               update.updated = true;
-              this.nhlgames[update.ID] = update;
+              this.mlbgames[update.ID] = update;
             }
           },
           e => console.log(e),
@@ -83,14 +81,10 @@ export class NhlgamesComponent implements OnInit {
    */
    getGameStatus(g: Game) {
     if (g.status == "Final") {
-      if (g.period > 3) {
-        return "F/" + g.period
-      } else {
-        return g.status
-      }
+      return g.status
     }
     if (g.period) {
-      return "P" + g.period
+      return g.period
     }
     return formatDate(g.gametime, 'shortTime', 'en_us')
   }

@@ -12,6 +12,7 @@ import { LoadingDotsComponent } from './loading-dots/loading-dots.component';
 import { MenuComponent } from './menu/menu.component';
 import { MoviesComponent } from './movies/movies.component';
 import { MoviesOnTvComponent } from './movies-on-tv/movies-on-tv.component';
+import { MLBGamesComponent } from './mlbgames/mlbgames.component';
 import { NhlgamesComponent } from './nhlgames/nhlgames.component';
 import { SearchComponent } from './search/search.component';
 import { SportsComponent } from './sports/sports.component';
@@ -25,8 +26,9 @@ import { ZipComponent } from './zip/zip.component';
 
 // services
 import { DiscoverMoviesService } from './services/discover-movies.service';
-import { NHLGamesService } from './services/nhlgames.service';
+import { MLBGamesService } from './services/mlbgamesservice.service';
 import { MoviesService } from './services/movies.service';
+import { NHLGamesService } from './services/nhlgames.service';
 import { SportsService } from './services/sports.service';
 import { TvmoviesService } from './services/tvmovies.service';
 import { TvShowSearchService } from './services/tv-show-search.service';
@@ -55,6 +57,7 @@ enableProdMode();
     LandingComponent,
     LoadingDotsComponent,
     MenuComponent,
+    MLBGamesComponent,
     MoviesOnTvComponent,
     NhlgamesComponent,
     SearchComponent,
@@ -66,7 +69,7 @@ enableProdMode();
     StripHTMLtagsPipe,
     GenrePipe,
     DurationPipePipe,
-    UserAccountComponent
+    UserAccountComponent,
   ],
   imports: [
     BrowserModule,
@@ -77,6 +80,7 @@ enableProdMode();
   ],
   providers: [
     DiscoverMoviesService,
+    MLBGamesService,
     NHLGamesService,
     MoviesService,
     TvmoviesService,

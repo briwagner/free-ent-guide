@@ -1,0 +1,29 @@
+<div class="section mlb-games">
+  <div class="section-header">
+    <h2>MLB Games</h2>
+    <p class="dateline padded">{{date | date:'mediumDate'}}</p>
+  </div>
+  <ng-container *ngIf="hasMLB">
+    <div class="game-tiles">
+      <div *ngFor="let g of mlbgames | keyvalue"
+           class="game-tile"
+           attr.id="mlbg-{{g.key}}"
+           [class.game-updated]="g.value.updated">
+        <span class="game-title"><h3>{{g.value.description}}</h3></span>
+        <span class="game-team">{{g.value.visitor.name}}</span>
+        <span class="game-team">{{g.value.home.name}}</span>
+        <ng-container *ngIf="g.value.status != 'Scheduled'">
+          <span class="game-score score-visitor">{{g.value.visitorscore}}</span>
+          <span class="game-score score-home">{{g.value.homescore}}</span>
+        </ng-container>
+        <span class="game-status">{{getGameStatus(g.value)}}</span>
+        <span class="game-update">
+          <button (click)="checkGame(g.key)" [disabled]="g.value.updated">update</button>
+        </span>
+      </div>
+    </div>
+  </ng-container>
+  <ng-container *ngIf="!hasMLB">
+    <p class="status-empty padded">No games scheduled</p>
+  </ng-container>
+</div>
