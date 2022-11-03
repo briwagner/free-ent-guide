@@ -2,35 +2,12 @@
   <h3><i class="material-icons">warning</i>{{ errorMsg }}</h3>
 </div>
 
-<div class="section nhl-games">
-  <h2>NHL Games</h2>
-  <ng-container *ngIf="hasNHL">
-    <div class="game-tiles">
-      <div *ngFor="let g of nhlgames | keyvalue"
-           class="game-tile"
-           attr.id="nhlg-{{g.key}}"
-           [class.game-updated]="g.value.updated">
-        <span class="game-title"><h3>{{g.value.description}}</h3></span>
-        <span class="game-team">{{g.value.visitor.name}}</span>
-        <span class="game-team">{{g.value.home.name}}</span>
-        <ng-container *ngIf="g.value.status != 'Scheduled'">
-          <span class="game-score score-visitor">{{g.value.visitorscore}}</span>
-          <span class="game-score score-home">{{g.value.homescore}}</span>
-        </ng-container>
-        <span class="game-status">{{getGameStatus(g.value)}}</span>
-        <span class="game-update">
-          <button (click)="checkGame(g.key)" [disabled]="g.value.updated">update</button>
-        </span>
-      </div>
-    </div>
-  </ng-container>
-  <ng-container *ngIf="!hasNHL">
-    <p class="status-empty">No games scheduled</p>
-  </ng-container>
-</div>
+<app-nhlgames></app-nhlgames>
 
 <div class="section discover-movies">
-  <h2>New Movie Releases from {{date | date:'shortDate'}}</h2>
+  <div class="section-header">
+    <h2>New Movie Releases from {{date | date:'shortDate'}}</h2>
+  </div>
   <div class="discovers">
     <ng-container *ngIf="isLoading">
     <div *ngFor="let i of [1,2,3,4,5,6]"

@@ -14,6 +14,7 @@ import { UserLoginComponent } from './user-login/user-login.component';
 import { UserLogoutComponent } from './user-logout/user-logout.component';
 import { UserLandingComponent } from './user-landing/user-landing.component';
 import { UserAccountComponent } from './user-account/user-account.component';
+import { NhlgamesComponent } from './nhlgames/nhlgames.component';
 
 const routes: Routes = [
   {
@@ -37,6 +38,10 @@ const routes: Routes = [
   {
     path: 'television/sports',
     component: SportsComponent
+  },
+  {
+    path: 'television/sports/nhl',
+    component: NhlgamesComponent
   },
   {
     path: 'television/search',

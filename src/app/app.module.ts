@@ -12,6 +12,7 @@ import { LoadingDotsComponent } from './loading-dots/loading-dots.component';
 import { MenuComponent } from './menu/menu.component';
 import { MoviesComponent } from './movies/movies.component';
 import { MoviesOnTvComponent } from './movies-on-tv/movies-on-tv.component';
+import { NhlgamesComponent } from './nhlgames/nhlgames.component';
 import { SearchComponent } from './search/search.component';
 import { SportsComponent } from './sports/sports.component';
 import { TvMenuComponent } from './tv-menu/tv-menu.component';
@@ -52,11 +53,12 @@ enableProdMode();
     SportsComponent,
     TvmoviesComponent,
     LandingComponent,
-    MenuComponent,
-    SearchComponent,
-    MoviesOnTvComponent,
-    TvMenuComponent,
     LoadingDotsComponent,
+    MenuComponent,
+    MoviesOnTvComponent,
+    NhlgamesComponent,
+    SearchComponent,
+    TvMenuComponent,
     UserCreateComponent,
     UserLoginComponent,
     UserLogoutComponent,
