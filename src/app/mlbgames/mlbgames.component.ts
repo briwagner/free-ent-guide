@@ -81,12 +81,18 @@ export class MLBGamesComponent implements OnInit {
    */
    getGameStatus(g: Game) {
     if (g.status == "Final") {
-      return g.status
+      return g.status;
+    }
+    if (g.status == "Scheduled") {
+      return formatDate(g.gametime, 'shortTime', 'en_us');
+    }
+    if (g.status == "Pre-Game") {
+      return "Pre";
     }
     if (g.period) {
-      return g.period
+      return g.period;
     }
-    return formatDate(g.gametime, 'shortTime', 'en_us')
+    return formatDate(g.gametime, 'shortTime', 'en_us');
   }
 
 }

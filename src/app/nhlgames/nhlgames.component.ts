@@ -84,15 +84,21 @@ export class NhlgamesComponent implements OnInit {
    getGameStatus(g: Game) {
     if (g.status == "Final") {
       if (g.period > 3) {
-        return "F/" + g.period
+        return "F/" + g.period;
       } else {
-        return g.status
+        return g.status;
       }
     }
-    if (g.period) {
-      return "P" + g.period
+    if (g.status == "Scheduled") {
+      return formatDate(g.gametime, 'shortTime', 'en_us');
     }
-    return formatDate(g.gametime, 'shortTime', 'en_us')
+    if (g.status == "Pre-Game") {
+      return "Pre";
+    }
+    if (g.period) {
+      return "P" + g.period;
+    }
+    return formatDate(g.gametime, 'shortTime', 'en_us');
   }
 
 }
