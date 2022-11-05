@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { DatePipe, formatDate } from '@angular/common';
+import { DatePipe, formatDate, KeyValue } from '@angular/common';
 
 import { NHLGamesService } from '../services/nhlgames.service';
 import { Game } from '../models/game';
@@ -99,6 +99,16 @@ export class NhlgamesComponent implements OnInit {
       return "P" + g.period;
     }
     return formatDate(g.gametime, 'shortTime', 'en_us');
+  }
+
+  /**
+   * Override key order and use gametime early to late.
+   * @param a
+   * @param b
+   * @returns
+   */
+  gametimeOrder = (a: KeyValue<number,any>, b: KeyValue<number,any>): number => {
+    return a.value.gametime > b.value.gametime ? 1 : -1;
   }
 
 }

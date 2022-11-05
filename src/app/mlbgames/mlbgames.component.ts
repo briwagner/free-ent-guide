@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { formatDate } from '@angular/common';
+import { formatDate, KeyValue } from '@angular/common';
 
 import { MLBGamesService } from '../services/mlbgamesservice.service';
 import { Game } from '../models/game';
@@ -93,6 +93,16 @@ export class MLBGamesComponent implements OnInit {
       return g.period;
     }
     return formatDate(g.gametime, 'shortTime', 'en_us');
+  }
+
+  /**
+   * Override key order and use gametime early to late.
+   * @param a
+   * @param b
+   * @returns
+   */
+   gametimeOrder = (a: KeyValue<number,any>, b: KeyValue<number,any>): number => {
+    return a.value.gametime > b.value.gametime ? 1 : -1;
   }
 
 }

@@ -5,7 +5,7 @@
   </div>
   <ng-container *ngIf="hasMLB">
     <div class="game-tiles">
-      <div *ngFor="let g of mlbgames | keyvalue"
+      <div *ngFor="let g of mlbgames | keyvalue: gametimeOrder"
            class="game-tile"
            attr.id="mlbg-{{g.key}}"
            [class.game-updated]="g.value.updated">
