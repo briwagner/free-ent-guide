@@ -1,10 +1,12 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { NavigationExtras, Router } from '@angular/router';
 import { trigger, state, style, animate, transition } from '@angular/animations';
 
 import { MoviesService } from '../services/movies.service';
 import { UserService } from '../services/user.service';
 import { Movie } from '../models/movie';
 import { DatePipe } from '@angular/common';
+import { ZipComponent } from 'app/zip/zip.component';
 
 @Component({
   selector: 'app-movies',
@@ -18,6 +20,11 @@ import { DatePipe } from '@angular/common';
 })
 export class MoviesComponent implements OnInit {
 
+  @ViewChild(ZipComponent)
+  // Bang avoids TS warning that this cannot be nullable,
+  // which it seems to be upon init in a parent.
+  private zipComponent!: ZipComponent;
+
   title: string = 'Movies';
   moviesShowing: Array<Movie>;
   userZip: any;
@@ -29,6 +36,7 @@ export class MoviesComponent implements OnInit {
 
   constructor(
     private moviesservice: MoviesService,
+    private router: Router,
     private userservice: UserService
   ) {
       this.userservice.userZip$.subscribe(
@@ -40,7 +48,13 @@ export class MoviesComponent implements OnInit {
         }
       );
       this.datepipe = new DatePipe('en-us');
-   }
+
+    const navigation = this.router.getCurrentNavigation();
+    if (navigation.extras.state) {
+      const state = navigation.extras.state as {data: string}
+      this.setError(state.data)
+    }
+  }
 
   ngOnInit() {
     this.schedDate = new Date();
@@ -50,6 +64,7 @@ export class MoviesComponent implements OnInit {
    * Call to fetch the movie data.
    */
   getMovies() {
+    this.zipComponent.clearFlash();
     this.clearMovies();
     this.loading = true;
     this.moviesservice.getMovies(this.userZip, this.datepipe.transform(this.schedDate, "yyyy-MM-dd"))
@@ -63,7 +78,7 @@ export class MoviesComponent implements OnInit {
                         },
                         e => {
                           this.loading = false;
-                          this.errorMsg = "Failed to get listings";
+                          this.setError("Failed to get listings");
                         },
                         () => this.hasMovies()
                       );
@@ -85,11 +100,9 @@ export class MoviesComponent implements OnInit {
    * Reset page in response to user interaction.
    */
   clearMovies() {
-    this.errorMsg = '';
+    this.setError('');
     this.moviesShowing = [];
     this.hasData = false;
-    // why do this? it clears the zip when I hit 'get movies'
-    // this.userZip = '';
   }
 
   /**
@@ -105,6 +118,13 @@ export class MoviesComponent implements OnInit {
   clearUser() {
     this.clearMovies();
     this.clearZip();
+  }
+
+  /**
+   * Set error message
+   */
+  setError(msg:string) {
+    this.errorMsg = msg;
   }
 
   /**
@@ -136,7 +156,7 @@ export class MoviesComponent implements OnInit {
     }
     let today = new Date();
     if (nd.getMonth() == today.getMonth() && nd.getDate() < today.getDate()) {
-      this.errorMsg = 'Invalid date';
+      this.setError('Invalid date');
       return
     }
 

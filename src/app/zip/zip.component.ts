@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Inject } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { HttpParams } from '@angular/common/http';
 import { NavigationExtras, Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
@@ -34,10 +34,10 @@ export class ZipComponent implements OnInit {
     }
     const navigation = this.router.getCurrentNavigation();
     this.flash = new Flash;
-    if (navigation.extras.state) {
-      const state = navigation.extras.state as {data: string}
-      this.flash.message = state.data
-    }
+    // if (navigation.extras.state) {
+    //   const state = navigation.extras.state as {data: string}
+    //   this.flash.message = state.data
+    // }
   }
 
   ngOnInit() {
@@ -83,11 +83,13 @@ export class ZipComponent implements OnInit {
   }
 
   /**
-   * Copy user input from form field into app, browser storage.
+   * Update user selected zip in app state and browser storage.
    *
    * @param data
    */
   storeZip(data) {
+    this.clearFlash();
+
     if (this.validZip(data)) {
       localStorage.setItem('zipCode', data);
       // Update URL to add param for zipCode, without page navigation.
@@ -105,6 +107,7 @@ export class ZipComponent implements OnInit {
    * Reset form field.
    */
   clearZip() {
+    this.clearFlash();
     localStorage.removeItem('zipCode');
     window.history.pushState({}, 'Movies', window.location.pathname);
     this.userservice.storeZip('');
@@ -113,6 +116,8 @@ export class ZipComponent implements OnInit {
 
   /**
    * Swap active zip from inactive list.
+   * @todo this is unused. Remove?
+   *
    * @param {string} zip
    */
   swapZip(zip: string) {
