@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { NavigationExtras, Router } from '@angular/router';
 import { trigger, state, style, animate, transition } from '@angular/animations';
 
@@ -18,7 +18,7 @@ import { ZipComponent } from 'app/zip/zip.component';
     ])
   ]
 })
-export class MoviesComponent implements OnInit {
+export class MoviesComponent implements OnInit, AfterViewInit {
 
   @ViewChild(ZipComponent)
   // Bang avoids TS warning that this cannot be nullable,
@@ -28,6 +28,7 @@ export class MoviesComponent implements OnInit {
   title: string = 'Movies';
   moviesShowing: Array<Movie>;
   userZip: any;
+  zipFlash: string;
   hasData: Boolean = false;
   loading: Boolean = false;
   errorMsg: string = '';
@@ -49,15 +50,27 @@ export class MoviesComponent implements OnInit {
       );
       this.datepipe = new DatePipe('en-us');
 
+    // Grab the nav state here, when it's available.
     const navigation = this.router.getCurrentNavigation();
     if (navigation.extras.state) {
       const state = navigation.extras.state as {data: string}
-      this.setError(state.data)
+      this.zipFlash = state.data;
     }
   }
 
+  /**
+   * @inheritdoc
+   */
   ngOnInit() {
     this.schedDate = new Date();
+  }
+
+  /**
+   * @inheritdoc
+   */
+  ngAfterViewInit() {
+    // Set the Zip flash after ViewInit, else the zip component doesn't exist yet.
+    this.zipComponent.setFlash(this.zipFlash)
   }
 
   /**

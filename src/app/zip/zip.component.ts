@@ -34,10 +34,10 @@ export class ZipComponent implements OnInit {
     }
     const navigation = this.router.getCurrentNavigation();
     this.flash = new Flash;
-    // if (navigation.extras.state) {
-    //   const state = navigation.extras.state as {data: string}
-    //   this.flash.message = state.data
-    // }
+    if (navigation.extras.state) {
+      const state = navigation.extras.state as {data: string}
+      this.flash.message = state.data
+    }
   }
 
   ngOnInit() {
@@ -206,6 +206,14 @@ export class ZipComponent implements OnInit {
   clearFlash() {
     this.flash.message = '';
     this.flash.status = '';
+  }
+
+  /**
+   * Set flash message; called from parent.
+   */
+  setFlash(msg:string) {
+    this.flash.message = msg;
+    this.flash.status = 'info'
   }
 
 }
