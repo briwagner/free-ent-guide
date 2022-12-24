@@ -8,7 +8,7 @@ This project leverages third-party APIs to provide information on movies and tel
 
 ## Backend Data
 
-The progamming data is provided directly from third-party sources. But it relies on a custom backend to protect the API keys for each of the providers. That backend is built in Golang and communicates with a Redis caching layer to limit the amount of API queries.
+The progamming data is provided directly from third-party sources. But it relies on a custom backend to protect the API keys for each of the providers. That backend is built in Golang and communicates with a ~~Redis caching~~ database layer to limit the amount of API queries.
 
 More information here: https://github.com/briwagner/free-ent-guide-backend
 
@@ -17,8 +17,6 @@ More information here: https://github.com/briwagner/free-ent-guide-backend
 - Display news and updates on television programming
 - Create a user-controlled space for saving favorite programs, etc.
 - Integrate Angular route guards for user-controlled spaces
-- Integrate backend to supply authentication via JSON web token
-- Link to movie theater purchasing options
 
 ## Build Tools
 
