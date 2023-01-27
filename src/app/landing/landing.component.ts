@@ -39,15 +39,16 @@ export class LandingComponent implements OnInit {
    }
 
   ngOnInit() {
-    this.date = new Date();
-    this.getMovies();
+    let d = new Date();
+    this.date = d
+    this.getMovies(d);
   }
 
   /**
    * Load discover movies from service and load on component.
    */
-  getMovies() {
-    this.discoverMovies.getMovies(this.date)
+  getMovies(d: Date) {
+    this.discoverMovies.getMovies(d)
       .subscribe(
         p => this.discovers = p,
         e => {

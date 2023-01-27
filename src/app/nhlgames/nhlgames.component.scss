@@ -1,5 +1,19 @@
 @import "var";
 
+// this should be global somewhere.
+ul.align-right li:first-child {
+  margin-left: auto;
+}
+
+button.no-style {
+  border: none;
+
+  &:hover,
+  &:focus {
+    text-decoration: underline;
+  }
+}
+
 .nhl-games,
 .mlb-games {
 

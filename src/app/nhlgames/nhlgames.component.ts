@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { DatePipe, formatDate, KeyValue } from '@angular/common';
 
 import { NHLGamesService } from '../services/nhlgames.service';
@@ -13,8 +13,8 @@ export class NhlgamesComponent implements OnInit {
 
   // Hold results for NHLGamesService.
   nhlgames: Object;
-  // Date to use in queries.
-  date: Date;
+  // Date to use in queries; should come from parent component.
+  @Input() date: Date;
   // Manage page state.
   hasNHL: boolean = false;
 
@@ -23,7 +23,6 @@ export class NhlgamesComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.date = new Date();
     this.getNHL();
   }
 
@@ -50,6 +49,25 @@ export class NhlgamesComponent implements OnInit {
           this.hasNHL = Object.keys(this.nhlgames).length > 0 ? true : false;
         }
       )
+  }
+
+  /**
+   * Change date for NHL game lookup.
+   *
+   * @param {number} i
+   *   Buttons should pass 1 or -1 to change day.
+   */
+  changeDate(i: number) {
+    let newDate = new Date();
+    if (i === 1) {
+      newDate.setDate(this.date.getDate() + 1);
+    }
+    else if (i === -1) {
+      newDate.setDate(this.date.getDate() - 1);
+    }
+    this.date = newDate;
+    this.getNHL();
+    // @todo navigate user focus up to games
   }
 
   /**
