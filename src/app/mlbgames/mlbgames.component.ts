@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { formatDate, KeyValue } from '@angular/common';
 
 import { MLBGamesService } from '../services/mlbgamesservice.service';
@@ -14,14 +14,13 @@ export class MLBGamesComponent implements OnInit {
   // Hold results for MLBGamesService.
   mlbgames: Object;
   // Date to use in queries.
-  date: Date;
+  @Input() date: Date;
   // Manage page state.
   hasMLB: boolean = false;
 
   constructor(private mlbGamesService: MLBGamesService) { }
 
   ngOnInit(): void {
-    this.date = new Date();
     this.getMLB();
   }
 
