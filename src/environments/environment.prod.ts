@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiBase: "http://api.free-entertainment-guide.com/v1"
+  apiBase: "https://api.free-entertainment-guide.com/v1"
 };
