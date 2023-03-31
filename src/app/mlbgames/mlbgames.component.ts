@@ -50,6 +50,31 @@ export class MLBGamesComponent implements OnInit {
   }
 
   /**
+   * Change date for MLB game lookup.
+   *
+   * @param {number} i
+   *   Buttons should pass 1 or -1 to change day.
+   */
+  changeDate(i: number) {
+    let t = this.date;
+    if (i === 1) {
+      t.setDate(t.getDate() + 1);
+    }
+    else if (i === -1) {
+      t.setDate(t.getDate() - 1);
+    }
+    this.date = new Date(
+      t.getFullYear(),
+      t.getMonth(),
+      t.getDate(),
+      t.getHours(),
+      t.getMinutes()
+    );
+    this.getMLB();
+    // @todo navigate user focus up to games
+  }
+
+  /**
    * Fetch score and info from api by game ID.
    *
    * @param {number} id

@@ -58,14 +58,20 @@ export class NhlgamesComponent implements OnInit {
    *   Buttons should pass 1 or -1 to change day.
    */
   changeDate(i: number) {
-    let newDate = new Date();
+    let t = this.date;
     if (i === 1) {
-      newDate.setDate(this.date.getDate() + 1);
+      t.setDate(t.getDate() + 1);
     }
     else if (i === -1) {
-      newDate.setDate(this.date.getDate() - 1);
+      t.setDate(t.getDate() - 1);
     }
-    this.date = newDate;
+    this.date = new Date(
+      t.getFullYear(),
+      t.getMonth(),
+      t.getDate(),
+      t.getHours(),
+      t.getMinutes()
+    );
     this.getNHL();
     // @todo navigate user focus up to games
   }

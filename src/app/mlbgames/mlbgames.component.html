@@ -3,6 +3,7 @@
     <h2>MLB Games</h2>
     <p class="dateline padded">{{date | date:'mediumDate'}}</p>
   </div>
+
   <ng-container *ngIf="hasMLB">
     <div class="game-tiles">
       <div *ngFor="let g of mlbgames | keyvalue: gametimeOrder"
@@ -23,7 +24,15 @@
       </div>
     </div>
   </ng-container>
+
   <ng-container *ngIf="!hasMLB">
     <p class="status-empty padded">No games scheduled</p>
   </ng-container>
+
+  <div class="footer-actions">
+    <ul class="list-inline-buttons align-right">
+      <li><button class="button no-style" (click)="changeDate(-1)">Prev</button></li>
+      <li><button class="button no-style" (click)="changeDate(1)">Next</button></li>
+    </ul>
+  </div>
 </div>

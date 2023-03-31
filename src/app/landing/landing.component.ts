@@ -40,6 +40,7 @@ export class LandingComponent implements OnInit {
 
   ngOnInit() {
     let d = new Date();
+    d.setHours(12);
     this.date = d
     this.getMovies(d);
   }
