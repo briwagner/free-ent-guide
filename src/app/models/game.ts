@@ -17,6 +17,7 @@ export class Game {
   visitor: Team;
   period: number;
   status: string;
+  completed: boolean;
   homescore: number;
   visitorscore: number;
   updated: boolean;
@@ -26,6 +27,16 @@ export class Game {
     this.description = data.description;
     this.gametime = data.gametime;
     this.updated = false;
+    this.completed = false;
+  }
+
+  /**
+   * IsFinal responds if game status is 'Final'.
+   *
+   * @returns bool
+   */
+  IsFinal() {
+    return this.status == "Final";
   }
 }
 

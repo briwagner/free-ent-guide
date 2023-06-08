@@ -98,6 +98,13 @@ function toGame(d) {
 
   game.home = home;
   game.visitor = visitor;
+  game.status = d.status;
+  // Set score only if game is underway or finished.
+  if (game.status == "Final") {
+    game.homescore = d.home_score;
+    game.visitorscore = d.visitor_score;
+  }
+  game.completed = d.status == "Final";
 
   return game;
 }

@@ -102,6 +102,9 @@ export class MLBGamesComponent implements OnInit {
   /**
    * Helper to dynamically display relevant game status,
    * which can be updated upon user request.
+   *
+   * @param {Game} g
+   * @returns {string}
    */
    getGameStatus(g: Game) {
     if (g.status == "Final") {

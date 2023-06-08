@@ -18,7 +18,7 @@
           <span class="game-score score-home">{{g.value.homescore}}</span>
         </ng-container>
         <span class="game-status">{{getGameStatus(g.value)}}</span>
-        <span class="game-update">
+        <span class="game-update" [hidden]="g.value.completed">
           <button (click)="checkGame(g.key)" [disabled]="g.value.updated">update</button>
         </span>
       </div>
