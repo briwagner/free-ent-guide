@@ -1,0 +1,17 @@
+<h2>Add games</h2>
+
+<div class="flash__container">
+  <div [ngClass]="['flash-msg', flash.status ? flash.status : 'info']" [hidden]="!flash.message">
+    <strong [innerHtml]=flash.message></strong>
+    <button class="button" (click)="clearFlash()"><i class="material-icons">clear</i></button>
+  </div>
+</div>
+
+<form id="add-games" (ngSubmit)="addGames()">
+  <label for="add-games-date">Enter date</label>
+  <input type="text"
+         id="add-games-date"
+         [(ngModel)]="dateString"
+         required>
+  <input type="submit" value="Add" [disabled]="disabled">
+</form>

@@ -25,6 +25,7 @@ import { UserLogoutComponent } from './user-logout/user-logout.component';
 import { ZipComponent } from './zip/zip.component';
 
 // services
+import { AuthGuard } from './user/auth.guard';
 import { DiscoverMoviesService } from './services/discover-movies.service';
 import { MLBGamesService } from './services/mlbgamesservice.service';
 import { MoviesService } from './services/movies.service';
@@ -34,7 +35,6 @@ import { TvmoviesService } from './services/tvmovies.service';
 import { TvShowSearchService } from './services/tv-show-search.service';
 import { UserService } from './services/user.service';
 
-import { AuthGuard } from './auth.guard';
 
 // pipes
 import { StripHTMLtagsPipe } from './strip-htmltags.pipe';
@@ -44,6 +44,7 @@ import { DurationPipePipe } from './duration-pipe.pipe';
 // production mode
 import { enableProdMode } from '@angular/core';
 import { UserAccountComponent } from './user-account/user-account.component';
+import { AddGamesComponent } from './add-games/add-games.component';
 
 enableProdMode();
 
@@ -70,6 +71,7 @@ enableProdMode();
     GenrePipe,
     DurationPipePipe,
     UserAccountComponent,
+    AddGamesComponent,
   ],
   imports: [
     BrowserModule,
@@ -79,6 +81,7 @@ enableProdMode();
     BrowserAnimationsModule
   ],
   providers: [
+    AuthGuard,
     DiscoverMoviesService,
     MLBGamesService,
     NHLGamesService,

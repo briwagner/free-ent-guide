@@ -34,9 +34,11 @@ export class UserService {
   }
 
   /**
-   * Validate user token.
+   * Validate user token for expiration.
    *
    * @param {string} token
+   * @return {any}
+   *   Username or false
    */
   checkUser(token: string) {
     let userToken = jwt_decode<any>(token);
@@ -162,6 +164,23 @@ export class UserService {
     headers.append("Content-Type", "application/x-www-form-urlencoded");
 
     let resp = this.http.post(url, body, {headers: headers});
+    return resp;
+  }
+
+  /**
+   * Add games operation
+   *
+   * @param {string} token
+   * @param {string} date
+   * @return Observable<string>
+   */
+  addGames(token: string, date: string) {
+    let url = environment.apiBase + '/admin/add-games' + '?date=' + date;
+    let headers = new HttpHeaders();
+    headers.append("Content-Type", "application/x-www-form-urlencoded");
+    headers = headers.append('Authorization', 'Bearer ' + token);
+
+    let resp = this.http.post(url, null, {headers: headers});
     return resp;
   }
 
