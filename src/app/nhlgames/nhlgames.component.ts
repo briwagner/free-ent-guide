@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { DatePipe, formatDate, KeyValue } from '@angular/common';
+import { DatePipe, formatDate, KeyValue, ViewportScroller } from '@angular/common';
 
 import { NHLGamesService } from '../services/nhlgames.service';
 import { Game } from '../models/game';
@@ -19,7 +19,8 @@ export class NhlgamesComponent implements OnInit {
   hasNHL: boolean = false;
 
   constructor(
-    private nhlGamesService: NHLGamesService
+    private nhlGamesService: NHLGamesService,
+    private scroll: ViewportScroller
   ) { }
 
   ngOnInit(): void {
@@ -73,7 +74,7 @@ export class NhlgamesComponent implements OnInit {
       t.getMinutes()
     );
     this.getNHL();
-    // @todo navigate user focus up to games
+    this.scroll.scrollToAnchor('nhl-top')
   }
 
   /**

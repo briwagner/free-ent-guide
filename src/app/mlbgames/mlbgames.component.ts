@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { formatDate, KeyValue } from '@angular/common';
+import { formatDate, KeyValue, ViewportScroller } from '@angular/common';
 
 import { MLBGamesService } from '../services/mlbgamesservice.service';
 import { Game } from '../models/game';
@@ -18,7 +18,10 @@ export class MLBGamesComponent implements OnInit {
   // Manage page state.
   hasMLB: boolean = false;
 
-  constructor(private mlbGamesService: MLBGamesService) { }
+  constructor(
+    private mlbGamesService: MLBGamesService,
+    private scroll: ViewportScroller
+  ) { }
 
   ngOnInit(): void {
     this.getMLB();
@@ -71,7 +74,7 @@ export class MLBGamesComponent implements OnInit {
       t.getMinutes()
     );
     this.getMLB();
-    // @todo navigate user focus up to games
+    this.scroll.scrollToAnchor('mlb-top')
   }
 
   /**
