@@ -29,7 +29,6 @@ const routes: Routes = [
   {
     path: 'television',
     component: MoviesOnTvComponent,
-    canActivate: [AuthGuard]
   },
   {
     path: 'television/movies',
