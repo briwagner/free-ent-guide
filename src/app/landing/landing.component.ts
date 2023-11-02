@@ -26,8 +26,9 @@ export class LandingComponent implements OnInit {
   discovers;
   // Hold results for search.
   results;
-  // Date to use in queries to movies, sports services.
   date: Date;
+  // Date to use in queries to movies, sports services.
+  dateMLB: Date;
   dateNHL: Date;
   // Manage page state.
   isLoading: boolean = true;
@@ -43,6 +44,7 @@ export class LandingComponent implements OnInit {
     let d = new Date();
     d.setHours(12);
     this.date = d
+    this.dateMLB = d
     this.dateNHL = d
     this.getMovies(d);
   }
