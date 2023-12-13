@@ -17,6 +17,7 @@ export class NhlgamesComponent implements OnInit {
   @Input() date: Date;
   // Manage page state.
   hasNHL: boolean = false;
+  loading: boolean = true;
 
   constructor(
     private nhlGamesService: NHLGamesService,
@@ -24,6 +25,7 @@ export class NhlgamesComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.loading = true;
     this.getNHL();
   }
 
@@ -45,9 +47,11 @@ export class NhlgamesComponent implements OnInit {
           // Do not register error as message to user.
           // @todo simply don't show this section?
           console.log('Error:', e.message);
+          this.loading = false;
         },
         () => {
           this.hasNHL = Object.keys(this.nhlgames).length > 0 ? true : false;
+          this.loading = false;
         }
       )
   }

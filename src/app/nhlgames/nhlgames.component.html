@@ -4,7 +4,11 @@
     <p class="dateline padded">{{date | date:'mediumDate'}}</p>
   </div>
 
-  <ng-container *ngIf="hasNHL">
+  <ng-container *ngIf="loading">
+    <app-loading-dots></app-loading-dots>
+  </ng-container>
+
+  <ng-container *ngIf="!loading && hasNHL">
     <div class="game-tiles">
       <div *ngFor="let g of nhlgames | keyvalue: gametimeOrder"
            class="game-tile"
@@ -25,7 +29,7 @@
     </div>
   </ng-container>
 
-  <ng-container *ngIf="!hasNHL">
+  <ng-container *ngIf="!loading && !hasNHL">
     <p class="status-empty padded">No games scheduled</p>
   </ng-container>
 
