@@ -83,11 +83,11 @@ export class NHLGamesService {
 function toGame(d) {
   let home = new Team({
     id: d.home.id,
-    name: d.home.name
+    name: d.home.fullName ? d.home.fullName : d.home.name
   });
   let visitor = new Team({
     id: d.visitor.id,
-    name: d.visitor.name
+    name: d.visitor.fullName ? d.visitor.fullName : d.home.name
   });
   let game = new Game({
     id: d.id,
