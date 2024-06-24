@@ -63,13 +63,13 @@ export class MLBGamesService {
    * @returns {Game}
    */
   convertGame(response) {
-    let g = toGame(response.Game);
+    let g = toGame(response);
     // Assume it's more common to build games w/o status
     // info, so we add that manually here.
-    g.period = response.Inning
-    g.status = response.Status;
-    g.visitorscore = response.VisitorScore;
-    g.homescore = response.HomeScore;
+    g.period = response.inning
+    g.status = response.status;
+    g.visitorscore = response.visitor_score;
+    g.homescore = response.home_score;
     return g;
   }
 

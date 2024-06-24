@@ -44,8 +44,8 @@ export class LandingComponent implements OnInit {
     let d = new Date();
     d.setHours(12);
     this.date = d
-    this.dateMLB = d
-    this.dateNHL = d
+    this.dateMLB = new Date(d)
+    this.dateNHL = new Date(d)
     this.getMovies(d);
   }
 
