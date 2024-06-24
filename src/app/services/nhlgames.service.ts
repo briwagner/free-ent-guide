@@ -10,11 +10,11 @@ import { Game, Team } from '../models/game';
 export class NHLGamesService {
   private urlGames = environment.apiBase + "/sports/nhl/games";
   private urlGame = environment.apiBase + "/sports/nhl/game";
+  private urlLatest = environment.apiBase + "/sports/nhl/latest";
 
   constructor(private http: HttpClient) { }
 
   /**
-   *
    * Lookup NHL Games data by date from api.
    *
    * @param {string} date
@@ -27,6 +27,18 @@ export class NHLGamesService {
                          params: params
                       })
                      .pipe(map(resp => this.convertGames(resp)))
+    return games;
+  }
+
+  /**
+   * Fetch latest games, i.e. not today.
+   *
+   * @returns {Array<Game>}
+   */
+  getLatest() {
+    let games = this.http
+                    .get(this.urlGames, {})
+                    .pipe(map(resp => this.convertGames(resp)))
     return games;
   }
 
