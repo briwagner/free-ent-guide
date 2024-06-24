@@ -23,10 +23,9 @@ export class NHLGamesService {
   getGames(date: string) {
     let params = new HttpParams().set('date', date);
     let games = this.http
-                     .get(this.urlGames, {
-                         params: params
-                      })
+                     .get(this.urlGames, {params: params})
                      .pipe(map(resp => this.convertGames(resp)))
+
     return games;
   }
 
@@ -37,7 +36,7 @@ export class NHLGamesService {
    */
   getLatest() {
     let games = this.http
-                    .get(this.urlGames, {})
+                    .get(this.urlLatest, {})
                     .pipe(map(resp => this.convertGames(resp)))
     return games;
   }

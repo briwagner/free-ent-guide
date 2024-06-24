@@ -30,7 +30,9 @@
   </ng-container>
 
   <ng-container *ngIf="!loading && !hasNHL">
-    <p class="status-empty padded">No games scheduled</p>
+    <p class="status-empty padded">No games scheduled.
+      <ng-container *ngIf="hasNext"><em>Next game: {{nextGametime | date:'mediumDate'}}</em></ng-container>
+    </p>
   </ng-container>
 
   <div class="footer-actions">

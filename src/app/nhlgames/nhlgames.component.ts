@@ -13,10 +13,14 @@ export class NhlgamesComponent implements OnInit {
 
   // Hold results for NHLGamesService.
   nhlgames: Object;
+  // TODO this should load only when nhlgames is empty.
+  nextgames: Object;
+  nextGametime: string;
   // Date to use in queries; should come from parent component.
   @Input() date: Date;
   // Manage page state.
   hasNHL: boolean = false;
+  hasNext: boolean = false;
   loading: boolean = true;
 
   constructor(
@@ -27,6 +31,7 @@ export class NhlgamesComponent implements OnInit {
   ngOnInit(): void {
     this.loading = true;
     this.getNHL();
+    this.getNext();
   }
 
   /**
@@ -40,7 +45,6 @@ export class NhlgamesComponent implements OnInit {
           let hash = Object.fromEntries(
             p.map(v => [v.ID, v])
           )
-          // console.log(hash)
           this.nhlgames = hash
         },
         e => {
@@ -56,6 +60,33 @@ export class NhlgamesComponent implements OnInit {
       )
   }
 
+    /**
+   * Fetch from service to show when no games on selected date.
+   */
+    getNext() {
+      let d = formatDate(this.date, "yyyy-MM-dd", 'en_us')
+      this.nhlGamesService.getLatest()
+        .subscribe(
+          p => {
+            let hash = Object.fromEntries(
+              p.map(v => [v.ID, v])
+            )
+            this.nextgames = hash
+          },
+          e => {
+            // Do not register error as message to user.
+            // @todo simply don't show this section?
+            console.log('Error:', e.message);
+          },
+          () => {
+            if (Object.keys(this.nextgames).length > 0) {
+              this.hasNext = true
+              this.nextGametime = Object.values(this.nextgames)[0].gametime
+            }
+          }
+        )
+    }
+
   /**
    * Change date for NHL game lookup.
    *
@@ -63,6 +94,10 @@ export class NhlgamesComponent implements OnInit {
    *   Buttons should pass 1 or -1 to change day.
    */
   changeDate(i: number) {
+    // Clear next; we need logic to show this at the right time.
+    this.nextGametime = '';
+    this.hasNext = false;
+
     let t = this.date;
     if (i === 1) {
       t.setDate(t.getDate() + 1);
