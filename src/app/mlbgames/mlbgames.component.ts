@@ -17,6 +17,7 @@ export class MLBGamesComponent implements OnInit {
   @Input() date: Date;
   // Manage page state.
   hasMLB: boolean = false;
+  loading: boolean = true;
 
   constructor(
     private mlbGamesService: MLBGamesService,
@@ -48,6 +49,7 @@ export class MLBGamesComponent implements OnInit {
         },
         () => {
           this.hasMLB = Object.keys(this.mlbgames).length > 0 ? true : false;
+          this.loading = false;
         }
       )
   }
