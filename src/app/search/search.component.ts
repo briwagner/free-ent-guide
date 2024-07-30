@@ -8,14 +8,20 @@ import { Show } from '../models/show';
 })
 export class SearchComponent implements OnInit {
 
-  results: Array<Show>;
+  errorMsg: string = '';
   loading: Boolean;
   queryString: string;
-  errorMsg: string = '';
+  results: Array<Show>;
+  userToken: any;
 
   constructor(private searchservice: TvShowSearchService) { }
 
   ngOnInit() {
+    if (localStorage.getItem('entToken') === null) {
+      this.userToken = null;
+    } else {
+      this.userToken = localStorage.getItem('entToken');
+    }
   }
 
   findShow(query) {
@@ -23,7 +29,7 @@ export class SearchComponent implements OnInit {
     this.loading = true;
     this.results = [];
     this.errorMsg = '';
-    this.searchservice.findShow(query)
+    this.searchservice.searchShow(query)
                       .subscribe(
                         p => {
                           this.results = p;

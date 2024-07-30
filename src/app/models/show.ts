@@ -1,4 +1,5 @@
 export class Show {
+  id: number;
   title: string;
   channel:string;
   summary:string;
@@ -10,14 +11,21 @@ export class Show {
   next_ep: string;
 
   constructor(data) {
+    this.id = data.id
     this.title = data.title;
-    this.channel = data.channel != null ? data.channel.name : 'unlisted';
+    if (data.channel !== undefined && data.channel !== null) {
+      this.channel = data.channel.name;
+    } else if (data.webChannel !== undefined && data.webChannel !== null) {
+      this.channel = data.webChannel.name;
+    } else {
+      this.channel = 'Unlisted';
+    }
     this.summary = data.summary;
     this.runtime = data.runtime;
     this.genres = data.genres;
     this.image = data.image ? data.image.medium : '';
     this.link = data.link;
     this.prev_ep = data.prev_ep;
-    this.next_ep = data.next_exp;
+    this.next_ep = data.next_ep;
   }
 }

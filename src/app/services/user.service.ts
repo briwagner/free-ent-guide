@@ -50,22 +50,21 @@ export class UserService {
   }
 
   /**
-   * Get stored zips from backend
+   * Get stored data from backend
    *
-   * @param {string} t Token for user-auth.
+   * @param {string} token Token for user-auth.
    * @return {Observable} HTTP response
    */
-  fetchUserZips(t: string) {
-    let url = this.baseUrl + "/get-zip";
-    let headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    headers = headers.append('Authorization', 'Bearer ' + t);
+  fetchUserData(token: string) {
+    let url = this.baseUrl + "/get-data";
+    let headers = this.getAuthHeaders(token)
+
     let resp = this.http.get(url, {headers: headers})
       .pipe(map(resp => {
-        if (resp['zipcodes']) {
-          return resp['zipcodes'];
-        } else {
-          return [];
+        if (!resp.hasOwnProperty('zipcodes') && !resp.hasOwnProperty('shows')) {
+          return {}
         }
+        return resp;
       }));
     return resp;
   }
@@ -80,8 +79,7 @@ export class UserService {
   saveUserZip(token: string, zip: string) {
     let url = this.baseUrl + "/add-zip";
     let param = new HttpParams().set('zip', zip);
-    let headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    headers = headers.append('Authorization', 'Bearer ' + token);
+    let headers = this.getAuthHeaders(token)
 
     let resp = this.http.post(url, '', {headers: headers, params: param})
       .pipe(map(resp => {
@@ -103,8 +101,7 @@ export class UserService {
   deleteZip(token: string, zip: string) {
     let url = this.baseUrl + "/delete-zip";
     let param = new HttpParams().set('zip', zip);
-    let headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    headers = headers.append('Authorization', 'Bearer ' + token);
+    let headers = this.getAuthHeaders(token)
 
     let resp = this.http.post(url, '', {headers: headers, params: param})
       .pipe(map(resp => {
@@ -143,7 +140,6 @@ export class UserService {
   loginUser(username: string, password: string) {
     let url = this.baseUrl + '/token';
     let headers = new HttpHeaders({
-      // 'Content-Type': 'application/json',
       'Authorization': 'Basic ' + btoa(username + ":" + password)
     });
 
@@ -176,12 +172,34 @@ export class UserService {
    */
   addGames(token: string, date: string) {
     let url = environment.apiBase + '/admin/add-games' + '?date=' + date;
-    let headers = new HttpHeaders();
-    headers.append("Content-Type", "application/x-www-form-urlencoded");
-    headers = headers.append('Authorization', 'Bearer ' + token);
+    let headers = this.getAuthHeaders(token)
 
     let resp = this.http.post(url, null, {headers: headers});
     return resp;
+  }
+
+  /**
+   * Add show to user store.
+   */
+  addShow(token:string, showID: string) {
+    let url = environment.apiBase + "/users/add-show?show=" + showID;
+    let headers = this.getAuthHeaders(token)
+
+    let resp = this.http.post(url, null, {headers: headers});
+    return resp;
+  }
+
+  /**
+   * Build headers with auth.
+   *
+   * @param {string} token
+   * @return {HttpHeaders}
+   */
+  getAuthHeaders(token: string) {
+    let headers = new HttpHeaders();
+    headers.append("Content-Type", "application/x-www-form-urlencoded");
+    headers = headers.append('Authorization', 'Bearer ' + token);
+    return headers
   }
 
 }

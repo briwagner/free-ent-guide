@@ -145,10 +145,10 @@ export class ZipComponent implements OnInit {
    */
   fetchZips() {
     let t = this.userToken;
-    this.userservice.fetchUserZips(t)
+    this.userservice.fetchUserData(t)
       .subscribe(
         p => {
-          this.userZips = p
+          this.userZips = p['zipcodes']
         },
         e => {
           // console.log("Error loading zips", e.status)

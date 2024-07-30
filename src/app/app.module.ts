@@ -45,6 +45,8 @@ import { DurationPipePipe } from './duration-pipe.pipe';
 import { enableProdMode } from '@angular/core';
 import { UserAccountComponent } from './user-account/user-account.component';
 import { AddGamesComponent } from './add-games/add-games.component';
+import { TvShowComponent } from './tv-show/tv-show.component';
+import { TvDetailComponent } from './tv-detail/tv-detail.component';
 
 enableProdMode();
 
@@ -72,6 +74,8 @@ enableProdMode();
     DurationPipePipe,
     UserAccountComponent,
     AddGamesComponent,
+    TvShowComponent,
+    TvDetailComponent,
   ],
   imports: [
     BrowserModule,

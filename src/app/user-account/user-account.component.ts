@@ -1,6 +1,8 @@
 import { ThisReceiver } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
 import { Flash } from 'app/models/flash';
+import { Show } from '../models/show';
+import { TvShowSearchService } from 'app/services/tv-show-search.service';
 import { UserService } from 'app/services/user.service';
 import { timeStamp } from 'console';
 
@@ -16,8 +18,10 @@ export class UserAccountComponent implements OnInit {
   username: string;
   userToken: any;
   userZips: Array<string>;
+  userShows: Array<number>;
+  userShowDetails: Array<Show>;
 
-  constructor(private userservice: UserService) { }
+  constructor(private userservice: UserService, private tvservice: TvShowSearchService) { }
 
   ngOnInit(): void {
     if (localStorage.getItem('entToken') === null) {
@@ -28,19 +32,23 @@ export class UserAccountComponent implements OnInit {
 
     this.flash = new Flash;
     this.userZips = [];
-    this.fetchZips();
+    this.userShows = [];
+    this.userShowDetails = [];
+    this.fetchUserData();
   }
 
   /**
-   * Get user zip codes from backend.
+   * Get stored user data.
    */
-  fetchZips() {
+  fetchUserData() {
     this.username = this.userservice.checkUser(this.userToken);
     if (this.username) {
-      this.userservice.fetchUserZips(this.userToken)
+      this.userservice.fetchUserData(this.userToken)
         .subscribe(
           p => {
-            this.userZips = p
+            this.userZips = p['zipcodes'];
+            this.userShows = p['shows'];
+            this.fetchShowData(p['shows']);
           },
           e => {
             if (e.status == '401') {
@@ -49,16 +57,35 @@ export class UserAccountComponent implements OnInit {
               return
             }
             if (e.status == 404) {
-              this.flash.message = 'No saved zip codes. Add one.'
+              this.flash.message = 'No saved user data.'
               this.flash.status = 'info';
               return
             }
-            this.flash.message = "Unable to load zips."
+            this.flash.message = "Unable to load user data."
             this.flash.status = 'warning';
           }
         )
     } else {
       console.log("Cannot get username")
+    }
+  }
+
+  /**
+   * Fetch show data
+   */
+  fetchShowData(ids: Array<string>) {
+    if (ids.length == 0) {
+      console.log("no user shows")
+      return
+    }
+    for (let i = 0; i < ids.length; i++) {
+      this.tvservice.getShow(ids[i])
+          .subscribe(
+            p => {
+              this.userShowDetails.push(p)
+            },
+            e => console.log(e)
+          )
     }
   }
 

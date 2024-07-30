@@ -1,0 +1,13 @@
+<div class="search">
+  <h2>Show Detail</h2>
+
+  <div class="error-msg" [hidden]="!errorMsg">
+    <h3><i class="material-icons">warning</i>{{ errorMsg }}</h3>
+  </div>
+
+  <ng-container *ngIf="loading">
+    <app-loading-dots ></app-loading-dots>
+  </ng-container>
+
+  <app-tv-detail [show]="show" [save]="true" [userToken]="userToken" *ngIf="errorMsg == ''"></app-tv-detail>
+</div>

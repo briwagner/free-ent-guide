@@ -70,7 +70,7 @@ export class LandingComponent implements OnInit {
    * @param {string} query
    */
   findShow(query: string) {
-    this.showSearch.findShow(query)
+    this.showSearch.searchShow(query)
                    .subscribe(
                      p => this.results = p,
                      e => console.log(e, 'error'),

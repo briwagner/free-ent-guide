@@ -10,9 +10,9 @@
   <p *ngIf="userZips.length == 0">No zips found</p>
 </div>
 
-<div class="user-zip__ctr">
-  <ul class="user-zips">
-    <p><strong>Saved zips</strong></p>
+<div class="user-list__ctr">
+  <h3>Saved zips</h3>
+  <ul class="user-list">
     <li *ngFor="let zip of userZips">
       {{zip}}
       <button type="button" (click)="deleteZip(zip)">
@@ -32,4 +32,11 @@
     <input type="submit" value="Save ZIP">
     <span [hidden]="!formError">Please enter a valid U.S. zip code.</span>
   </form>
+</div>
+
+<div class="user-list__ctr">
+  <h3>Saved shows</h3>
+  <div *ngFor="let showDetail of userShowDetails">
+    <app-tv-detail [show]="showDetail" [userToken]="userToken"></app-tv-detail>
+  </div>
 </div>

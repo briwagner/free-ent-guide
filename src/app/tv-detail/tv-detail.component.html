@@ -1,0 +1,40 @@
+<div class="tvTile">
+  <div class="tile-header">
+    <h3 class="movie-title inline">{{ show.title }}</h3>
+    <p class="inline">on {{ show.channel }}</p>
+    <p class="inline left-marg" *ngIf="show.runtime"><em>{{ show.runtime }} minutes</em></p>
+  </div>
+  <div class="tile-body">
+    <img src="{{ show.image }}" alt="{{show.title}}" class="img-left">
+    <p>{{ show.summary | stripHTMLtags }}</p>
+    <p class="inline">{{ joinArray(show.genres) }}</p>
+
+    <p [hidden]="save != true" class="action__save-show"><button (click)="saveShow(show.id)" [disabled]="saved">Save</button>
+      <span [hidden]="!saved">
+        <i class="material-icons">done_outline</i>
+      </span>
+    </p>
+
+    <!-- <p><a href="{{show.link}}">More</a></p> -->
+    <p *ngIf="show.prev_ep">
+      <button (click)="getEpisode(show.prev_ep)">Previous Episode</button>
+    </p>
+    <p *ngIf="show.next_ep">
+      <button (click)="getEpisode(show.next_ep)">Next Episode</button>
+    </p>
+
+    <div class="clear"> </div>
+  </div>
+
+
+  <ng-container *ngIf="loadingEpisode">
+    <app-loading-dots ></app-loading-dots>
+  </ng-container>
+
+  <div class="tile-episode" [hidden]="!hasEpisode">
+    <h4>Episode Info</h4>
+    <h5>{{episode.title}}</h5>
+    <p><em>S{{episode.season}} E{{episode.number}} &mdash; Aired: {{episode.airdate | date:'mediumDate' }}</em></p>
+    <p>{{episode.summary | stripHTMLtags }}</p>
+  </div>
+</div>
