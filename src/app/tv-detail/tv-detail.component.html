@@ -9,7 +9,8 @@
     <p>{{ show.summary | stripHTMLtags }}</p>
     <p class="inline">{{ joinArray(show.genres) }}</p>
 
-    <p [hidden]="save != true" class="action__save-show"><button (click)="saveShow(show.id)" [disabled]="saved">Save</button>
+    <p [hidden]="save != true" class="user-action__save-show">
+      <button (click)="saveShow(show.id)" [disabled]="saved" class="user-action">Save</button>
       <span [hidden]="!saved">
         <i class="material-icons">done_outline</i>
       </span>
@@ -17,10 +18,10 @@
 
     <!-- <p><a href="{{show.link}}">More</a></p> -->
     <p *ngIf="show.prev_ep">
-      <button (click)="getEpisode(show.prev_ep)">Previous Episode</button>
+      <button (click)="getEpisode(show.prev_ep)" class="user-action">Previous Episode</button>
     </p>
     <p *ngIf="show.next_ep">
-      <button (click)="getEpisode(show.next_ep)">Next Episode</button>
+      <button (click)="getEpisode(show.next_ep)" class="user-action">Next Episode</button>
     </p>
 
     <div class="clear"> </div>

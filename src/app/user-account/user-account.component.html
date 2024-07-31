@@ -1,4 +1,7 @@
-<h2>{{username}}</h2>
+<div class="user-header">
+  <h2>{{username}}</h2>
+  <button type="button" (click)="logout()" class="user-action">Logout</button>
+</div>
 <div class="flash__container">
   <div [ngClass]="['flash-msg', flash.status ? flash.status : 'info']" [hidden]="!flash.message">
     <strong [innerHtml]=flash.message></strong>

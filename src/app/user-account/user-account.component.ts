@@ -1,6 +1,7 @@
 import { ThisReceiver } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
 import { Flash } from 'app/models/flash';
+import { Router } from '@angular/router';
 import { Show } from '../models/show';
 import { TvShowSearchService } from 'app/services/tv-show-search.service';
 import { UserService } from 'app/services/user.service';
@@ -21,7 +22,11 @@ export class UserAccountComponent implements OnInit {
   userShows: Array<number>;
   userShowDetails: Array<Show>;
 
-  constructor(private userservice: UserService, private tvservice: TvShowSearchService) { }
+  constructor(
+    private userservice: UserService,
+    private tvservice: TvShowSearchService,
+    private router: Router
+  ) { }
 
   ngOnInit(): void {
     if (localStorage.getItem('entToken') === null) {
@@ -162,6 +167,17 @@ export class UserAccountComponent implements OnInit {
           this.flash.status = 'warning';
         }
       )
+  }
+
+  /**
+   * Delete token.
+   */
+  logout() {
+    localStorage.removeItem('entToken')
+    this.userservice.logoutUser(this.userToken).subscribe(
+      p => this.router.navigate(['/']),
+      e => console.log(e)
+    )
   }
 
 }

@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { UserService } from 'app/services/user.service';
 
 @Component({
   selector: 'app-user-landing',
@@ -10,16 +12,26 @@ export class UserLandingComponent implements OnInit {
   user_action: string;
   private userToken: string
 
-  constructor() {
-    if (localStorage.getItem('entToken') != null) {
-      this.userToken = localStorage.getItem('entToken');
+  constructor(private router: Router, private userservice: UserService) {
+    let storedTok = localStorage.getItem('entToken');
+
+    if (storedTok != null) {
+      if (!this.userservice.checkUser(storedTok)) {
+        console.log("failed user")
+        localStorage.removeItem('entToken');
+        this.userToken = null;
+        return
+      }
+      this.userToken = storedTok;
     } else {
       this.userToken = null;
     }
-   }
+  }
 
   ngOnInit() {
-    this.setLinks();
+    if (this.userToken != null && this.userToken != "") {
+      this.router.navigate(['/user/account'])
+    }
   }
 
   /**
@@ -28,22 +40,5 @@ export class UserLandingComponent implements OnInit {
   setAction(action: string) {
     this.user_action = action;
   }
-
-  /**
-   * Set links
-   */
-  setLinks() {
-    this.links = [
-      {url: '/user/login', title: 'Login', action: 'login'},
-      {url: '/user/logout', title: 'Logout', action: 'logout'},
-      {url: '/user/new', title: 'Create a user', action: 'create'}
-    ]
-    if (this.userToken) {
-      this.links.push({
-        url: '/user/account', title: 'Account', action: 'account'
-      })
-    }
-  }
-
 
 }

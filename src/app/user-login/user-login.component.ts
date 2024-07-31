@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
 import { NavigationExtras, Router } from '@angular/router';
 import { Flash } from 'app/models/flash';
 import { UserService } from '../services/user.service';
@@ -7,7 +7,7 @@ import { UserService } from '../services/user.service';
   selector: 'app-user-login',
   templateUrl: './user-login.component.html',
 })
-export class UserLoginComponent implements OnInit {
+export class UserLoginComponent implements OnInit, OnDestroy {
 
   flash: Flash
   user_email: string
@@ -34,9 +34,15 @@ export class UserLoginComponent implements OnInit {
   ngOnInit() {
     // TODO: this should be a route guard.
     if (this.userToken) {
-      const extras: NavigationExtras = {state: {data: "You are logged in."}}
-      this.router.navigate(['/cinema'], extras)
+      this.flash.message = "You are logged in."
+      this.flash.status = "warning"
+      // const extras: NavigationExtras = {state: {data: "You are logged in."}}
+      // this.router.navigate(['/cinema'], extras)
     }
+  }
+
+  ngOnDestroy() {
+    // Needed for embedded components.
   }
 
   /**

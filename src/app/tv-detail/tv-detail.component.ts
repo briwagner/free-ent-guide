@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Episode } from '../models/episode';
 import { Show } from '../models/show';
 import { UserService } from 'app/services/user.service';
@@ -8,7 +8,7 @@ import { TvShowSearchService } from 'app/services/tv-show-search.service';
   selector: 'app-tv-detail',
   templateUrl: './tv-detail.component.html',
 })
-export class TvDetailComponent implements OnInit {
+export class TvDetailComponent implements OnInit, OnDestroy {
 
   episode: Episode;
   hasEpisode: boolean = false;
@@ -19,10 +19,17 @@ export class TvDetailComponent implements OnInit {
   @Input() userToken: string;
   saved: boolean = false;
 
-  constructor(private userservice: UserService, private tvshowservice: TvShowSearchService) { }
+  constructor(
+    private userservice: UserService,
+    private tvshowservice: TvShowSearchService
+  ) { }
 
   ngOnInit(): void {
     this.episode = new Episode({})
+  }
+
+  ngOnDestroy() {
+    // do nothing. Embedded comps fail without this.
   }
 
   /**
