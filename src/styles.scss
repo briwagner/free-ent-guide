@@ -277,7 +277,8 @@ h2 {
   }
 }
 
-h3.movie-title {
+h3.movie-title,
+.tvTile h3.movie-title {
   margin: .75rem;
   padding: 0;
 }
