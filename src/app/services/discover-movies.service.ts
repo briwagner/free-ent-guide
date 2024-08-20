@@ -68,7 +68,7 @@ export class DiscoverMoviesService {
    * @return {Array<Movie>}
    */
   convertMovies(data: any) {
-    return data.results.filter(m => m.original_language == 'en').map(toMovie);
+    return data.map(toMovie);
   }
 
   /**
