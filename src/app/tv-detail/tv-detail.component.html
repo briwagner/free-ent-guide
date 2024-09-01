@@ -32,10 +32,12 @@
     <app-loading-dots ></app-loading-dots>
   </ng-container>
 
-  <div class="tile-episode" [hidden]="!hasEpisode">
-    <h4>Episode Info</h4>
-    <h5>{{episode.title}}</h5>
-    <p><em>S{{episode.season}} E{{episode.number}} &mdash; Aired: {{episode.airdate | date:'mediumDate' }}</em></p>
-    <p>{{episode.summary | stripHTMLtags }}</p>
-  </div>
+  <ng-container *ngIf="hasEpisode">
+    <div class="tile-episode">
+      <h4>Episode Info</h4>
+      <h5>{{episode.title}}</h5>
+      <p><em>S{{episode.season}} E{{episode.number}} &mdash; {{ episode.IsPast() ? 'Airs: ' : 'Aired: ' }} {{episode.airdate | date:'mediumDate' }}</em></p>
+      <p>{{episode.summary | stripHTMLtags }}</p>
+    </div>
+  </ng-container>
 </div>

@@ -14,4 +14,25 @@ export class Episode {
     this.season = data.season
     this.number = data.number
   }
+
+  /**
+   * @returns bool
+   */
+  IsPast() {
+    if (this.airdate == "") {
+      return false
+    }
+
+    let d = Date.parse(this.airdate)
+    if (isNaN(d)) {
+      return false
+    }
+
+    let now = new Date().getTime();
+    if (now > d) {
+      return false
+    }
+
+    return true
+  }
 }
