@@ -38,6 +38,7 @@ const routes: Routes = [
   {
     path: 'television/show/:id',
     component: TvShowComponent,
+    title: "TV Show"
   },
   {
     path: 'television/sports',
