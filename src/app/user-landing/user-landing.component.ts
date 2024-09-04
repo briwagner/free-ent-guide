@@ -26,6 +26,8 @@ export class UserLandingComponent implements OnInit {
     } else {
       this.userToken = null;
     }
+
+    this.user_action = "login"
   }
 
   ngOnInit() {
