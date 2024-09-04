@@ -1,10 +1,11 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Episode } from '../models/episode';
 import { Show } from '../models/show';
 import { UserService } from 'app/services/user.service';
 import { TvShowSearchService } from 'app/services/tv-show-search.service';
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-tv-detail',
   templateUrl: './tv-detail.component.html',
 })
@@ -21,7 +22,8 @@ export class TvDetailComponent implements OnInit, OnDestroy {
 
   constructor(
     private userservice: UserService,
-    private tvshowservice: TvShowSearchService
+    private tvshowservice: TvShowSearchService,
+    private ref: ChangeDetectorRef
   ) { }
 
   ngOnInit(): void {
@@ -70,6 +72,10 @@ export class TvDetailComponent implements OnInit, OnDestroy {
                             this.episode = p;
                             this.hasEpisode = true;
                             this.loadingEpisode = false;
+                            // https://mokkapps.de/blog/the-last-guide-for-angular-change-detection-you-will-ever-need
+                            // We use OnPush to prevent refreshing all these components at once.
+                            // AS such, we have to refresh this one manually.
+                            this.ref.detectChanges();
                           },
                           e => {
                             console.log(e);
