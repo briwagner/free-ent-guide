@@ -27,13 +27,14 @@ export class UserLandingComponent implements OnInit {
       this.userToken = null;
     }
 
-    this.user_action = "login"
   }
 
   ngOnInit() {
     if (this.userToken != null && this.userToken != "") {
       this.router.navigate(['/user/account'])
     }
+
+    this.user_action = "login"
   }
 
   /**
