@@ -29,7 +29,7 @@ export class LandingComponent implements OnInit {
   date: Date;
   // Date to use in queries to movies, sports services.
   dateMLB: Date;
-  // dateNHL: Date;
+  dateNHL: Date;
   // Manage page state.
   isLoading: boolean = true;
   errorMsg: string = '';
@@ -45,7 +45,7 @@ export class LandingComponent implements OnInit {
     d.setHours(12);
     this.date = d
     this.dateMLB = new Date(d)
-    // this.dateNHL = new Date(d)
+    this.dateNHL = new Date(d)
     this.getMovies(d);
   }
 
