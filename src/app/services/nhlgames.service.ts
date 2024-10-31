@@ -10,7 +10,7 @@ import { Game, Team } from '../models/game';
 export class NHLGamesService {
   private urlGames = environment.apiBase + "/sports/nhl/games";
   private urlGame = environment.apiBase + "/sports/nhl/game";
-  private urlLatest = environment.apiBase + "/sports/nhl/latest";
+  private urlNext = environment.apiBase + "/sports/nhl/next";
 
   constructor(private http: HttpClient) { }
 
@@ -30,13 +30,13 @@ export class NHLGamesService {
   }
 
   /**
-   * Fetch latest games, i.e. not today.
+   * Fetch next gameday, i.e. not today.
    *
    * @returns {Array<Game>}
    */
-  getLatest() {
+  getNext() {
     let games = this.http
-                    .get(this.urlLatest, {})
+                    .get(this.urlNext, {})
                     .pipe(map(resp => this.convertGames(resp)))
     return games;
   }

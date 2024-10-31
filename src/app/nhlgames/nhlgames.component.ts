@@ -65,7 +65,7 @@ export class NhlgamesComponent implements OnInit {
    */
     getNext() {
       let d = formatDate(this.date, "yyyy-MM-dd", 'en_us')
-      this.nhlGamesService.getLatest()
+      this.nhlGamesService.getNext()
         .subscribe(
           p => {
             let hash = Object.fromEntries(
