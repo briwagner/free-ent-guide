@@ -60,7 +60,7 @@ export class NhlgamesComponent implements OnInit {
       )
   }
 
-    /**
+  /**
    * Fetch from service to show when no games on selected date.
    */
     getNext() {
