@@ -10,7 +10,7 @@ import { Movie } from '../models/movie';
 export class DiscoverMoviesService {
 
   private baseUrl = environment.apiBase + "/discover"
-  private discoverURL = "https://free-entertainment-guide.com.tor1.digitaloceanspaces.com/discover.json"
+  private discoverURL = "https://static.free-entertainment-guide.com/discover.json"
   constructor(private http: HttpClient) { }
 
   /**
