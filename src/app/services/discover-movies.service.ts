@@ -10,7 +10,7 @@ import { Movie } from '../models/movie';
 export class DiscoverMoviesService {
 
   private baseUrl = environment.apiBase + "/discover"
-
+  private discoverURL = "https://free-entertainment-guide.com.tor1.digitaloceanspaces.com/discover.json"
   constructor(private http: HttpClient) { }
 
   /**
@@ -18,9 +18,9 @@ export class DiscoverMoviesService {
    * @return {Array<Movie>}
    */
   getMovies(date: Date) {
-    let dateQ = this.buildDate(date);
-    let param = new HttpParams().set('date', dateQ);
-    let resp = this.http.get(this.baseUrl, {params: param})
+    // let dateQ = this.buildDate(date);
+    // let param = new HttpParams().set('date', dateQ);
+    let resp = this.http.get(this.discoverURL)
                         .pipe(map(resp => this.convertMovies(resp)));
     return resp;
   }
