@@ -55,7 +55,7 @@
         </div>
 
         <p class="summary">{{ mov.summary }}</p>
-        <p>Runtime: {{ mov.runtime | durationPipe }}</p>
+        <p *ngIf="mov.runtime">Runtime: {{ mov.runtime | durationPipe }}</p>
         <p><em>{{ mov.schedDate | date:'EEEE LLL. d'}}</em></p>
       </div>
 
