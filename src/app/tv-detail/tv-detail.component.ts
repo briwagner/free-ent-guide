@@ -37,7 +37,6 @@ export class TvDetailComponent implements OnInit, OnDestroy {
 	if (this.userShows && this.userShows.length > 0 && this.userShows.includes(this.show.id)) {
 		// Disable Save button for saved shows.
 		this.isSaved = true;
-		console.log("fixed")
 	}
   }
 
