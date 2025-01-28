@@ -34,11 +34,6 @@ export class TvDetailComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.episode = new Episode({})
-	if (this.userShows) {
-		console.log("is")
-	}else {
-		console.log("not")
-	}
 	if (this.userShows && this.userShows.length > 0 && this.userShows.includes(this.show.id)) {
 		// Disable Save button for saved shows.
 		this.isSaved = true;
