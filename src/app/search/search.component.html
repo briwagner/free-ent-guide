@@ -23,7 +23,7 @@
     <p class="small-text"><em>Results for: {{queryString}}</em></p>
 
     <ng-container *ngFor="let show of results">
-      <app-tv-detail [show]="show" [save]="true" [userToken]="userToken"></app-tv-detail>
+      <app-tv-detail [show]="show" [save]="loggedIn" [remove]="false" [userToken]="userToken" [userShows]="userShows"></app-tv-detail>
     </ng-container>
   </div>
 

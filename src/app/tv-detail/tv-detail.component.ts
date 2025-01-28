@@ -14,11 +14,17 @@ export class TvDetailComponent implements OnInit, OnDestroy {
   episode: Episode;
   hasEpisode: boolean = false;
   loadingEpisode: boolean = false;
+  isSaved: boolean = false; // flag to toggle button disabled
+  // Enable hiding, e.g. on "remove" action.
+  isHidden: boolean = false;
+
   @Input() show: Show;
-  // Enable/disable save button
+  // Enable/disable save button.
   @Input() save: boolean;
+  // Enable/disable remove for saved shows.
+  @Input() remove: boolean;
   @Input() userToken: string;
-  saved: boolean = false;
+  @Input() userShows: Array<number>;
 
   constructor(
     private userservice: UserService,
@@ -28,10 +34,25 @@ export class TvDetailComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.episode = new Episode({})
+	if (this.userShows) {
+		console.log("is")
+	}else {
+		console.log("not")
+	}
+	if (this.userShows && this.userShows.length > 0 && this.userShows.includes(this.show.id)) {
+		// Disable Save button for saved shows.
+		this.isSaved = true;
+		console.log("fixed")
+	}
   }
 
   ngOnDestroy() {
     // do nothing. Embedded comps fail without this.
+  }
+
+  hideMe() {
+	  this.isHidden = true;
+	  this.ref.detectChanges();
   }
 
   /**
@@ -46,10 +67,32 @@ export class TvDetailComponent implements OnInit, OnDestroy {
       }
       this.userservice.addShow(this.userToken, showID)
       .subscribe(
-        p => this.saved = true,
+        p => {
+			this.isSaved = true;
+			this.ref.detectChanges();
+		},
         e => console.log(e)
       )
     }
+
+  /**
+   * Save a show to user storage.
+   *
+   * @param showID
+   */
+  removeShow(showID) {
+	if (this.userToken == undefined || this.userToken == "") {
+	  console.log("cannot do that")
+	  return
+	}
+	this.userservice.removeShow(this.userToken, showID)
+	.subscribe(
+	  p => {
+		  this.hideMe();
+	  },
+	  e => console.log(e)
+	)
+  }
 
   /**
    * Fetch episode info.
@@ -87,6 +130,8 @@ export class TvDetailComponent implements OnInit, OnDestroy {
       console.log("bad url", e.message)
     }
   }
+
+
 
   /**
    * Helper function shared globally.

@@ -190,6 +190,17 @@ export class UserService {
   }
 
   /**
+   * Remove show from user store.
+   */
+  removeShow(token:string, showID: string) {
+    let url = environment.apiBase + "/users/delete-show?show=" + showID;
+    let headers = this.getAuthHeaders(token)
+
+    let resp = this.http.post(url, null, {headers: headers});
+    return resp;
+  }
+
+  /**
    * Build headers with auth.
    *
    * @param {string} token

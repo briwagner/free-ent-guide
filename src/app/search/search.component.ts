@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { TvShowSearchService } from '../services/tv-show-search.service';
+import { UserService } from 'app/services/user.service';
 import { Show } from '../models/show';
 
 @Component({
@@ -13,18 +14,47 @@ export class SearchComponent implements OnInit {
   queryString: string;
   results: Array<Show>;
   userToken: any;
+  loggedIn: boolean;
+  userShows: Array<number>;
 
-  constructor(private searchservice: TvShowSearchService) { }
+  constructor(
+	private searchservice: TvShowSearchService,
+	private userservice: UserService
+  ) { }
 
   ngOnInit() {
+	this.loggedIn = false;
+
     if (localStorage.getItem('entToken') === null) {
       this.userToken = null;
     } else {
       this.userToken = localStorage.getItem('entToken');
+	  this.loggedIn = true;
+	  this.fetchUserData()
     }
   }
 
-  findShow(query) {
+  /**
+   * Get stored user data.
+   */
+  fetchUserData() {
+	this.userservice.fetchUserData(this.userToken)
+		.subscribe(
+			p => {
+				this.userShows = p['shows'];
+			},
+			e => {
+				console.log("error fetching user data")
+			}
+		)
+  }
+
+  /**
+   * Query for show from search services.
+   *
+   * @param {string} query
+   */
+  findShow(query: string) {
     this.queryString = query;
     this.loading = true;
     this.results = [];

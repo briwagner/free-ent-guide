@@ -40,6 +40,6 @@
 <div class="user-list__ctr">
   <h3>Saved shows</h3>
   <div *ngFor="let showDetail of userShowDetails">
-    <app-tv-detail [show]="showDetail" [userToken]="userToken"></app-tv-detail>
+    <app-tv-detail [show]="showDetail" [save]="true" [remove]="true" [userToken]="userToken"></app-tv-detail>
   </div>
 </div>
