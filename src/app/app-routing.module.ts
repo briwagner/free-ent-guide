@@ -16,6 +16,7 @@ import { UserLoginComponent } from './user-login/user-login.component';
 import { UserLogoutComponent } from './user-logout/user-logout.component';
 import { UserLandingComponent } from './user-landing/user-landing.component';
 import { UserAccountComponent } from './user-account/user-account.component';
+import { MlbTeampageComponent } from './mlb-teampage/mlb-teampage.component';
 
 const routes: Routes = [
   {
@@ -26,6 +27,10 @@ const routes: Routes = [
   {
     path: 'cinema',
     component: MoviesComponent
+  },
+  {
+	path: 'mlb/:id',
+	component: MlbTeampageComponent
   },
   {
     path: 'television',

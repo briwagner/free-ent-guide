@@ -2,6 +2,7 @@ export class Team {
   ID: number;
   name: string;
   score: number;
+  games: Array<Game>;
 
   constructor(data) {
     this.ID = data.id;
@@ -39,4 +40,3 @@ export class Game {
     return this.status == "Final";
   }
 }
-

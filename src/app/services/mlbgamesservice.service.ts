@@ -10,12 +10,25 @@ import { Game, Team } from '../models/game';
 export class MLBGamesService {
 
   private urlGames = environment.apiBase + "/sports/mlb/games";
-  private urlGame = environment.apiBase + "/sports/mlb/game";
+  private urlGame  = environment.apiBase + "/sports/mlb/game";
+  private urlTeam  = environment.apiBase + "/sports/mlb/team/";
 
   constructor(private http: HttpClient) { }
 
   /**
+   * Get team info and games by ID.
    *
+   * @param {string} id
+   * @returns {Observable}
+   */
+  getTeamData(id: string) {
+	let url = this.urlTeam + id;
+	let data = this.http.get(url)
+			 .pipe(map(resp => this.convertTeamData(resp)))
+	return data;
+  }
+
+  /**
    * Lookup MLB Games data by date from api.
    *
    * @param {string} date
@@ -71,6 +84,21 @@ export class MLBGamesService {
     g.visitorscore = response.visitor_score;
     g.homescore = response.home_score;
     return g;
+  }
+
+  /**
+   * Map HTTP response to team data and games.
+   *
+   * @param {Object} response
+   * @returns {Team}
+   */
+  convertTeamData(response) {
+	let t = new Team({id: response.Team.id, name: response.Team.name})
+	if (Array.isArray(response.NextGames)) {
+		t.games = response.NextGames.map((curr) => toGame(curr));
+	}
+
+	return t
   }
 
 }

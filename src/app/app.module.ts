@@ -47,6 +47,7 @@ import { UserAccountComponent } from './user-account/user-account.component';
 import { AddGamesComponent } from './add-games/add-games.component';
 import { TvShowComponent } from './tv-show/tv-show.component';
 import { TvDetailComponent } from './tv-detail/tv-detail.component';
+import { MlbTeampageComponent } from './mlb-teampage/mlb-teampage.component';
 
 enableProdMode();
 
@@ -76,6 +77,7 @@ enableProdMode();
     AddGamesComponent,
     TvShowComponent,
     TvDetailComponent,
+    MlbTeampageComponent,
   ],
   imports: [
     BrowserModule,

@@ -31,6 +31,7 @@ export class NhlgamesComponent implements OnInit {
   ngOnInit(): void {
     this.loading = true;
     this.getNHL();
+	// TODO wait for games or not.
     this.getNext();
   }
 

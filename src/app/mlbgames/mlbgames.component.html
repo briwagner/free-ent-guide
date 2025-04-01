@@ -15,8 +15,8 @@
            attr.id="mlbg-{{g.key}}"
            [class.game-updated]="g.value.updated">
         <span class="game-title"><h3>{{g.value.description}}</h3></span>
-        <span class="game-team">{{g.value.visitor.name}}</span>
-        <span class="game-team">{{g.value.home.name}}</span>
+        <span class="game-team"><a href="/mlb/{{g.value.visitor.ID}}">{{g.value.visitor.name}}</a></span>
+        <span class="game-team"><a href="/mlb/{{g.value.home.ID}}">{{g.value.home.name}}</a></span>
         <ng-container *ngIf="g.value.status != 'Scheduled'">
           <span class="game-score score-visitor">{{g.value.visitorscore}}</span>
           <span class="game-score score-home">{{g.value.homescore}}</span>

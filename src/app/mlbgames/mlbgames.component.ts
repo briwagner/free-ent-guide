@@ -10,11 +10,8 @@ import { Game } from '../models/game';
   styleUrls: ['../nhlgames/nhlgames.component.scss']
 })
 export class MLBGamesComponent implements OnInit {
-
-  // Hold results for MLBGamesService.
   mlbgames: Object;
-  // Date to use in queries.
-  @Input() date: Date;
+  @Input() date: Date; // use in queries
   // Manage page state.
   hasMLB: boolean = false;
   loading: boolean = true;

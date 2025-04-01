@@ -15,7 +15,10 @@ export class TvShowComponent implements OnInit {
   show: Show;
   userToken: string;
 
-  constructor(private route: ActivatedRoute, private tvservice: TvShowSearchService) { }
+  constructor(
+		private route: ActivatedRoute,
+		private tvservice: TvShowSearchService
+	) { }
 
   ngOnInit(): void {
     this.show = new Show({})

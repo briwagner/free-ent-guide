@@ -39,6 +39,11 @@ button.no-style {
   margin: 0 0.25rem 0.5rem;
   padding: 0.5rem 1rem 1rem;
 
+  .game-team a {
+	text-decoration: none;
+	color: inherit;
+  }
+
   @media (max-width: 384px) {
     max-width: 290px;
     grid-template-columns: 190px 30px 70px;
@@ -56,7 +61,7 @@ button.no-style {
     grid-column: 1/3;
 
     h3 {
-      font-size: 10px;
+      font-size: 12px;
       margin: 0;
     }
   }
