@@ -16,7 +16,7 @@ export class MLBGamesService {
   constructor(private http: HttpClient) { }
 
   /**
-   * Get team info and games by ID.
+   * Get team info, next games, and past games by ID.
    *
    * @param {string} id
    * @returns {Observable}
@@ -95,9 +95,13 @@ export class MLBGamesService {
   convertTeamData(response) {
 	let t = new Team({id: response.Team.id, name: response.Team.name})
 	if (Array.isArray(response.NextGames)) {
-		t.games = response.NextGames.map((curr) => toGame(curr));
+		t.nextGames = response.NextGames.map((curr) => toGame(curr));
+	}
+	if (Array.isArray(response.PastGames)) {
+		t.pastGames = response.PastGames.map((curr) => toGame(curr));
 	}
 
+	console.log("got team", t)
 	return t
   }
 

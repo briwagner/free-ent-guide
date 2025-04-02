@@ -21,6 +21,10 @@ button.no-style {
     margin-top: 0.15em;
     margin-bottom: 0.25em;
   }
+
+  &.teampage h3 {
+	margin-left: 0.5em;
+  }
 }
 
 .game-tiles {
@@ -50,7 +54,8 @@ button.no-style {
     margin-right: 0;
   }
 
-  &.game-updated {
+  &.game-updated,
+  &.home-game {
     background-color: $color-ltgray;
     border-color: $color-mdgray;
   }

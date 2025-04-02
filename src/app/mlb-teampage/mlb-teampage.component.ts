@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { formatDate } from '@angular/common';
+import { formatDate, KeyValue } from '@angular/common';
 
 import { MLBGamesService } from '../services/mlbgamesservice.service';
 import { Game, Team } from '../models/game';
@@ -12,9 +12,11 @@ import { Game, Team } from '../models/game';
 })
 export class MlbTeampageComponent {
 	team: Team;
-	team_id: string;
+	teamID: string;
+
 	// Manage page state.
-	hasMLB:  boolean = false;
+	hasNext:  boolean = false;
+	hasPast:  boolean = false;
 	loading: boolean = true;
 
 	constructor(
@@ -23,7 +25,7 @@ export class MlbTeampageComponent {
 	) {}
 
 	ngOnInit() {
-		this.team_id = this.route.snapshot.paramMap.get('id')
+		this.teamID = this.route.snapshot.paramMap.get('id')
 		this.getTeamData();
 	}
 
@@ -31,7 +33,7 @@ export class MlbTeampageComponent {
 	 * Fetch team info and games from API.
 	 */
 	getTeamData() {
-		this.mlbGamesService.getTeamData(this.team_id)
+		this.mlbGamesService.getTeamData(this.teamID)
 		  .subscribe(
 			p => {
 				// console.log("success", p)
@@ -41,7 +43,8 @@ export class MlbTeampageComponent {
 				console.log("error", e)
 			},
 			() => {
-				this.hasMLB = Object.keys(this.team.games).length > 0 ? true : false;
+				this.hasNext = Object.keys(this.team.nextGames).length > 0 ? true : false;
+				this.hasPast = Object.keys(this.team.pastGames).length > 0 ? true : false;
 				this.loading = false
 			}
 		  )
@@ -69,5 +72,15 @@ export class MlbTeampageComponent {
 		}
 		return formatDate(g.gametime, 'shortTime', 'en_us');
 	}
+
+	  /**
+	   * Override key order and use gametime early to late.
+	   * @param a
+	   * @param b
+	   * @returns
+	   */
+	   gametimeOrder = (a: KeyValue<number,any>, b: KeyValue<number,any>): number => {
+		return a.value.gametime > b.value.gametime ? 1 : -1;
+	  }
 
 }

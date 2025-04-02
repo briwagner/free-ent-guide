@@ -1,4 +1,4 @@
-<div class="section mlb-games" id="mlb-top">
+<div class="section mlb-games teampage" id="mlb-top">
 
 	<ng-container *ngIf="loading">
 		<app-loading-dots></app-loading-dots>
@@ -9,10 +9,33 @@
 			<h2>{{ team.name }}</h2>
 		</div>
 
-		<ng-container *ngIf="hasMLB">
+		<ng-container *ngIf="hasNext">
 			<h3>Upcoming games</h3>
 			<div class="game-tiles">
-				<div *ngFor="let g of team.games | keyvalue: gametimeOrder"
+				<div *ngFor="let g of team.nextGames | keyvalue: gametimeOrder"
+					class="game-tile"
+					attr.id="mlbg-{{g.key}}"
+					[class.home-game]="g.value.home.ID == teamID">
+					<span class="game-title"><h3>{{g.value.description}} - {{g.value.gametime | date:'mediumDate' }} </h3></span>
+					<span class="game-team">{{g.value.visitor.name}}</span>
+					<span class="game-team">{{g.value.home.name}}</span>
+					<ng-container *ngIf="g.value.status != 'Scheduled'">
+						<span class="game-score score-visitor">{{g.value.visitorscore}}</span>
+						<span class="game-score score-home">{{g.value.homescore}}</span>
+					</ng-container>
+					<span class="game-status">{{getGameStatus(g.value)}}</span>
+				</div>
+			</div>
+		</ng-container>
+
+		<ng-container *ngIf="!loading && !hasNext">
+		  <p class="status-empty padded">No games scheduled</p>
+		</ng-container>
+
+		<ng-container *ngIf="hasPast">
+			<h3>Recent games</h3>
+			<div class="game-tiles">
+				<div *ngFor="let g of team.pastGames | keyvalue: gametimeOrder"
 					class="game-tile"
 					attr.id="mlbg-{{g.key}}"
 					[class.game-updated]="g.value.updated">
@@ -28,8 +51,8 @@
 			</div>
 		</ng-container>
 
-		<ng-container *ngIf="!loading && !hasMLB">
-		  <p class="status-empty padded">No games scheduled</p>
+		<ng-container *ngIf="!loading && !hasPast">
+		  <p class="status-empty padded">No recent games</p>
 		</ng-container>
 	</ng-container>
 
