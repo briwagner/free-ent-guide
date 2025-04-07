@@ -59,8 +59,8 @@
 						<th>Name</th>
 						<th class="field-num">Wins</th>
 						<th class="field-num">Losses</th>
-						<th class="field-num">Ties</th>
-						<th class="field-num">Win %</th>
+						<th class="field-num field-extra">Ties</th>
+						<th class="field-num field-extra">Win %</th>
 					</tr>
 					<tr *ngFor="let st of team.standings"
 						[class.active]="st.team.ID == teamID"
@@ -69,8 +69,8 @@
 						<td>{{st.divRank}}. <a href="/mlb/{{st.team.ID}}">{{st.team.name}}</a></td>
 						<td class="field-num">{{st.wins}}</td>
 						<td class="field-num">{{st.losses}}</td>
-						<td class="field-num">{{st.ties}}</td>
-						<td class="field-num">{{st.pct}}</td>
+						<td class="field-num field-extra">{{st.ties}}</td>
+						<td class="field-num field-extra">{{st.pct}}</td>
 					</tr>
 				</table>
 			</div>

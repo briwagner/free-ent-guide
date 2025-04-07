@@ -1,5 +1,7 @@
 @import "var";
 
+$screenXS: 384px;
+
 // this should be global somewhere.
 ul.align-right li:first-child {
   margin-left: auto;
@@ -166,6 +168,15 @@ div.team-standings {
 		a {
 			text-decoration: none;
 			color: inherit;
+		}
+
+		@media (max-width: $screenXS) {
+			font-size: 0.95em;
+
+			th.field-extra,
+			td.field-extra {
+				display: none;
+			}
 		}
 	}
 }
