@@ -51,6 +51,31 @@
 			</div>
 		</ng-container>
 
+		<ng-container *ngIf="hasStandings">
+			<div class="team-standings">
+				<h3>Standings {{team.division}}</h3>
+				<table>
+					<tr>
+						<th>Name</th>
+						<th class="field-num">Wins</th>
+						<th class="field-num">Losses</th>
+						<th class="field-num">Ties</th>
+						<th class="field-num">Win %</th>
+					</tr>
+					<tr *ngFor="let st of team.standings"
+						[class.active]="st.team.ID == teamID"
+						attr.id="team-{{st.team.ID}}"
+						title="{{st.team.name}} #{{st.divRank}} in division, #{{st.lgRank}} in league">
+						<td>{{st.divRank}}. <a href="/mlb/{{st.team.ID}}">{{st.team.name}}</a></td>
+						<td class="field-num">{{st.wins}}</td>
+						<td class="field-num">{{st.losses}}</td>
+						<td class="field-num">{{st.ties}}</td>
+						<td class="field-num">{{st.pct}}</td>
+					</tr>
+				</table>
+			</div>
+		</ng-container>
+
 		<ng-container *ngIf="!loading && !hasPast">
 		  <p class="status-empty padded">No recent games</p>
 		</ng-container>

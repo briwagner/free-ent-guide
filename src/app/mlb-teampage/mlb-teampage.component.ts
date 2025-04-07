@@ -15,9 +15,10 @@ export class MlbTeampageComponent {
 	teamID: string;
 
 	// Manage page state.
-	hasNext:  boolean = false;
-	hasPast:  boolean = false;
-	loading: boolean = true;
+	hasNext:      boolean = false;
+	hasPast:      boolean = false;
+	hasStandings: boolean = false;
+	loading:      boolean = true;
 
 	constructor(
 		private route: ActivatedRoute,
@@ -43,9 +44,10 @@ export class MlbTeampageComponent {
 				console.log("error", e)
 			},
 			() => {
-				this.hasNext = Object.keys(this.team.nextGames).length > 0 ? true : false;
-				this.hasPast = Object.keys(this.team.pastGames).length > 0 ? true : false;
-				this.loading = false
+				this.hasNext      = Object.keys(this.team.nextGames).length > 0;
+				this.hasPast      = Object.keys(this.team.pastGames).length > 0;
+				this.hasStandings = Object.keys(this.team.standings).length> 0;
+				this.loading      = false
 			}
 		  )
 	}

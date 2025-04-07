@@ -134,3 +134,38 @@ button.no-style {
     }
   }
 }
+
+div.team-standings {
+	margin: 0 0.25rem 0.5rem;
+
+	table {
+		max-width: 600px;
+		width: 100%;
+		border: 1px solid $color-mdgray;
+		border-collapse: separate;
+		border-spacing: 0;
+		border-radius: 4px;
+
+		th {
+			background-color: $color-ltgray;
+		}
+
+		th, td{
+			text-align: left;
+			padding: 0.5em 0.8em;
+
+			&.field-num {
+				text-align: center;
+			}
+		}
+
+		tr.active {
+			background-color: $color-secondary;
+		}
+
+		a {
+			text-decoration: none;
+			color: inherit;
+		}
+	}
+}

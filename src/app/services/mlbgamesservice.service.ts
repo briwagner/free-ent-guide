@@ -4,7 +4,7 @@ import { environment } from '../../environments/environment';
 import { HttpClient, HttpParams} from '@angular/common/http';
 import { map } from 'rxjs/operators';
 
-import { Game, Team } from '../models/game';
+import { Game, Standing, Team } from '../models/game';
 
 @Injectable()
 export class MLBGamesService {
@@ -100,8 +100,13 @@ export class MLBGamesService {
 	if (Array.isArray(response.PastGames)) {
 		t.pastGames = response.PastGames.map((curr) => toGame(curr));
 	}
+	if (response["Standings"] && Array.isArray(response.Standings.teamRecords)) {
+		t.standings = response.Standings.teamRecords.map((curr) => toStanding(curr));
+		if (response["Standings"]["division"]) {
+			t.division = response.Standings.division.name
+		}
+	}
 
-	console.log("got team", t)
 	return t
   }
 
@@ -139,5 +144,16 @@ function toGame(d) {
   game.completed = d.status == "Final";
 
   return game;
+}
+
+/**
+ * Apply data model to item.
+ *
+ * @param {Object} d
+ * @returns {Standing}
+ */
+function toStanding(d) {
+	let st = new Standing(d)
+	return st
 }
 
