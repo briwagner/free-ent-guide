@@ -37,7 +37,6 @@ ul.list-inline-buttons {
     margin-right: 1em;
   }
 }
-
 .title-bar {
   h2 {
     margin-right: 25px;
@@ -200,6 +199,16 @@ div.tile-header {
   p {
     margin: 0 .75rem;
   }
+}
+
+div.header-with-button {
+	display: flex;
+	flex-direction: row;
+
+	> .button {
+		align-self: center;
+		margin-left: 1em;
+	}
 }
 
 .discovers {

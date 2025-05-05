@@ -14,27 +14,32 @@
 </div>
 
 <div class="user-list__ctr">
-  <h3>Saved zips</h3>
-  <ul class="user-list">
-    <li *ngFor="let zip of userZips">
-      {{zip}}
-      <button type="button" (click)="deleteZip(zip)">
-        <i class="material-icons">clear</i>
-      </button>
-    </li>
-  </ul>
+  	<div class="header-with-button">
+		<h3>Saved zips</h3>
+		<button class="button" (click)="showZipFields()">show</button>
+	</div>
+  	<ng-container *ngIf="showZips">
+		<ul class="user-list">
+			<li *ngFor="let zip of userZips">
+				{{zip}}
+				<button type="button" (click)="deleteZip(zip)">
+					<i class="material-icons">clear</i>
+				</button>
+			</li>
+		</ul>
 
-  <form (ngSubmit)="storeZip(newZip)" id="new-user-zip">
-    <label for="new_zip">Add zip</label>
-    <input type="text"
-           name="new_zip"
-           [(ngModel)]="newZip"
-           placeholder="Enter ZIP"
-           size="10"
-           pattern="[0-9]*">
-    <input type="submit" value="Save ZIP">
-    <span [hidden]="!formError">Please enter a valid U.S. zip code.</span>
-  </form>
+		<form (ngSubmit)="storeZip(newZip)" id="new-user-zip">
+		<label for="new_zip">Add zip</label>
+		<input type="text"
+				name="new_zip"
+				[(ngModel)]="newZip"
+				placeholder="Enter ZIP"
+				size="10"
+				pattern="[0-9]*">
+		<input type="submit" value="Save ZIP">
+		<span [hidden]="!formError">Please enter a valid U.S. zip code.</span>
+		</form>
+	</ng-container>
 </div>
 
 <div class="user-list__ctr">
