@@ -21,3 +21,11 @@ More information here: https://github.com/briwagner/free-ent-guide-backend
 ## Build Tools
 
 This project was generated with [angular-cli](https://github.com/angular/angular-cli).
+
+### Mac
+
+Use npx
+
+`npx ng serve`
+
+`npx ng build --configuration production`
